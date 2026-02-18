@@ -142,6 +142,7 @@
   margin: 0 auto 32px;
   position: relative;
   z-index: 2;
+  text-wrap: balance;
 }
 
 /* ── CTA link ── */
