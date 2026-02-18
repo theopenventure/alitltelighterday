@@ -215,7 +215,7 @@ export const CTA_MAP = {
 
 // ── Time-of-day helper ──
 
-function getTimeOfDay(date = new Date()) {
+export function getTimeOfDay(date = new Date()) {
   const h = date.getHours()
   if (h < 12) return 'morning'
   if (h < 17) return 'afternoon'
@@ -224,7 +224,7 @@ function getTimeOfDay(date = new Date()) {
 
 // ── Deterministic date-based rotation ──
 
-function dateSeed(str) {
+export function dateSeed(str) {
   let hash = 5381
   for (let i = 0; i < str.length; i++) {
     hash = ((hash << 5) + hash) + str.charCodeAt(i)

@@ -13,6 +13,8 @@
   padding-top: 10px;
   z-index: 20;
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
 .header-float-inner {
@@ -26,11 +28,12 @@
 }
 
 .header-date-label {
-  font-size: 13px;
-  letter-spacing: 0.05em;
-  color: #888;
-  text-transform: uppercase;
+  font-family: var(--font-sans);
+  font-size: 15px;
   font-weight: 500;
+  letter-spacing: normal;
+  text-transform: none;
+  color: #888;
 }
 
 .shuffle-btn {

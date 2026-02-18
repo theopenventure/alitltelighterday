@@ -1,17 +1,20 @@
-import { useState, useCallback, useRef } from 'react'
+import { useState, useCallback, useRef, useEffect } from 'react'
 import './App.css'
 import Header from './components/Header'
 import BottomNav from './components/BottomNav'
 import BoostCard from './components/BoostCard'
 import FeedFooter from './components/FeedFooter'
 import ContentOverlay from './components/ContentOverlay'
+import HeroScreen from './components/HeroScreen'
 import { getDailyBoosts, getRandomBoosts } from './data/boostPromptPool'
+import { getDailyHeroCopy, getRandomHeroCopy } from './data/heroCopyPool'
 import { generateBoost } from './api/generateBoost'
 
 const CATEGORIES = ['energy', 'calm', 'nourish', 'joy']
 
 function App() {
   const [cards, setCards] = useState(() => getDailyBoosts())
+  const [heroCopy, setHeroCopy] = useState(() => getDailyHeroCopy())
   const [exploredCards, setExploredCards] = useState({
     energy: false,
     nourish: false,
@@ -19,7 +22,7 @@ function App() {
     joy: false
   })
   const [activeBoost, setActiveBoost] = useState(null)
-  const [boostContent, setBoostContent] = useState(null) // { title, segments } from API
+  const [boostContent, setBoostContent] = useState(null)
   const [boostLoading, setBoostLoading] = useState(false)
   const [boostError, setBoostError] = useState(null)
   const [isOverlayClosing, setIsOverlayClosing] = useState(false)
@@ -29,6 +32,9 @@ function App() {
   const closeTimerRef = useRef(null)
   const activeBoostRef = useRef(null)
   const shouldExploreRef = useRef(false)
+  const containerRef = useRef(null)
+  const heroRef = useRef(null)
+  const headerRef = useRef(null)
 
   // Card refs for measuring position
   const energyRef = useRef(null)
@@ -39,12 +45,56 @@ function App() {
 
   const allExplored = Object.values(exploredCards).every(Boolean)
 
+  // Hero parallax fade on scroll
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    const handleScroll = () => {
+      const heroEl = heroRef.current
+      if (!heroEl) return
+      const heroHeight = heroEl.offsetHeight
+      const scrolled = container.scrollTop
+      const progress = Math.min(scrolled / heroHeight, 1)
+
+      // Hero fades and shrinks as cards scroll over
+      heroEl.style.opacity = 1 - progress
+      heroEl.style.transform = `scale(${1 - progress * 0.08})`
+
+      // Header fades in as first card approaches (last 30% of hero scroll)
+      const headerEl = headerRef.current
+      if (headerEl) {
+        const headerProgress = Math.max(0, (progress - 0.7) / 0.3)
+        headerEl.style.opacity = headerProgress
+      }
+    }
+
+    // Disable snap on load so hero is visible, re-enable on first scroll
+    container.style.scrollSnapType = 'none'
+    container.scrollTo(0, 0)
+
+    let snapEnabled = false
+    const enableSnap = () => {
+      if (!snapEnabled) {
+        snapEnabled = true
+        container.style.scrollSnapType = 'y mandatory'
+      }
+    }
+
+    const onScroll = () => {
+      enableSnap()
+      handleScroll()
+    }
+
+    container.addEventListener('scroll', onScroll, { passive: true })
+    return () => container.removeEventListener('scroll', onScroll)
+  }, [])
+
   const handleOpenBoost = useCallback(async (category) => {
     if (exploredCards[category]) return
 
     const card = cards[category]
 
-    // Capture card rect
     const cardEl = cardRefMap[category]?.current
     if (cardEl) {
       const rect = cardEl.getBoundingClientRect()
@@ -65,7 +115,6 @@ function App() {
     setIsOverlayClosing(false)
     setActiveBoost(category)
 
-    // Call AI
     try {
       const result = await generateBoost(category, card.prompt)
       setBoostContent(result)
@@ -110,12 +159,15 @@ function App() {
 
   const handleShuffle = useCallback(() => {
     setCards(getRandomBoosts())
+    setHeroCopy((prev) => getRandomHeroCopy(prev))
     setExploredCards({ energy: false, nourish: false, calm: false, joy: false })
   }, [])
 
   return (
-    <div className="app-container">
-      <Header onShuffle={handleShuffle} />
+    <div className="app-container" ref={containerRef}>
+      <Header ref={headerRef} onShuffle={handleShuffle} />
+
+      <HeroScreen heroRef={heroRef} headline={heroCopy.headline} subhead={heroCopy.subhead} />
 
       <div className="feed">
         {CATEGORIES.map((key) => {

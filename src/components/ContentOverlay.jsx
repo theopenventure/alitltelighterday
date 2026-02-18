@@ -28,8 +28,14 @@ function flattenSegments(segments) {
 
 // ── Segment renderers ──
 
+function sanitizeText(html) {
+  if (!html) return ''
+  // Strip everything except <strong> and </strong> tags
+  return html.replace(/<(?!\/?strong\b)[^>]*>/gi, '')
+}
+
 function SegmentText({ content }) {
-  return <p className="seg-text" dangerouslySetInnerHTML={{ __html: content }} />
+  return <p className="seg-text" dangerouslySetInnerHTML={{ __html: sanitizeText(content) }} />
 }
 
 function SegmentSong({ title, artist, why }) {
@@ -152,12 +158,6 @@ export default function ContentOverlay({
     return content ? flattenSegments(content.segments) : []
   }, [content])
 
-  // Body scroll lock
-  useEffect(() => {
-    document.body.classList.add('overlay-open')
-    return () => document.body.classList.remove('overlay-open')
-  }, [])
-
   // ── OPENING: Expansion → show content area ──
   useEffect(() => {
     const raf = requestAnimationFrame(() => {
@@ -267,8 +267,8 @@ export default function ContentOverlay({
 
         {/* Sticky header */}
         <div className="content-header">
-          <button className="content-back" onClick={onClose}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <button className="content-back" onClick={onClose} aria-label="Go back">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <polyline points="15 18 9 12 15 6" />
             </svg>
           </button>

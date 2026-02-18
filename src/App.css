@@ -6,7 +6,7 @@
   overflow-y: scroll;
   overflow-x: hidden;
   position: relative;
-  scroll-snap-type: y mandatory;
+  /* scroll-snap-type set via JS after hero is shown */
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
@@ -19,5 +19,7 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding: 80px var(--space-container) 100px;
+  padding: 0 var(--space-container) 100px;
+  position: relative;
+  z-index: 2;
 }

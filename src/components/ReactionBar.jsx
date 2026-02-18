@@ -26,8 +26,9 @@ export default function ReactionBar({ visible, onReact }) {
             key={r.type}
             className={`reaction-btn ${chosen === r.type ? 'chosen' : ''} ${chosen && chosen !== r.type ? 'faded' : ''}`}
             onClick={() => handleReact(r.type)}
+            aria-label={`React: ${r.label}`}
           >
-            <span className="reaction-emoji">{r.emoji}</span>
+            <span className="reaction-emoji" aria-hidden="true">{r.emoji}</span>
             <span className="reaction-label">{r.label}</span>
           </button>
         ))}
