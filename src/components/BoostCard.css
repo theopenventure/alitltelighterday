@@ -36,7 +36,7 @@
 /* ── Boost card layout — tall editorial cards ── */
 .boost-card {
   padding: 40px 32px;
-  min-height: calc(100vh - 180px);
+  min-height: calc(100vh - 180px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,6 +44,12 @@
   text-align: center;
   animation: riseUp var(--anim-duration) var(--ease-soft) forwards;
   scroll-snap-align: center;
+}
+
+@supports (height: 100dvh) {
+  .boost-card {
+    min-height: calc(100dvh - 180px);
+  }
 }
 
 /* ── Gradient variants ── */

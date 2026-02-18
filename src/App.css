@@ -11,6 +11,12 @@
   scrollbar-width: none;
 }
 
+@supports (height: 100dvh) {
+  .app-container {
+    height: 100dvh;
+  }
+}
+
 .app-container::-webkit-scrollbar {
   display: none;
 }
@@ -19,7 +25,7 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding: 0 var(--space-container) 100px;
+  padding: 0 var(--space-container) calc(100px + env(safe-area-inset-bottom, 0px));
   position: relative;
   z-index: 2;
 }

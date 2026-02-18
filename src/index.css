@@ -47,6 +47,12 @@ body {
   height: 100vh;
 }
 
+@supports (height: 100dvh) {
+  body {
+    height: 100dvh;
+  }
+}
+
 ::-webkit-scrollbar {
   display: none;
 }

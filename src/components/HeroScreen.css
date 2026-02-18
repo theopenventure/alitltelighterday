@@ -15,6 +15,12 @@
   flex-shrink: 0;
 }
 
+@supports (height: 100dvh) {
+  .hero-screen {
+    height: 80dvh;
+  }
+}
+
 /* ── Gradient atmosphere background ── */
 .hero-atmosphere {
   position: absolute;
