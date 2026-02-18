@@ -5,62 +5,67 @@
   transform: translateX(-50%);
   width: 100%;
   max-width: 480px;
-  height: calc(80px + env(safe-area-inset-bottom, 0px));
-  background: linear-gradient(to top, rgba(255,255,255,1) 50%, rgba(255,255,255,0));
+  height: calc(72px + env(safe-area-inset-bottom, 0px));
+  background: linear-gradient(to top, rgba(255,255,255,1) 60%, rgba(255,255,255,0));
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 24px calc(10px + env(safe-area-inset-bottom, 0px));
+  padding: 0 32px calc(env(safe-area-inset-bottom, 0px));
   z-index: 20;
   pointer-events: none;
 }
 
-.nav-left {
-  display: flex;
-  gap: 4px;
-  pointer-events: auto;
-}
-
-.nav-right {
-  pointer-events: auto;
-}
-
+/* ── Nav items ── */
 .nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
   width: 44px;
   height: 44px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  transition: background 0.2s;
-  cursor: pointer;
-  color: #1D1D1F;
-  -webkit-tap-highlight-color: transparent;
   background: none;
   border: none;
   padding: 0;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.70);
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
   font: inherit;
-}
-
-.nav-item:active {
-  background: rgba(0,0,0,0.05);
+  position: relative;
 }
 
 .nav-item svg {
-  width: 22px;
-  height: 22px;
+  width: 26px;
+  height: 26px;
   stroke-width: 2px;
+  flex-shrink: 0;
 }
 
+/* ── Active state ── */
+.nav-item--active {
+  color: rgba(0, 0, 0, 1);
+}
+
+.nav-dot {
+  display: block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #000;
+  flex-shrink: 0;
+}
+
+/* ── Avatar ── */
 .nav-avatar {
-  width: 44px;
-  height: 44px;
+  width: 36px;
+  height: 36px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
   background: #E8E8E8;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   color: #1D1D1F;
   letter-spacing: 0.02em;
@@ -70,6 +75,7 @@
   border: none;
   padding: 0;
   font-family: inherit;
+  pointer-events: auto;
 }
 
 .nav-avatar:active {
