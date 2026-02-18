@@ -1,8 +1,10 @@
 .feed-footer {
   text-align: center;
   padding: 40px;
-  color: var(--text-secondary);
-  font-size: 13px;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  color: #888;
   opacity: 0.5;
   transition: all 0.6s var(--ease-soft);
 }
