@@ -1,0 +1,157 @@
+/* ── Base card ── */
+.card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.card:active {
+  transform: scale(0.96);
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.card.explored {
+  opacity: 0.4;
+  filter: grayscale(25%);
+  pointer-events: none;
+  cursor: default;
+  transition: opacity 0.6s var(--ease-soft), filter 0.6s var(--ease-soft), transform 0.3s var(--ease-soft);
+}
+
+.card.explored:active {
+  transform: none;
+}
+
+.card.expanding {
+  opacity: 0 !important;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+/* ── Boost card layout — tall editorial cards ── */
+.boost-card {
+  padding: 40px 32px;
+  min-height: calc(100vh - 180px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  animation: riseUp var(--anim-duration) var(--ease-soft) forwards;
+  scroll-snap-align: center;
+}
+
+/* ── Gradient variants ── */
+.boost-card--warm {
+  background: linear-gradient(180deg, #FFF5F2 0%, #F4E4E4 100%);
+  color: var(--text-warm);
+}
+
+.boost-card--gray {
+  background: linear-gradient(180deg, #F0F5FA 0%, #E0ECF5 100%);
+  color: var(--text-cool);
+}
+
+.boost-card--beige {
+  background: linear-gradient(180deg, #FFFCF5 0%, #F5F0E6 100%);
+  color: var(--text-earth);
+}
+
+.boost-card--sage {
+  background: linear-gradient(180deg, #F0F7F0 0%, #E0F2E0 100%);
+  color: var(--text-green);
+}
+
+/* ── Aura glow — warm (Energy) only ── */
+.card-aura {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(200, 90, 90, 0.35) 0%, rgba(200, 90, 90, 0) 70%);
+  filter: blur(30px);
+  border-radius: 50%;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: breathe 6s infinite ease-in-out;
+  pointer-events: none;
+}
+
+/* ── Category pill ── */
+.card-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 0 16px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: inherit;
+  margin-bottom: 32px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.card-pill::after {
+  content: '';
+  display: block;
+  width: 6px;
+  height: 6px;
+  background-color: currentColor;
+  border-radius: 50%;
+  margin-left: 8px;
+  opacity: 0.5;
+}
+
+/* ── Serif headline ── */
+.card-headline {
+  font-family: var(--font-serif);
+  font-size: 38px;
+  line-height: 1.1;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Prompt text ── */
+.card-prompt {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.5;
+  opacity: 0.7;
+  max-width: 260px;
+  margin: 0 auto 32px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── CTA link ── */
+.card-cta {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: inherit;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.card-cta:hover {
+  opacity: 1;
+}

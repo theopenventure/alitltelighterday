@@ -1,0 +1,23 @@
+.app-container {
+  max-width: 480px;
+  margin: 0 auto;
+  background: var(--bg-body);
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  position: relative;
+  scroll-snap-type: y mandatory;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.app-container::-webkit-scrollbar {
+  display: none;
+}
+
+.feed {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 80px var(--space-container) 100px;
+}

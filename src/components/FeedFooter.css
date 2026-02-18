@@ -1,0 +1,29 @@
+.feed-footer {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  opacity: 0.5;
+  transition: all 0.6s var(--ease-soft);
+}
+
+.feed-footer--complete {
+  opacity: 1;
+  padding: 60px 40px;
+}
+
+.complete-message {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.complete-sub {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  max-width: 260px;
+  margin: 0 auto;
+}
