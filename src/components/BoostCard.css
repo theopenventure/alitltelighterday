@@ -104,7 +104,8 @@
   font-weight: 500;
   letter-spacing: normal;
   text-transform: none;
-  color: #888;
+  color: inherit;
+  opacity: 0.6;
   margin-bottom: 32px;
 }
 
