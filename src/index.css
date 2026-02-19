@@ -18,7 +18,7 @@
   --radius-lg: 32px;
   --radius-md: 24px;
   --radius-pill: 100px;
-  --space-container: 24px;
+  --space-container: 32px;
   --space-card: 32px;
 
   --ease-soft: cubic-bezier(0.2, 0.8, 0.2, 1);
