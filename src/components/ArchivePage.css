@@ -9,8 +9,10 @@
 .archive-atmosphere {
   position: fixed;
   inset: 0;
+  background: linear-gradient(180deg, #F0F7F2 0%, #FFFFFF 100%);
   pointer-events: none;
   z-index: 0;
+  opacity: 0.4;
 }
 
 .archive-blob {
