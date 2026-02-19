@@ -99,24 +99,13 @@
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: var(--radius-pill);
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: inherit;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: normal;
+  text-transform: none;
+  color: #888;
   margin-bottom: 32px;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.card-pill::after {
-  content: '';
-  display: block;
-  width: 6px;
-  height: 6px;
-  background-color: currentColor;
-  border-radius: 50%;
-  margin-left: 8px;
-  opacity: 0.5;
 }
 
 /* ── Serif headline ── */
@@ -148,7 +137,7 @@
 /* ── CTA link ── */
 .card-cta {
   font-family: var(--font-sans);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
   color: inherit;
   border-bottom: 1px solid currentColor;
