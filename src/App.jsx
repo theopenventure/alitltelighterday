@@ -226,10 +226,8 @@ function App() {
       homeScrollRef.current = todayViewRef.current?.scrollTop || 0
       setSavedBoosts(getSavedBoostsByDay())
 
-      // If there are saved items, no hero exists — header is always visible.
-      // If empty, hero controls the header via scroll; start hidden.
-      const hasItems = getSavedBoostsByDay().length > 0
-      if (headerEl) headerEl.style.opacity = hasItems ? 1 : 0
+      // Header always starts hidden — scroll will reveal it
+      if (headerEl) headerEl.style.opacity = 0
 
       setActiveView('archive')
 

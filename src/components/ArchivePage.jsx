@@ -193,7 +193,13 @@ export default function ArchivePage({ savedBoosts, onScrollProgress }) {
   const handleScroll = useCallback((scrollTop) => {
     const heroEl = heroRef.current
     const atmosphereEl = atmosphereRef.current
-    if (!heroEl) return
+
+    if (!heroEl) {
+      // No hero (items exist) — fade header based on a short scroll distance
+      const progress = Math.min(scrollTop / 100, 1)
+      if (onScrollProgress) onScrollProgress(progress)
+      return
+    }
 
     const heroHeight = heroEl.offsetHeight
     const progress = Math.min(scrollTop / (heroHeight / 3), 1)

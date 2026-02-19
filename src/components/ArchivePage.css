@@ -104,7 +104,7 @@
   display: flex;
   flex-direction: column;
   gap: 63px;
-  padding-top: calc(env(safe-area-inset-top, 0px) + 40vh);
+  padding-top: calc(env(safe-area-inset-top, 0px) + 40vh - 88px);
 }
 
 /* ── Day group ── */
