@@ -3,10 +3,8 @@
   margin: 0 auto;
   background: var(--bg-body);
   height: 100vh;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  overflow: hidden;
   position: relative;
-  /* scroll-snap-type set via JS after hero is shown */
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
@@ -21,6 +19,49 @@
   display: none;
 }
 
+/* ── View transition layers ── */
+.view-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  transition:
+    opacity 0.45s var(--ease-soft),
+    transform 0.45s var(--ease-soft);
+  will-change: opacity, transform;
+}
+
+.view-layer::-webkit-scrollbar {
+  display: none;
+}
+
+.view-active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+  z-index: 2;
+}
+
+.view-exit-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.view-exit-right {
+  opacity: 0;
+  transform: translateX(30px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Feed ── */
 .feed {
   display: flex;
   flex-direction: column;

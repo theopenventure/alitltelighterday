@@ -1,11 +1,11 @@
 import { forwardRef } from 'react'
 import './Header.css'
 
-const Header = forwardRef(function Header({ onShuffle }, ref) {
+const Header = forwardRef(function Header({ label = 'Today', onShuffle }, ref) {
   return (
     <header className="header-float" ref={ref}>
       <div className="header-float-inner">
-        <div className="header-date-label">Today</div>
+        <div className="header-date-label">{label}</div>
         {onShuffle && (
           <button className="shuffle-btn" onClick={onShuffle} aria-label="Shuffle prompts">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

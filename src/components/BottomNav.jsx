@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './BottomNav.css'
 
 const TABS = [
@@ -33,22 +32,21 @@ const TABS = [
   },
 ]
 
-export default function BottomNav() {
-  const [active, setActive] = useState('home')
-  const activeIndex = TABS.findIndex((t) => t.id === active)
+export default function BottomNav({ activeTab = 'home', onTabChange }) {
+  const activeIndex = TABS.findIndex((t) => t.id === activeTab)
 
   return (
     <nav className="nav-bar" aria-label="Main navigation">
       <div className="nav-group">
         {TABS.map((tab) => {
-          const isActive = active === tab.id
+          const isActive = activeTab === tab.id
           return (
             <button
               key={tab.id}
               className={`nav-item ${isActive ? 'nav-item--active' : ''}`}
               aria-label={tab.label}
               aria-current={isActive ? 'page' : undefined}
-              onClick={() => setActive(tab.id)}
+              onClick={() => onTabChange?.(tab.id)}
             >
               {tab.icon()}
             </button>

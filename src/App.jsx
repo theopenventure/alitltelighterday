@@ -6,9 +6,11 @@ import BoostCard from './components/BoostCard'
 import FeedFooter from './components/FeedFooter'
 import ContentOverlay from './components/ContentOverlay'
 import HeroScreen from './components/HeroScreen'
+import ArchivePage from './components/ArchivePage'
 import { getDailyBoosts, getRandomBoosts } from './data/boostPromptPool'
 import { getDailyHeroCopy, getRandomHeroCopy } from './data/heroCopyPool'
 import { generateBoost } from './api/generateBoost'
+import { saveBoost, getSavedBoostsByDay, seedPlaceholderData } from './lib/savedBoosts'
 
 const CATEGORIES = ['energy', 'calm', 'nourish', 'joy']
 
@@ -29,12 +31,17 @@ function App() {
   const [sourceRect, setSourceRect] = useState(null)
   const [expandingCard, setExpandingCard] = useState(null)
 
+  // View switching
+  const [activeView, setActiveView] = useState('home')
+  const [savedBoosts, setSavedBoosts] = useState(() => getSavedBoostsByDay())
+
   const closeTimerRef = useRef(null)
   const activeBoostRef = useRef(null)
   const shouldExploreRef = useRef(false)
-  const containerRef = useRef(null)
+  const todayViewRef = useRef(null)
   const heroRef = useRef(null)
   const headerRef = useRef(null)
+  const homeScrollRef = useRef(0)
 
   // Card refs for measuring position
   const energyRef = useRef(null)
@@ -45,9 +52,15 @@ function App() {
 
   const allExplored = Object.values(exploredCards).every(Boolean)
 
+  // Seed placeholder data on first load
+  useEffect(() => {
+    const seeded = seedPlaceholderData()
+    if (seeded) setSavedBoosts(getSavedBoostsByDay())
+  }, [])
+
   // Hero parallax fade on scroll
   useEffect(() => {
-    const container = containerRef.current
+    const container = todayViewRef.current
     if (!container) return
 
     const handleScroll = () => {
@@ -57,11 +70,9 @@ function App() {
       const scrolled = container.scrollTop
       const progress = Math.min(scrolled / heroHeight, 1)
 
-      // Hero fades and shrinks as cards scroll over
       heroEl.style.opacity = 1 - progress
       heroEl.style.transform = `scale(${1 - progress * 0.08})`
 
-      // Header fades in as first card approaches (last 30% of hero scroll)
       const headerEl = headerRef.current
       if (headerEl) {
         const headerProgress = Math.max(0, (progress - 0.7) / 0.3)
@@ -69,7 +80,6 @@ function App() {
       }
     }
 
-    // Disable snap on load so hero is visible, re-enable on first scroll
     container.style.scrollSnapType = 'none'
     container.scrollTo(0, 0)
 
@@ -89,6 +99,15 @@ function App() {
     container.addEventListener('scroll', onScroll, { passive: true })
     return () => container.removeEventListener('scroll', onScroll)
   }, [])
+
+  // Force header visible when on archive view
+  useEffect(() => {
+    const headerEl = headerRef.current
+    if (!headerEl) return
+    if (activeView === 'archive') {
+      headerEl.style.opacity = 1
+    }
+  }, [activeView])
 
   const handleOpenBoost = useCallback(async (category) => {
     if (exploredCards[category]) return
@@ -150,12 +169,26 @@ function App() {
     setBoostLoading(false)
   }, [])
 
-  const handleReact = useCallback(() => {
+  const handleReact = useCallback((type) => {
     shouldExploreRef.current = true
+
+    // Save boost when user loved it
+    if (type === 'love' && boostContent && activeBoostRef.current) {
+      const card = cards[activeBoostRef.current]
+      const updated = saveBoost({
+        title: boostContent.title,
+        category: card.category,
+        variant: card.variant,
+        prompt: card.prompt,
+        segments: boostContent.segments,
+      })
+      setSavedBoosts(updated)
+    }
+
     closeTimerRef.current = setTimeout(() => {
       startClosing()
     }, 1800)
-  }, [startClosing])
+  }, [startClosing, boostContent, cards])
 
   const handleShuffle = useCallback(() => {
     setCards(getRandomBoosts())
@@ -163,36 +196,69 @@ function App() {
     setExploredCards({ energy: false, nourish: false, calm: false, joy: false })
   }, [])
 
+  const handleTabChange = useCallback((tabId) => {
+    // Block tab change while overlay is open
+    if (activeBoost) return
+
+    if (tabId === 'favourites' && activeView !== 'archive') {
+      homeScrollRef.current = todayViewRef.current?.scrollTop || 0
+      setSavedBoosts(getSavedBoostsByDay())
+      setActiveView('archive')
+    } else if (tabId === 'home' && activeView !== 'home') {
+      setActiveView('home')
+      requestAnimationFrame(() => {
+        todayViewRef.current?.scrollTo(0, homeScrollRef.current)
+      })
+    }
+  }, [activeView, activeBoost])
+
+  const navTab = activeView === 'archive' ? 'favourites' : 'home'
+
   return (
-    <div className="app-container" ref={containerRef}>
-      <Header ref={headerRef} onShuffle={handleShuffle} />
+    <div className="app-container">
+      <Header
+        ref={headerRef}
+        label={activeView === 'archive' ? 'Archived' : 'Today'}
+        onShuffle={activeView === 'home' ? handleShuffle : undefined}
+      />
 
-      <HeroScreen heroRef={heroRef} headline={heroCopy.headline} subhead={heroCopy.subhead} />
+      {/* Today view */}
+      <div
+        ref={todayViewRef}
+        className={`view-layer ${activeView === 'home' ? 'view-active' : 'view-exit-left'}`}
+      >
+        <HeroScreen heroRef={heroRef} headline={heroCopy.headline} subhead={heroCopy.subhead} />
 
-      <div className="feed">
-        {CATEGORIES.map((key) => {
-          const card = cards[key]
-          return (
-            <BoostCard
-              key={key}
-              ref={cardRefMap[key]}
-              variant={card.variant}
-              label={card.category}
-              title={card.prompt}
-              shortTitle={card.shortTitle}
-              ctaText={card.ctaText}
-              onClick={() => handleOpenBoost(key)}
-              explored={exploredCards[key]}
-              expanding={expandingCard === key}
-              animDelay={`${0.1 + CATEGORIES.indexOf(key) * 0.1}s`}
-            />
-          )
-        })}
+        <div className="feed">
+          {CATEGORIES.map((key) => {
+            const card = cards[key]
+            return (
+              <BoostCard
+                key={key}
+                ref={cardRefMap[key]}
+                variant={card.variant}
+                label={card.category}
+                title={card.prompt}
+                shortTitle={card.shortTitle}
+                ctaText={card.ctaText}
+                onClick={() => handleOpenBoost(key)}
+                explored={exploredCards[key]}
+                expanding={expandingCard === key}
+                animDelay={`${0.1 + CATEGORIES.indexOf(key) * 0.1}s`}
+              />
+            )
+          })}
 
-        <FeedFooter allExplored={allExplored} />
+          <FeedFooter allExplored={allExplored} />
+        </div>
       </div>
 
-      <BottomNav />
+      {/* Archive view */}
+      <div className={`view-layer ${activeView === 'archive' ? 'view-active' : 'view-exit-right'}`}>
+        <ArchivePage savedBoosts={savedBoosts} />
+      </div>
+
+      <BottomNav activeTab={navTab} onTabChange={handleTabChange} />
 
       {activeBoost && (
         <ContentOverlay
