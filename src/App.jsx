@@ -70,7 +70,7 @@ function App() {
       if (!heroEl) return
       const heroHeight = heroEl.offsetHeight
       const scrolled = container.scrollTop
-      const progress = Math.min(scrolled / heroHeight, 1)
+      const progress = Math.min(scrolled / (heroHeight / 3), 1)
 
       heroEl.style.opacity = 1 - progress
       heroEl.style.transform = `scale(${1 - progress * 0.08})`

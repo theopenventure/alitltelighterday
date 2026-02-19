@@ -143,7 +143,7 @@ export default function ArchivePage({ savedBoosts, onScrollProgress }) {
     if (!heroEl) return
 
     const heroHeight = heroEl.offsetHeight
-    const progress = Math.min(scrollTop / heroHeight, 1)
+    const progress = Math.min(scrollTop / (heroHeight / 3), 1)
 
     // Fade + scale hero zone (same as homepage)
     heroEl.style.opacity = 1 - progress
