@@ -50,79 +50,51 @@ export const archiveHeroCopyPool = [
   },
 ]
 
-// ── When nothing saved yet (5 per time of day) ──
-// Context: gentle encouragement, the archive is waiting, no pressure.
+// ── When nothing saved yet (10 variants, flat — no time-of-day split) ──
+// Headlines: one word / short interjection. Tone: wry but warm, not pressure.
 
-export const archiveEmptyCopyPool = {
-  morning: [
-    {
-      headline: "Nothing here yet.",
-      subhead: "That's fine. Explore today's boosts and save what speaks to you.",
-    },
-    {
-      headline: "A blank page.",
-      subhead: "Your archive starts whenever you're ready. No hurry to fill it.",
-    },
-    {
-      headline: "Room for something.",
-      subhead: "This space is waiting. When something resonates, it can live here.",
-    },
-    {
-      headline: "Empty, for now.",
-      subhead: "The day is just beginning. Something might find its way here.",
-    },
-    {
-      headline: "Start small.",
-      subhead: "One saved moment is enough. The morning has plenty to offer.",
-    },
-  ],
-
-  afternoon: [
-    {
-      headline: "Nothing here yet.",
-      subhead: "That's okay. When something lands today, keep it here for later.",
-    },
-    {
-      headline: "Still open.",
-      subhead: "Your archive is patient. Here whenever something feels worth keeping.",
-    },
-    {
-      headline: "Waiting quietly.",
-      subhead: "This space holds what resonates. Explore a boost and see what stays.",
-    },
-    {
-      headline: "No rush.",
-      subhead: "The afternoon has room for discovery. Save what matters when it finds you.",
-    },
-    {
-      headline: "A place to keep things.",
-      subhead: "Nothing here yet, but one right moment can change that.",
-    },
-  ],
-
-  evening: [
-    {
-      headline: "Nothing here yet.",
-      subhead: "Evening is a good time to explore. Save what feels right tonight.",
-    },
-    {
-      headline: "Quiet and empty.",
-      subhead: "This space is yours to fill, gently. There's still time tonight.",
-    },
-    {
-      headline: "Room to grow.",
-      subhead: "Your archive doesn't need to be full. One moment is a beautiful start.",
-    },
-    {
-      headline: "An open shelf.",
-      subhead: "Nothing on it yet, and that's fine. The right things will find their way.",
-    },
-    {
-      headline: "Not yet, and that's okay.",
-      subhead: "When something resonates, you'll know. It'll wait for you here.",
-    },
-  ],
-}
+export const archiveEmptyCopyPool = [
+  {
+    headline: "Nothing.",
+    subhead: "Explore a boost and save what speaks to you.",
+  },
+  {
+    headline: "Oops.",
+    subhead: "Nothing here yet. Head back and grab something good.",
+  },
+  {
+    headline: "Empty.",
+    subhead: "Your collection is waiting. Save what stays with you.",
+  },
+  {
+    headline: "Blank.",
+    subhead: "This page is yours to fill. Start whenever you're ready.",
+  },
+  {
+    headline: "Quiet.",
+    subhead: "No saved moments yet. The right one will find you.",
+  },
+  {
+    headline: "Oh.",
+    subhead: "Nothing saved yet. Explore a boost and keep what resonates.",
+  },
+  {
+    headline: "Hmm.",
+    subhead: "Looks empty here. Head back and see what lands today.",
+  },
+  {
+    headline: "Bare.",
+    subhead: "Your archive is empty. One saved moment is all it takes.",
+  },
+  {
+    headline: "Clean.",
+    subhead: "A fresh start. Save a boost when something feels right.",
+  },
+  {
+    headline: "Open.",
+    subhead: "This space is waiting. Something good will find its way here.",
+  },
+]
 
 // ── Deterministic daily selection ──
 
@@ -130,10 +102,8 @@ export function getDailyArchiveHeroCopy(isEmpty = false, date = new Date()) {
   const dateStr = date.toDateString()
 
   if (isEmpty) {
-    const timeKey = getTimeOfDay(date)
-    const pool = archiveEmptyCopyPool[timeKey]
-    const seed = dateSeed(dateStr + 'archive-empty-' + timeKey)
-    return pool[seed % pool.length]
+    const seed = dateSeed(dateStr + 'archive-empty')
+    return archiveEmptyCopyPool[seed % archiveEmptyCopyPool.length]
   }
 
   const seed = dateSeed(dateStr + 'archive-saved')

@@ -233,12 +233,14 @@ export default function ArchivePage({ savedBoosts, onScrollProgress }) {
         <div className="archive-blob archive-blob--peach" />
       </div>
 
-      <div ref={heroRef} className="archive-hero">
-        <div className="archive-hero-content">
-          <h1 className="archive-hero-headline">{heroCopy.headline}</h1>
-          <p className="archive-hero-subhead">{heroCopy.subhead}</p>
+      {isEmpty && (
+        <div ref={heroRef} className="archive-hero">
+          <div className="archive-hero-content">
+            <h1 className="archive-hero-headline">{heroCopy.headline}</h1>
+            <p className="archive-hero-subhead">{heroCopy.subhead}</p>
+          </div>
         </div>
-      </div>
+      )}
 
       {!isEmpty && (
         <div className="archive-content">
