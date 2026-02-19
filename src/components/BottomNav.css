@@ -5,7 +5,7 @@
   transform: translateX(-50%);
   width: 100%;
   max-width: 480px;
-  height: calc(82px + env(safe-area-inset-bottom, 0px));
+  height: calc(92px + env(safe-area-inset-bottom, 0px));
   background: linear-gradient(to top, rgba(255,255,255,1) 60%, rgba(255,255,255,0));
   display: flex;
   justify-content: flex-end;

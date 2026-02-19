@@ -2,7 +2,26 @@
 .archive-page {
   position: relative;
   min-height: 100%;
-  padding: calc(80px + env(safe-area-inset-top, 0px)) var(--space-container) calc(100px + env(safe-area-inset-bottom, 0px));
+  padding: 0 var(--space-container) calc(100px + env(safe-area-inset-bottom, 0px));
+}
+
+/* ── Archive hero zone (scroll spacer — matches homepage hero) ── */
+.archive-hero {
+  position: sticky;
+  top: 0;
+  height: 80vh;
+  width: 100%;
+  z-index: 1;
+  transform-origin: top center;
+  will-change: opacity, transform;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+@supports (height: 100dvh) {
+  .archive-hero {
+    height: 80dvh;
+  }
 }
 
 /* ── Gradient atmosphere (same blobs as HeroScreen) ── */
@@ -12,7 +31,8 @@
   background: linear-gradient(180deg, #F0F7F2 0%, #FFFFFF 100%);
   pointer-events: none;
   z-index: 0;
-  opacity: 0.4;
+  will-change: opacity;
+  /* opacity controlled by JS scroll handler, starts at 0.4 */
 }
 
 .archive-blob {

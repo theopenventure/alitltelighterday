@@ -39,9 +39,11 @@ function App() {
   const activeBoostRef = useRef(null)
   const shouldExploreRef = useRef(false)
   const todayViewRef = useRef(null)
+  const archiveViewRef = useRef(null)
   const heroRef = useRef(null)
   const headerRef = useRef(null)
   const homeScrollRef = useRef(0)
+  const archiveScrollRef = useRef(0)
 
   // Card refs for measuring position
   const energyRef = useRef(null)
@@ -100,14 +102,31 @@ function App() {
     return () => container.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Force header visible when on archive view
-  useEffect(() => {
+  // Archive scroll handler — controls header from archive page scroll progress
+  const handleArchiveScrollProgress = useCallback((progress) => {
     const headerEl = headerRef.current
-    if (!headerEl) return
-    if (activeView === 'archive') {
-      headerEl.style.opacity = 1
-    }
+    if (!headerEl || activeView !== 'archive') return
+    const headerProgress = Math.max(0, (progress - 0.7) / 0.3)
+    headerEl.style.opacity = headerProgress
   }, [activeView])
+
+  // Archive view scroll listener (mirrors the homepage hero parallax)
+  useEffect(() => {
+    const container = archiveViewRef.current
+    if (!container) return
+
+    const onScroll = () => {
+      const scrollTop = container.scrollTop
+      // Delegate to ArchivePage's internal scroll handler via DOM
+      const archivePage = container.querySelector('.archive-page')
+      if (archivePage && archivePage.__archiveScroll) {
+        archivePage.__archiveScroll(scrollTop)
+      }
+    }
+
+    container.addEventListener('scroll', onScroll, { passive: true })
+    return () => container.removeEventListener('scroll', onScroll)
+  }, [])
 
   const handleOpenBoost = useCallback(async (category) => {
     if (exploredCards[category]) return
@@ -200,14 +219,41 @@ function App() {
     // Block tab change while overlay is open
     if (activeBoost) return
 
+    const headerEl = headerRef.current
+
     if (tabId === 'favourites' && activeView !== 'archive') {
       homeScrollRef.current = todayViewRef.current?.scrollTop || 0
       setSavedBoosts(getSavedBoostsByDay())
+
+      // Reset header to hidden — archive scroll will control it
+      if (headerEl) headerEl.style.opacity = 0
+
       setActiveView('archive')
-    } else if (tabId === 'home' && activeView !== 'home') {
-      setActiveView('home')
+
+      // Reset archive scroll to top so it starts fresh
       requestAnimationFrame(() => {
-        todayViewRef.current?.scrollTo(0, homeScrollRef.current)
+        archiveViewRef.current?.scrollTo(0, 0)
+      })
+    } else if (tabId === 'home' && activeView !== 'home') {
+      // Save archive scroll position
+      archiveScrollRef.current = archiveViewRef.current?.scrollTop || 0
+
+      setActiveView('home')
+
+      requestAnimationFrame(() => {
+        const container = todayViewRef.current
+        if (container) {
+          container.scrollTo(0, homeScrollRef.current)
+
+          // Recalculate header opacity based on saved scroll position
+          const heroEl = heroRef.current
+          if (heroEl && headerEl) {
+            const heroHeight = heroEl.offsetHeight
+            const progress = Math.min(homeScrollRef.current / heroHeight, 1)
+            const headerProgress = Math.max(0, (progress - 0.7) / 0.3)
+            headerEl.style.opacity = headerProgress
+          }
+        }
       })
     }
   }, [activeView, activeBoost])
@@ -254,8 +300,11 @@ function App() {
       </div>
 
       {/* Archive view */}
-      <div className={`view-layer ${activeView === 'archive' ? 'view-active' : 'view-exit-right'}`}>
-        <ArchivePage savedBoosts={savedBoosts} />
+      <div
+        ref={archiveViewRef}
+        className={`view-layer ${activeView === 'archive' ? 'view-active' : 'view-exit-right'}`}
+      >
+        <ArchivePage savedBoosts={savedBoosts} onScrollProgress={handleArchiveScrollProgress} />
       </div>
 
       <BottomNav activeTab={navTab} onTabChange={handleTabChange} />

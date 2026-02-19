@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useMemo } from 'react'
+import { useState, useRef, useEffect, useMemo, useCallback } from 'react'
 import { flattenSegments, renderSegment } from './segments'
 import './ArchivePage.css'
 
@@ -136,16 +136,63 @@ function ArchiveEmpty() {
 
 // ── Main Component ──
 
-export default function ArchivePage({ savedBoosts }) {
+export default function ArchivePage({ savedBoosts, onScrollProgress }) {
   const [activeItem, setActiveItem] = useState(null)
+  const heroRef = useRef(null)
+  const atmosphereRef = useRef(null)
+
+  // Set initial atmosphere opacity
+  useEffect(() => {
+    if (atmosphereRef.current) {
+      atmosphereRef.current.style.opacity = 0.4
+    }
+  }, [])
+
+  // Scroll handler — called from App.jsx via the view-layer scroll container
+  const handleScroll = useCallback((scrollTop) => {
+    const heroEl = heroRef.current
+    const atmosphereEl = atmosphereRef.current
+    if (!heroEl) return
+
+    const heroHeight = heroEl.offsetHeight
+    const progress = Math.min(scrollTop / heroHeight, 1)
+
+    // Fade + scale hero zone (same as homepage)
+    heroEl.style.opacity = 1 - progress
+    heroEl.style.transform = `scale(${1 - progress * 0.08})`
+
+    // Fade atmosphere (from 0.4 → 0)
+    if (atmosphereEl) {
+      atmosphereEl.style.opacity = 0.4 * (1 - progress)
+    }
+
+    // Report progress to parent for header control
+    if (onScrollProgress) {
+      onScrollProgress(progress)
+    }
+  }, [onScrollProgress])
+
+  // Expose handleScroll via a ref-callback pattern on the component
+  // We'll use a data attribute approach — App.jsx will call this directly
+  useEffect(() => {
+    // Store handler on the DOM for App.jsx to access
+    const page = document.querySelector('.archive-page')
+    if (page) {
+      page.__archiveScroll = handleScroll
+    }
+    return () => {
+      if (page) delete page.__archiveScroll
+    }
+  }, [handleScroll])
 
   if (!savedBoosts || savedBoosts.length === 0) {
     return (
       <div className="archive-page">
-        <div className="archive-atmosphere" aria-hidden="true">
+        <div ref={atmosphereRef} className="archive-atmosphere" aria-hidden="true">
           <div className="archive-blob archive-blob--moss" />
           <div className="archive-blob archive-blob--peach" />
         </div>
+        <div ref={heroRef} className="archive-hero" />
         <ArchiveEmpty />
       </div>
     )
@@ -153,10 +200,12 @@ export default function ArchivePage({ savedBoosts }) {
 
   return (
     <div className="archive-page">
-      <div className="archive-atmosphere" aria-hidden="true">
+      <div ref={atmosphereRef} className="archive-atmosphere" aria-hidden="true">
         <div className="archive-blob archive-blob--moss" />
         <div className="archive-blob archive-blob--peach" />
       </div>
+
+      <div ref={heroRef} className="archive-hero" />
 
       <div className="archive-content">
         {savedBoosts.map((dayGroup, groupIndex) => (
