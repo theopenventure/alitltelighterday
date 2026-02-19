@@ -95,7 +95,7 @@
   justify-content: center;
   height: 32px;
   padding: 0 16px;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: var(--radius-pill);
