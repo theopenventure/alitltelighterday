@@ -16,7 +16,7 @@ function writeAll(boosts) {
 
 // ── Public API ──
 
-export function saveBoost({ title, category, variant, prompt, segments }) {
+export function saveBoost({ title, shortTitle, category, variant, prompt, segments }) {
   const all = readAll()
   const today = new Date().toISOString().slice(0, 10)
   // Deduplicate by title + calendar date
@@ -28,6 +28,7 @@ export function saveBoost({ title, category, variant, prompt, segments }) {
   all.push({
     id: crypto.randomUUID?.() || String(Date.now()),
     title,
+    shortTitle,
     category,
     variant,
     prompt,
@@ -78,6 +79,7 @@ const SEED_DATA = [
   {
     id: 'seed-1',
     title: 'A Morning That Sets the Tone',
+    shortTitle: 'Something lighter.',
     category: 'Energy',
     variant: 'warm',
     prompt: 'Give me a 60-second morning routine to start the day with intention.',
@@ -91,6 +93,7 @@ const SEED_DATA = [
   {
     id: 'seed-2',
     title: 'The Art of Doing Nothing',
+    shortTitle: 'Turn it up.',
     category: 'Calm',
     variant: 'gray',
     prompt: 'Help me embrace stillness for just 5 minutes today.',
@@ -104,6 +107,7 @@ const SEED_DATA = [
   {
     id: 'seed-3',
     title: 'Something Warm and Simple',
+    shortTitle: 'You\'ve done enough.',
     category: 'Nourish',
     variant: 'beige',
     prompt: 'Suggest a simple, comforting meal I can make in under 15 minutes.',
@@ -116,6 +120,7 @@ const SEED_DATA = [
   {
     id: 'seed-4',
     title: 'A Song to Shift Your Energy',
+    shortTitle: 'Stretch a little.',
     category: 'Joy',
     variant: 'sage',
     prompt: 'Recommend a song that will gently lift my mood.',
@@ -128,6 +133,7 @@ const SEED_DATA = [
   {
     id: 'seed-5',
     title: 'Breathing Through the Noise',
+    shortTitle: 'Breathe easy.',
     category: 'Calm',
     variant: 'gray',
     prompt: 'Guide me through a quick breathing exercise to reset.',
@@ -145,6 +151,7 @@ const SEED_DATA = [
   {
     id: 'seed-6',
     title: 'Move Like Nobody Is Watching',
+    shortTitle: 'Unplug early.',
     category: 'Energy',
     variant: 'warm',
     prompt: 'Give me a fun way to move my body for 5 minutes.',
@@ -157,6 +164,7 @@ const SEED_DATA = [
   {
     id: 'seed-7',
     title: 'A Thought Worth Keeping',
+    shortTitle: 'Just look.',
     category: 'Joy',
     variant: 'sage',
     prompt: 'Share something that might make me smile today.',
@@ -170,6 +178,7 @@ const SEED_DATA = [
   {
     id: 'seed-8',
     title: 'The 2-Minute Reset',
+    shortTitle: 'Let go.',
     category: 'Calm',
     variant: 'gray',
     prompt: 'I only have 2 minutes. Help me find some calm.',
@@ -182,6 +191,7 @@ const SEED_DATA = [
   {
     id: 'seed-9',
     title: 'Fuel That Feels Good',
+    shortTitle: 'Treat yourself.',
     category: 'Nourish',
     variant: 'beige',
     prompt: 'What\'s a healthy snack that actually tastes amazing?',
@@ -194,6 +204,7 @@ const SEED_DATA = [
   {
     id: 'seed-10',
     title: 'Small Steps, Big Energy',
+    shortTitle: 'Feel alive.',
     category: 'Energy',
     variant: 'warm',
     prompt: 'How can I build energy without caffeine?',
@@ -208,6 +219,7 @@ const SEED_DATA = [
   {
     id: 'seed-11',
     title: 'Stretch Into the Afternoon',
+    shortTitle: 'Wake up.',
     category: 'Energy',
     variant: 'warm',
     prompt: 'I\'m in a slump. Give me a quick stretch to wake up.',
@@ -221,6 +233,7 @@ const SEED_DATA = [
   {
     id: 'seed-12',
     title: 'A Cup of Calm',
+    shortTitle: 'Something warm.',
     category: 'Nourish',
     variant: 'beige',
     prompt: 'What\'s a soothing drink I can make right now?',
@@ -233,6 +246,7 @@ const SEED_DATA = [
   {
     id: 'seed-13',
     title: 'The Gratitude Pivot',
+    shortTitle: 'How curious.',
     category: 'Joy',
     variant: 'sage',
     prompt: 'Help me find something good in today.',
@@ -247,6 +261,7 @@ const SEED_DATA = [
   {
     id: 'seed-14',
     title: 'Walking Without a Destination',
+    shortTitle: 'Be still.',
     category: 'Calm',
     variant: 'gray',
     prompt: 'I need to clear my head. What should I do?',
@@ -259,6 +274,7 @@ const SEED_DATA = [
   {
     id: 'seed-15',
     title: 'The Power of a Cold Splash',
+    shortTitle: 'Move more.',
     category: 'Energy',
     variant: 'warm',
     prompt: 'Give me a 30-second energy hack.',
@@ -272,6 +288,7 @@ const SEED_DATA = [
   {
     id: 'seed-16',
     title: 'Music for Focus',
+    shortTitle: 'Did you know?',
     category: 'Joy',
     variant: 'sage',
     prompt: 'Recommend something to listen to while I work.',
@@ -285,6 +302,7 @@ const SEED_DATA = [
   {
     id: 'seed-17',
     title: 'A Bowl of Comfort',
+    shortTitle: 'Savor this.',
     category: 'Nourish',
     variant: 'beige',
     prompt: 'I want something warm and filling. What can I make quickly?',
@@ -297,6 +315,7 @@ const SEED_DATA = [
   {
     id: 'seed-18',
     title: 'The Five Senses Check-In',
+    shortTitle: 'Soften.',
     category: 'Calm',
     variant: 'gray',
     prompt: 'Guide me through a grounding exercise.',
@@ -311,6 +330,7 @@ const SEED_DATA = [
   {
     id: 'seed-19',
     title: 'Shake It Off — Literally',
+    shortTitle: 'Shake it off.',
     category: 'Energy',
     variant: 'warm',
     prompt: 'I feel stuck in my body. Help me reset.',
@@ -323,6 +343,7 @@ const SEED_DATA = [
   {
     id: 'seed-20',
     title: 'The Kindness of Strangers',
+    shortTitle: 'Imagine.',
     category: 'Joy',
     variant: 'sage',
     prompt: 'Tell me something that restores my faith in people.',
@@ -335,6 +356,7 @@ const SEED_DATA = [
   {
     id: 'seed-21',
     title: 'Bedtime Wind-Down',
+    shortTitle: 'Slow down.',
     category: 'Calm',
     variant: 'gray',
     prompt: 'Help me prepare for a good night\'s sleep.',
@@ -353,6 +375,7 @@ const SEED_DATA = [
   {
     id: 'seed-22',
     title: 'Permission to Rest',
+    shortTitle: 'Just pause.',
     category: 'Calm',
     variant: 'gray',
     prompt: 'Remind me that it\'s okay to take a break.',
@@ -365,6 +388,7 @@ const SEED_DATA = [
   {
     id: 'seed-23',
     title: 'A Playlist for the Soul',
+    shortTitle: 'Wonder why?',
     category: 'Joy',
     variant: 'sage',
     prompt: 'Give me a song that feels like a warm hug.',
@@ -377,6 +401,7 @@ const SEED_DATA = [
   {
     id: 'seed-24',
     title: 'Energise Your Morning',
+    shortTitle: 'Rise up.',
     category: 'Energy',
     variant: 'warm',
     prompt: 'What\'s a simple thing I can do to start my day strong?',
@@ -390,6 +415,7 @@ const SEED_DATA = [
   {
     id: 'seed-25',
     title: 'The Comfort of Oats',
+    shortTitle: 'Fuel up.',
     category: 'Nourish',
     variant: 'beige',
     prompt: 'Suggest a breakfast that feels like a hug.',
@@ -402,6 +428,7 @@ const SEED_DATA = [
   {
     id: 'seed-26',
     title: 'A Moment of Awe',
+    shortTitle: 'Stay curious.',
     category: 'Joy',
     variant: 'sage',
     prompt: 'Share something beautiful about the world.',

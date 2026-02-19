@@ -56,7 +56,7 @@
   font-weight: 500;
   line-height: 1.5;
   color: #555555;
-  max-width: 275px;
+  max-width: 325px;
   text-wrap: balance;
 }
 
@@ -103,7 +103,7 @@
   z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 61px;
+  gap: 63px;
 }
 
 /* ── Day group ── */
@@ -121,53 +121,26 @@
   transform: translateY(0);
 }
 
-/* ── Day group header ── */
-.archive-group-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 25px;
-}
-
-.archive-day-number {
-  font-family: var(--font-serif);
-  font-size: 48px;
-  font-weight: 400;
-  line-height: 1;
-  color: var(--text-primary);
-  letter-spacing: -0.02em;
-}
-
-.archive-date-meta {
-  text-align: right;
-  padding-top: 10px;
-}
-
-.archive-month {
+/* ── Date label ── */
+.archive-date-label {
   font-family: var(--font-sans);
   font-size: 15px;
   font-weight: 500;
   color: var(--text-primary);
-  line-height: 1.4;
-}
-
-.archive-weekday {
-  font-family: var(--font-sans);
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--text-primary);
-  opacity: 0.5;
-  line-height: 1.4;
+  margin-bottom: 32px;
 }
 
 /* ── Saved items list ── */
 .archive-items {
   display: flex;
   flex-direction: column;
+  gap: 16px;
 }
 
 .archive-item {
-  display: block;
+  display: flex;
+  gap: 16px;
+  align-items: center;
   width: 100%;
   text-align: left;
   background: none;
@@ -193,12 +166,34 @@
   transition: opacity 0.1s ease;
 }
 
-.archive-item-title {
+.archive-item-square {
+  width: 71px;
+  height: 71px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.archive-item-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  padding-bottom: 3px;
+}
+
+.archive-item-headline {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 41px;
+  display: block;
+}
+
+.archive-item-subtitle {
   font-family: var(--font-sans);
   font-size: 15px;
   font-weight: 500;
-  line-height: 28px;
-  color: var(--text-primary);
+  line-height: normal;
   display: block;
 }
 

@@ -196,6 +196,7 @@ function App() {
       const card = cards[activeBoostRef.current]
       const updated = saveBoost({
         title: boostContent.title,
+        shortTitle: card.shortTitle,
         category: card.category,
         variant: card.variant,
         prompt: card.prompt,

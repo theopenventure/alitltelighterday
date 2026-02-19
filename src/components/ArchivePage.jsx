@@ -3,9 +3,48 @@ import { flattenSegments, renderSegment } from './segments'
 import { getDailyArchiveHeroCopy } from '../data/archiveHeroCopyPool'
 import './ArchivePage.css'
 
+// ── Variant color maps ──
+
+const VARIANT_BG = {
+  warm: '#FFF5F2',
+  gray: '#F0F5FA',
+  beige: '#FFFCF5',
+  sage: '#ECF6EB',
+}
+
+const VARIANT_TEXT = {
+  warm: '#3A2E2E',
+  gray: '#1A2E3A',
+  beige: '#4A4036',
+  sage: '#1A2F1A',
+}
+
+const VARIANT_SUB = {
+  warm: '#6A5555',
+  gray: '#4A6070',
+  beige: '#7A7066',
+  sage: '#596A59',
+}
+
+// ── Date label helper ──
+
+function getDateLabel(dateKey) {
+  const today = new Date().toISOString().slice(0, 10)
+  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10)
+
+  if (dateKey === today) return 'Today'
+  if (dateKey === yesterday) return 'Yesterday'
+
+  const d = new Date(dateKey + 'T12:00:00')
+  const weekday = new Intl.DateTimeFormat('en', { weekday: 'long' }).format(d)
+  const day = d.getDate()
+  const month = new Intl.DateTimeFormat('en', { month: 'short' }).format(d)
+  return `${weekday}, ${day} ${month}`
+}
+
 // ── Day Group ──
 
-function DayGroup({ dayNumber, month, weekday, items, groupIndex, onOpenItem }) {
+function DayGroup({ dateKey, items, groupIndex, onOpenItem }) {
   const groupRef = useRef(null)
 
   useEffect(() => {
@@ -32,25 +71,39 @@ function DayGroup({ dayNumber, month, weekday, items, groupIndex, onOpenItem }) 
       className="archive-group"
       style={{ '--group-index': groupIndex }}
     >
-      <div className="archive-group-header">
-        <div className="archive-day-number">{dayNumber}</div>
-        <div className="archive-date-meta">
-          <div className="archive-month">{month}</div>
-          <div className="archive-weekday">{weekday}</div>
-        </div>
-      </div>
+      <div className="archive-date-label">{getDateLabel(dateKey)}</div>
 
       <div className="archive-items">
-        {items.map((item, i) => (
-          <button
-            key={item.id}
-            className="archive-item"
-            style={{ '--item-index': i }}
-            onClick={() => onOpenItem(item)}
-          >
-            <span className="archive-item-title">{item.title}</span>
-          </button>
-        ))}
+        {items.map((item, i) => {
+          const variant = item.variant || 'sage'
+          return (
+            <button
+              key={item.id}
+              className="archive-item"
+              style={{ '--item-index': i }}
+              onClick={() => onOpenItem(item)}
+            >
+              <div
+                className="archive-item-square"
+                style={{ background: VARIANT_BG[variant] }}
+              />
+              <div className="archive-item-text">
+                <span
+                  className="archive-item-headline"
+                  style={{ color: VARIANT_TEXT[variant] }}
+                >
+                  {item.shortTitle || item.title}
+                </span>
+                <span
+                  className="archive-item-subtitle"
+                  style={{ color: VARIANT_SUB[variant] }}
+                >
+                  {item.title}
+                </span>
+              </div>
+            </button>
+          )
+        })}
       </div>
     </div>
   )
@@ -192,9 +245,7 @@ export default function ArchivePage({ savedBoosts, onScrollProgress }) {
           {savedBoosts.map((dayGroup, groupIndex) => (
             <DayGroup
               key={dayGroup.dateKey}
-              dayNumber={dayGroup.dayNumber}
-              month={dayGroup.month}
-              weekday={dayGroup.weekday}
+              dateKey={dayGroup.dateKey}
               items={dayGroup.items}
               groupIndex={groupIndex}
               onOpenItem={setActiveItem}
