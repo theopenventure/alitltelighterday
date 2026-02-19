@@ -40,7 +40,7 @@
   -webkit-tap-highlight-color: transparent;
   font: inherit;
   position: relative;
-  color: rgba(0, 0, 0, 0.45);
+  color: rgba(0, 0, 0, 0.40);
   transition: color 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
@@ -59,7 +59,7 @@
 
 /* ── Active state ── */
 .nav-item--active {
-  color: rgba(0, 0, 0, 1);
+  color: rgba(0, 0, 0, 0.70);
 }
 
 .nav-item--active svg {
@@ -74,7 +74,7 @@
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #000;
+  background: rgba(0, 0, 0, 0.70);
   pointer-events: none;
   /* Each item is 52px wide, gap is 7px → step = 59px. Center of item = 26px, minus dot half = 24px */
   transform: translateX(calc(var(--dot-index) * 59px + 24px));
