@@ -126,7 +126,7 @@
   font-family: var(--font-sans);
   font-size: 15px;
   font-weight: 500;
-  color: var(--text-primary);
+  color: #888;
   margin-bottom: 32px;
 }
 
@@ -140,7 +140,7 @@
 .archive-item {
   display: flex;
   gap: 16px;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
   text-align: left;
   background: none;
@@ -178,7 +178,6 @@
   flex-direction: column;
   flex: 1;
   min-width: 0;
-  padding-bottom: 3px;
 }
 
 .archive-item-headline {
@@ -195,6 +194,7 @@
   font-weight: 500;
   line-height: normal;
   display: block;
+  margin-top: -4px;
 }
 
 
