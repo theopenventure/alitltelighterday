@@ -10,129 +10,129 @@ export const heroCopyPool = {
   morning: [
     {
       headline: "A new page.",
-      subhead: "The day is still finding its shape. You don't have to rush into it.",
+      subhead: "The day is still finding its shape. No need to rush.",
     },
     {
       headline: "Something quiet first.",
-      subhead: "Before the noise picks up, there's a small window of calm. It's yours.",
+      subhead: "Before the noise picks up, there's a small window of calm.",
     },
     {
       headline: "Here, before the day.",
-      subhead: "The world will ask a lot of you today. For now, just breathe.",
+      subhead: "The world will ask a lot today. For now, just breathe.",
     },
     {
       headline: "Ease in.",
-      subhead: "There's no rush to be anywhere just yet. The morning belongs to you.",
+      subhead: "There's no rush to be anywhere just yet. Settle in.",
     },
     {
       headline: "Soft start.",
-      subhead: "The day ahead doesn't need you at full speed quite yet. Settle in.",
+      subhead: "The day doesn't need you at full speed yet. Take your time.",
     },
     {
       headline: "A gentle opening.",
-      subhead: "Today hasn't asked anything of you yet. Take this moment while it lasts.",
+      subhead: "Today hasn't asked anything of you yet. Take this moment.",
     },
     {
       headline: "Still morning.",
-      subhead: "The world outside is waking up. You don't have to wake up with it.",
+      subhead: "The world is waking up. You don't have to wake up with it.",
     },
     {
       headline: "Before the rush.",
-      subhead: "Right now, things are quiet. Here's a place to land before the noise starts.",
+      subhead: "Things are quiet right now. Here's a place to land first.",
     },
     {
       headline: "Begin here.",
-      subhead: "Not with your list or your phone — with one small, unhurried breath first.",
+      subhead: "Not with your list or phone — with one unhurried breath.",
     },
     {
       headline: "Just this.",
-      subhead: "Today is still wide open. You get to choose how to step into it.",
+      subhead: "Today is still wide open. Choose how to step into it.",
     },
   ],
 
   afternoon: [
     {
       headline: "Come back.",
-      subhead: "The middle of the day is a good place to pause and find yourself again.",
+      subhead: "Midday is a good place to pause and find yourself again.",
     },
     {
       headline: "Just here, now.",
-      subhead: "Things are moving fast out there. You're allowed to slow down for a moment.",
+      subhead: "Things are moving fast. You're allowed to slow down a moment.",
     },
     {
       headline: "A small pause.",
-      subhead: "The afternoon asks a lot. This is your permission to step back for a second.",
+      subhead: "The afternoon asks a lot. Here's permission to step back.",
     },
     {
       headline: "Take a breath.",
-      subhead: "You've been going since morning. The world can wait a little while you rest.",
+      subhead: "You've been going since morning. The world can wait a bit.",
     },
     {
       headline: "Halfway through.",
-      subhead: "The day is at its midpoint. Here's a quiet corner to stop and collect yourself.",
+      subhead: "Here's a quiet corner to stop and collect yourself.",
     },
     {
       headline: "Surface for a moment.",
-      subhead: "You've been underwater in the day's demands. Come up for some air right now.",
+      subhead: "You've been deep in the day's demands. Come up for air.",
     },
     {
       headline: "A moment between.",
-      subhead: "Between the morning's rush and the evening's rest, there's still space for stillness.",
+      subhead: "Between rush and rest, there's still space for stillness.",
     },
     {
       headline: "Reset.",
-      subhead: "The afternoon can feel relentless. This is a quiet place to land and recalibrate.",
+      subhead: "The afternoon can feel relentless. Here's a quiet place to land.",
     },
     {
       headline: "Anchor here.",
-      subhead: "Before the next thing pulls you forward, let yourself be fully where you are.",
+      subhead: "Before the next thing pulls you, let yourself be right here.",
     },
     {
       headline: "Still with you.",
-      subhead: "The noise outside hasn't stopped, but you don't have to take all of it in.",
+      subhead: "The noise hasn't stopped, but you don't have to take it all in.",
     },
   ],
 
   evening: [
     {
       headline: "You made it.",
-      subhead: "The day asked a lot of you. Here's a place to finally set it all down.",
+      subhead: "The day asked a lot. Here's a place to set it all down.",
     },
     {
       headline: "Soften a little.",
-      subhead: "The noise is starting to quiet. You can let the rest of today be gentle.",
+      subhead: "The noise is quieting. Let the rest of today be gentle.",
     },
     {
       headline: "The day is done.",
-      subhead: "Whatever it held, it's behind you now. Here's a quiet place to close it out.",
+      subhead: "It's behind you now. Here's a quiet place to close it out.",
     },
     {
       headline: "Winding down.",
-      subhead: "The world doesn't need anything more from you tonight. This moment is just yours.",
+      subhead: "The world needs nothing more from you tonight. Rest here.",
     },
     {
       headline: "Let it land.",
-      subhead: "You moved through a whole day. Give yourself a breath before moving on to tomorrow.",
+      subhead: "You moved through a whole day. Give yourself a breath now.",
     },
     {
       headline: "Evening, finally.",
-      subhead: "The pace of the day is fading. Here's somewhere soft and unhurried to settle into.",
+      subhead: "The pace is fading. Here's somewhere soft to settle into.",
     },
     {
       headline: "Enough for today.",
-      subhead: "You don't have to keep going. This is a place to rest and just be still.",
+      subhead: "You don't have to keep going. This is a place to be still.",
     },
     {
       headline: "Put it down.",
-      subhead: "The day's weight doesn't need to follow you into the evening. Here, set it down.",
+      subhead: "The day's weight doesn't need to follow you here. Let go.",
     },
     {
       headline: "A slow close.",
-      subhead: "The light is changing and the pace is easing. Let yourself ease along with it.",
+      subhead: "The light is changing. Let yourself ease along with it.",
     },
     {
       headline: "You showed up.",
-      subhead: "That's enough. The world was loud today, and you moved through it. Rest now.",
+      subhead: "That's enough. The world was loud, and you moved through it.",
     },
   ],
 }
