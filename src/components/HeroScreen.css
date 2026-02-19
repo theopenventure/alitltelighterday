@@ -90,4 +90,5 @@
   line-height: 1.5;
   color: #555555;
   max-width: 275px;
+  text-wrap: balance;
 }
