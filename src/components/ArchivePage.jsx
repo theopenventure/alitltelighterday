@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useMemo, useCallback } from 'react'
 import { flattenSegments, renderSegment } from './segments'
+import { getDailyArchiveHeroCopy } from '../data/archiveHeroCopyPool'
 import './ArchivePage.css'
 
 // ── Day Group ──
@@ -119,27 +120,14 @@ function ArchiveDetail({ item, onClose }) {
   )
 }
 
-// ── Empty State ──
-
-function ArchiveEmpty() {
-  return (
-    <div className="archive-empty">
-      <div className="archive-empty-content">
-        <div className="archive-empty-label">Nothing saved yet</div>
-        <p className="archive-empty-sub">
-          When something resonates, tap "Loved it" to save it here.
-        </p>
-      </div>
-    </div>
-  )
-}
-
 // ── Main Component ──
 
 export default function ArchivePage({ savedBoosts, onScrollProgress }) {
   const [activeItem, setActiveItem] = useState(null)
   const heroRef = useRef(null)
   const atmosphereRef = useRef(null)
+  const isEmpty = !savedBoosts || savedBoosts.length === 0
+  const heroCopy = useMemo(() => getDailyArchiveHeroCopy(isEmpty), [isEmpty])
 
   // Set initial atmosphere opacity
   useEffect(() => {
@@ -185,19 +173,6 @@ export default function ArchivePage({ savedBoosts, onScrollProgress }) {
     }
   }, [handleScroll])
 
-  if (!savedBoosts || savedBoosts.length === 0) {
-    return (
-      <div className="archive-page">
-        <div ref={atmosphereRef} className="archive-atmosphere" aria-hidden="true">
-          <div className="archive-blob archive-blob--moss" />
-          <div className="archive-blob archive-blob--peach" />
-        </div>
-        <div ref={heroRef} className="archive-hero" />
-        <ArchiveEmpty />
-      </div>
-    )
-  }
-
   return (
     <div className="archive-page">
       <div ref={atmosphereRef} className="archive-atmosphere" aria-hidden="true">
@@ -205,21 +180,28 @@ export default function ArchivePage({ savedBoosts, onScrollProgress }) {
         <div className="archive-blob archive-blob--peach" />
       </div>
 
-      <div ref={heroRef} className="archive-hero" />
-
-      <div className="archive-content">
-        {savedBoosts.map((dayGroup, groupIndex) => (
-          <DayGroup
-            key={dayGroup.dateKey}
-            dayNumber={dayGroup.dayNumber}
-            month={dayGroup.month}
-            weekday={dayGroup.weekday}
-            items={dayGroup.items}
-            groupIndex={groupIndex}
-            onOpenItem={setActiveItem}
-          />
-        ))}
+      <div ref={heroRef} className="archive-hero">
+        <div className="archive-hero-content">
+          <h1 className="archive-hero-headline">{heroCopy.headline}</h1>
+          <p className="archive-hero-subhead">{heroCopy.subhead}</p>
+        </div>
       </div>
+
+      {!isEmpty && (
+        <div className="archive-content">
+          {savedBoosts.map((dayGroup, groupIndex) => (
+            <DayGroup
+              key={dayGroup.dateKey}
+              dayNumber={dayGroup.dayNumber}
+              month={dayGroup.month}
+              weekday={dayGroup.weekday}
+              items={dayGroup.items}
+              groupIndex={groupIndex}
+              onOpenItem={setActiveItem}
+            />
+          ))}
+        </div>
+      )}
 
       <ArchiveDetail item={activeItem} onClose={() => setActiveItem(null)} />
     </div>
