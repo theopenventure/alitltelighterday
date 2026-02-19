@@ -93,19 +93,18 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 32px;
-  padding: 0 16px;
+  padding: 9px 20px;
   background: rgba(255, 255, 255, 1);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: var(--radius-pill);
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: normal;
   text-transform: none;
   color: inherit;
-  opacity: 0.6;
+  opacity: 0.7;
   margin-bottom: 32px;
 }
 
@@ -138,7 +137,7 @@
 /* ── CTA link ── */
 .card-cta {
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: 12px;
   font-weight: 500;
   color: inherit;
   border-bottom: 1px solid currentColor;
