@@ -442,9 +442,10 @@ const SEED_DATA = [
 
 export function seedPlaceholderData() {
   const existing = readAll()
-  // Re-seed if empty or if only old seed data (fewer items than current seed set)
+  // Re-seed if empty, or if only old seed data (fewer items or missing shortTitle)
   const onlySeeds = existing.length > 0 && existing.every((b) => b.id?.startsWith('seed-'))
-  if (existing.length > 0 && !(onlySeeds && existing.length < SEED_DATA.length)) return false
+  const missingShortTitle = onlySeeds && existing.some((b) => !b.shortTitle)
+  if (existing.length > 0 && !(onlySeeds && (existing.length < SEED_DATA.length || missingShortTitle))) return false
 
   writeAll(SEED_DATA)
   return true
