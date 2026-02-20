@@ -80,6 +80,7 @@
   flex: 1;
 }
 
+.content-save,
 .content-close {
   display: flex;
   align-items: center;
@@ -96,10 +97,12 @@
   flex-shrink: 0;
 }
 
+.content-save:hover,
 .content-close:hover {
   opacity: 0.8;
 }
 
+.content-save:active,
 .content-close:active {
   transform: scale(0.85);
   transition: transform 0.1s ease-out;

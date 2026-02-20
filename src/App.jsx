@@ -210,6 +210,20 @@ function App() {
     }, 1800)
   }, [startClosing, boostContent, cards])
 
+  const handleSave = useCallback(() => {
+    if (!boostContent || !activeBoostRef.current) return
+    const card = cards[activeBoostRef.current]
+    const updated = saveBoost({
+      title: boostContent.title,
+      shortTitle: card.shortTitle,
+      category: card.category,
+      variant: card.variant,
+      prompt: card.prompt,
+      segments: boostContent.segments,
+    })
+    setSavedBoosts(updated)
+  }, [boostContent, cards])
+
   const handleShuffle = useCallback(() => {
     setCards(getRandomBoosts())
     setHeroCopy((prev) => getRandomHeroCopy(prev))
@@ -222,7 +236,7 @@ function App() {
 
     const headerEl = headerRef.current
 
-    if (tabId === 'favourites' && activeView !== 'archive') {
+    if (tabId === 'archived' && activeView !== 'archive') {
       homeScrollRef.current = todayViewRef.current?.scrollTop || 0
       setSavedBoosts(getSavedBoostsByDay())
 
@@ -259,7 +273,7 @@ function App() {
     }
   }, [activeView, activeBoost])
 
-  const navTab = activeView === 'archive' ? 'favourites' : 'home'
+  const navTab = activeView === 'archive' ? 'archived' : 'home'
 
   return (
     <div className="app-container">
@@ -321,6 +335,7 @@ function App() {
           onClose={startClosing}
           onExited={handleOverlayExited}
           onReact={handleReact}
+          onSave={handleSave}
         />
       )}
     </div>
