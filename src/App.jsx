@@ -280,7 +280,6 @@ function App() {
       <Header
         ref={headerRef}
         label={activeView === 'archive' ? 'Archived' : 'Today'}
-        onShuffle={activeView === 'home' ? handleShuffle : undefined}
       />
 
       {/* Today view */}

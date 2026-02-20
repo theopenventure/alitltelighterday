@@ -66,8 +66,8 @@
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
-  padding-top: calc(13px + env(safe-area-inset-top, 0px));
-  padding-bottom: 20px;
+  padding-top: calc(40px + env(safe-area-inset-top, 0px));
+  padding-bottom: 0;
   position: sticky;
   top: 0;
   z-index: 2;
@@ -128,7 +128,7 @@
   transition: opacity 0.4s var(--ease-soft) 0.3s, transform 0.4s var(--ease-soft) 0.3s;
   text-wrap: balance;
   margin-top: 40px;
-  margin-bottom: 32px;
+  margin-bottom: 40px;
 }
 
 .content-sheet.visible .content-prompt {
@@ -304,7 +304,7 @@
 /* ── Response area ── */
 .content-response {
   flex: 1;
-  padding-bottom: 20px;
+  padding-bottom: 0;
   opacity: 0;
   transition: opacity 0.4s var(--ease-soft);
 }
