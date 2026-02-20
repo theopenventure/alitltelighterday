@@ -64,11 +64,10 @@
 /* Matches Header.css pattern: 80px height, 50% solid → transparent */
 .content-header {
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: flex-end;
-  height: calc(82px + env(safe-area-inset-top, 0px));
-  padding-top: env(safe-area-inset-top, 0px);
-  padding-bottom: 0;
+  padding-top: calc(13px + env(safe-area-inset-top, 0px));
+  padding-bottom: 20px;
   position: sticky;
   top: 0;
   z-index: 2;
