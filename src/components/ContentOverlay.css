@@ -61,7 +61,6 @@
 .content-sheet--sage  { background: linear-gradient(180deg, #F0F7F0, #E0F2E0); }
 
 /* ── Sticky header — top-right close with gradient protection ── */
-/* Matches Header.css pattern: 80px height, 50% solid → transparent */
 .content-header {
   display: flex;
   align-items: flex-start;
@@ -71,8 +70,20 @@
   position: sticky;
   top: 0;
   z-index: 2;
-  background: linear-gradient(to bottom, var(--sheet-bg) 65%, transparent);
+  background: none;
   flex-shrink: 0;
+}
+
+.content-header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: calc(90px + env(safe-area-inset-top, 0px));
+  background: linear-gradient(to bottom, var(--sheet-bg) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 .content-header-spacer {
