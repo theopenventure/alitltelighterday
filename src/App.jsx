@@ -7,21 +7,22 @@ import FeedFooter from './components/FeedFooter'
 import ContentOverlay from './components/ContentOverlay'
 import HeroScreen from './components/HeroScreen'
 import ArchivePage from './components/ArchivePage'
-import { getDailyBoosts, getRandomBoosts } from './data/boostPromptPool'
+import { getDailyBoosts, getRandomBoosts, getCategoryOrder } from './data/boostPromptPool'
 import { getDailyHeroCopy, getRandomHeroCopy } from './data/heroCopyPool'
 import { generateBoost } from './api/generateBoost'
 import { saveBoost, getSavedBoostsByDay, seedPlaceholderData } from './lib/savedBoosts'
 
-const CATEGORIES = ['energy', 'calm', 'nourish', 'joy']
+// Dynamic category order based on day + time of day
+const CATEGORIES = getCategoryOrder()
 
 function App() {
   const [cards, setCards] = useState(() => getDailyBoosts())
   const [heroCopy, setHeroCopy] = useState(() => getDailyHeroCopy())
   const [exploredCards, setExploredCards] = useState({
-    energy: false,
-    nourish: false,
-    calm: false,
-    joy: false
+    lift: false,
+    steady: false,
+    space: false,
+    small: false
   })
   const [activeBoost, setActiveBoost] = useState(null)
   const [boostContent, setBoostContent] = useState(null)
@@ -44,13 +45,14 @@ function App() {
   const headerRef = useRef(null)
   const homeScrollRef = useRef(0)
   const archiveScrollRef = useRef(0)
+  const contentCacheRef = useRef({})  // category → generated content (persists across opens)
 
   // Card refs for measuring position
-  const energyRef = useRef(null)
-  const calmRef = useRef(null)
-  const nourishRef = useRef(null)
-  const joyRef = useRef(null)
-  const cardRefMap = { energy: energyRef, calm: calmRef, nourish: nourishRef, joy: joyRef }
+  const liftRef = useRef(null)
+  const steadyRef = useRef(null)
+  const spaceRef = useRef(null)
+  const smallRef = useRef(null)
+  const cardRefMap = { lift: liftRef, steady: steadyRef, space: spaceRef, small: smallRef }
 
   const allExplored = Object.values(exploredCards).every(Boolean)
 
@@ -129,8 +131,6 @@ function App() {
   }, [])
 
   const handleOpenBoost = useCallback(async (category) => {
-    if (exploredCards[category]) return
-
     const card = cards[category]
 
     const cardEl = cardRefMap[category]?.current
@@ -146,15 +146,25 @@ function App() {
 
     activeBoostRef.current = category
     shouldExploreRef.current = false
-    setBoostContent(null)
     setBoostError(null)
-    setBoostLoading(true)
     setExpandingCard(category)
     setIsOverlayClosing(false)
     setActiveBoost(category)
 
+    // If we already generated content for this card, show it instantly
+    const cached = contentCacheRef.current[category]
+    if (cached) {
+      setBoostContent(cached)
+      setBoostLoading(false)
+      return
+    }
+
+    setBoostContent(null)
+    setBoostLoading(true)
+
     try {
       const result = await generateBoost(category, card.prompt)
+      contentCacheRef.current[category] = result
       setBoostContent(result)
     } catch (err) {
       console.error('Boost generation failed:', err)
@@ -162,7 +172,7 @@ function App() {
     } finally {
       setBoostLoading(false)
     }
-  }, [exploredCards, cards])
+  }, [cards])
 
   const startClosing = useCallback(() => {
     if (isOverlayClosing) return
@@ -227,7 +237,8 @@ function App() {
   const handleShuffle = useCallback(() => {
     setCards(getRandomBoosts())
     setHeroCopy((prev) => getRandomHeroCopy(prev))
-    setExploredCards({ energy: false, nourish: false, calm: false, joy: false })
+    setExploredCards({ lift: false, steady: false, space: false, small: false })
+    contentCacheRef.current = {}  // new prompts → clear cached content
   }, [])
 
   const handleTabChange = useCallback((tabId) => {

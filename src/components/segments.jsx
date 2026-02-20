@@ -83,6 +83,16 @@ function SegmentFact({ content }) {
   return <p className="seg-fact">{content}</p>
 }
 
+function SegmentList({ items }) {
+  return (
+    <ul className="seg-list">
+      {(items || []).map((item, i) => (
+        <li key={i} className="seg-list-item">{item}</li>
+      ))}
+    </ul>
+  )
+}
+
 export function renderSegment(seg, i, firstTextIndex) {
   switch (seg.type) {
     case 'text':
@@ -95,6 +105,8 @@ export function renderSegment(seg, i, firstTextIndex) {
       return <SegmentBreathStep key={i} label={seg.label} detail={seg.detail} index={seg.index} />
     case 'fact':
       return <SegmentFact key={i} content={seg.content} />
+    case 'list':
+      return <SegmentList key={i} items={seg.items} />
     default:
       return null
   }

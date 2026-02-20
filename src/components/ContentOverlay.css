@@ -531,3 +531,33 @@
   color: var(--variant-text, var(--text-secondary));
   text-wrap: pretty;
 }
+
+/* ── List segment — bulleted options ── */
+.seg-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.seg-list-item {
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: normal;
+  color: var(--variant-text, var(--text-secondary));
+  padding-left: 24px;
+  position: relative;
+}
+
+.seg-list-item::before {
+  content: '○';
+  position: absolute;
+  left: 0;
+  color: var(--variant-text, var(--text-primary));
+  opacity: 0.4;
+  font-size: 12px;
+  top: 5px;
+}
