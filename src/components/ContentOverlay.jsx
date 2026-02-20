@@ -101,10 +101,10 @@ export default function ContentOverlay({
       setContentVisible(true)
     }, 250)
 
-    // Thinking indicator shows 2s after sheet is visible (prompt has settled)
+    // Thinking indicator shows 2s after prompt bubble has settled (~550ms)
     const thinkingTimer = setTimeout(() => {
       setPhase('thinking')
-    }, 2250)
+    }, 2550)
 
     return () => {
       cancelAnimationFrame(raf)
