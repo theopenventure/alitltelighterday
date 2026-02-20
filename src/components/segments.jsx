@@ -3,11 +3,20 @@
 export function flattenSegments(segments) {
   if (!segments) return []
   const flat = []
+  let factCount = 0
   for (const seg of segments) {
     if (seg.type === 'breath') {
       (seg.steps || []).forEach((step, i) => {
         flat.push({ type: 'breath-step', ...step, index: i })
       })
+    } else if (seg.type === 'fact') {
+      factCount++
+      // Only render the first fact as a quote; extras become plain text
+      if (factCount > 1) {
+        flat.push({ type: 'text', content: seg.content })
+      } else {
+        flat.push(seg)
+      }
     } else {
       flat.push(seg)
     }

@@ -219,39 +219,42 @@ export default function ContentOverlay({
           {card.prompt}
         </div>
 
-        {/* Thinking indicator — shows while API is loading */}
-        <ThinkingIndicator visible={isThinking} label={thinkingLabel} />
+        {/* Body: thinking + response share the same space */}
+        <div className="content-body">
+          {/* Thinking indicator — shows while API is loading */}
+          <ThinkingIndicator visible={isThinking} label={thinkingLabel} />
 
-        {/* Error state */}
-        {error && !loading && (
-          <ErrorState message={error} onClose={onClose} />
-        )}
+          {/* Error state */}
+          {error && !loading && (
+            <ErrorState message={error} onClose={onClose} />
+          )}
 
-        {/* AI response */}
-        <div className={`content-response ${hasContent ? 'visible' : ''}`}>
+          {/* AI response */}
+          <div className={`content-response ${hasContent ? 'visible' : ''}`}>
 
-          <h2 className={`content-title ${hasContent ? 'visible' : ''}`}>
-            {content?.title}
-          </h2>
+            <h2 className={`content-title ${hasContent ? 'visible' : ''}`}>
+              {content?.title}
+            </h2>
 
-          <div className="content-segments">
-            {flatSegments.map((seg, i) => (
-              <div
-                key={i}
-                className="seg-wrapper"
-                style={{
-                  opacity: i < visibleSegments ? 1 : 0,
-                  transform: i < visibleSegments ? 'translateY(0)' : 'translateY(14px)',
-                  transition: `opacity 0.5s ease, transform 0.6s cubic-bezier(0.34, 1.3, 0.64, 1)`
-                }}
-              >
-                {renderSegment(seg, i, firstTextIdx)}
-              </div>
-            ))}
+            <div className="content-segments">
+              {flatSegments.map((seg, i) => (
+                <div
+                  key={i}
+                  className="seg-wrapper"
+                  style={{
+                    opacity: i < visibleSegments ? 1 : 0,
+                    transform: i < visibleSegments ? 'translateY(0)' : 'translateY(14px)',
+                    transition: `opacity 0.5s ease, transform 0.6s cubic-bezier(0.34, 1.3, 0.64, 1)`
+                  }}
+                >
+                  {renderSegment(seg, i, firstTextIdx)}
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
 
-        <ReactionBar visible={reactionBarVisible} onReact={onReact} />
+          <ReactionBar visible={reactionBarVisible} onReact={onReact} />
+        </div>
       </div>
     </div>
   )
