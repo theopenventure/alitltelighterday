@@ -208,7 +208,7 @@ export default function ContentOverlay({
         <div className="content-header">
           <div className="content-header-spacer" />
           <button className="content-close" onClick={onClose} aria-label="Close">
-            <svg width="20" height="20" viewBox="0 0 30.55 30.55" fill="currentColor" aria-hidden="true">
+            <svg width="31" height="31" viewBox="0 0 30.55 30.55" fill="currentColor" aria-hidden="true">
               <path d="M25.9 17.44a1 1 0 0 1 0 2h-5.04l9.39 9.4a1 1 0 0 1-1.41 1.41l-9.4-9.39v5.04a1 1 0 0 1-2 0v-7.46a1 1 0 0 1 1-1h7.46ZM.29.29a1 1 0 0 1 1.42 0l9.39 9.4V4.65a1 1 0 0 1 2 0v7.45a1 1 0 0 1-1 1H4.65a1 1 0 0 1 0-2h5.04L.29 1.71A1 1 0 0 1 .29.29Z" />
             </svg>
           </button>
