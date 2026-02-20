@@ -2,9 +2,9 @@ import { useState } from 'react'
 import './ReactionBar.css'
 
 const reactions = [
-  { type: 'love', emoji: '💛', label: 'Loved it' },
-  { type: 'meh', emoji: '😐', label: 'Meh' },
-  { type: 'skip', emoji: '⏭️', label: 'Skip' }
+  { type: 'love', emoji: '💛', label: 'loved it' },
+  { type: 'meh', emoji: '😐', label: 'meh' },
+  { type: 'skip', emoji: '⏭️', label: 'skip' }
 ]
 
 export default function ReactionBar({ visible, onReact }) {
@@ -34,7 +34,7 @@ export default function ReactionBar({ visible, onReact }) {
         ))}
       </div>
       <div className={`reaction-confirmation ${showConfirmation ? 'show' : ''}`}>
-        Noted — this helps your boosts get better
+        noted — this helps your boosts get better
       </div>
     </div>
   )

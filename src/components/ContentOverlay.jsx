@@ -28,7 +28,7 @@ function ThinkingIndicator({ visible, label }) {
         <div className="thinking-dots">
           <span /><span /><span />
         </div>
-        <div className="thinking-label">{label || 'Thinking...'}</div>
+        <div className="thinking-label">{label || 'thinking...'}</div>
       </div>
       <div className="thinking-skeleton">
         <div className="skeleton-line skeleton-line--wide" />
@@ -48,7 +48,7 @@ function ErrorState({ message, onClose }) {
         {message || "Something went wrong generating this boost."}
       </p>
       <button className="content-error-btn" onClick={onClose}>
-        Go back
+        go back
       </button>
     </div>
   )

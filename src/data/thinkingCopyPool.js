@@ -1,21 +1,21 @@
 // 15 short loading copy variants — one picked randomly each time a card opens
 
 const thinkingCopyPool = [
-  'Thinking...',
-  'On it...',
-  'Brewing...',
-  'Tuning in...',
-  'Feeling out...',
-  'One sec...',
-  'Almost...',
-  'Warming up...',
-  'Composing...',
-  'Working on it...',
-  'Let me see...',
-  'Here we go...',
-  'Just a moment...',
-  'Crafting...',
-  'Getting there...',
+  'thinking...',
+  'on it...',
+  'brewing...',
+  'tuning in...',
+  'feeling out...',
+  'one sec...',
+  'almost...',
+  'warming up...',
+  'composing...',
+  'working on it...',
+  'let me see...',
+  'here we go...',
+  'just a moment...',
+  'crafting...',
+  'getting there...',
 ]
 
 export function getRandomThinkingCopy() {
