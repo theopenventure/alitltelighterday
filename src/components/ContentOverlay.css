@@ -66,9 +66,9 @@
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
-  height: calc(100px + env(safe-area-inset-top, 0px));
+  height: calc(82px + env(safe-area-inset-top, 0px));
   padding-top: env(safe-area-inset-top, 0px);
-  padding-bottom: 10px;
+  padding-bottom: 0;
   position: sticky;
   top: 0;
   z-index: 2;
@@ -91,15 +91,9 @@
   border: none;
   color: var(--variant-text, var(--text-primary));
   cursor: pointer;
-  transition: opacity 0.2s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   -webkit-tap-highlight-color: transparent;
-  opacity: 0.5;
   flex-shrink: 0;
-}
-
-.content-save:hover,
-.content-close:hover {
-  opacity: 0.8;
 }
 
 .content-save:active,
@@ -109,7 +103,6 @@
 }
 
 .content-save--active {
-  opacity: 0.7;
   animation: bookmarkPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
