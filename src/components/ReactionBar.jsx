@@ -1,18 +1,53 @@
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import './ReactionBar.css'
+
+const REACTION_MESSAGES = {
+  up: 'Glad you liked it — noted for next time',
+  down: 'Got it, we\'ll refine your experience',
+}
 
 export default function ReactionBar({ visible, onReact }) {
   const [chosen, setChosen] = useState(null)
+  const [showToast, setShowToast] = useState(false)
+  const [toastVisible, setToastVisible] = useState(false)
+  const [thumbsHidden, setThumbsHidden] = useState(false)
 
-  const handleReact = (type) => {
+  const handleReact = useCallback((type) => {
     if (chosen) return
     setChosen(type)
     onReact(type)
-  }
+  }, [chosen, onReact])
+
+  // After a thumb is chosen: fade out thumbs → show inline toast
+  useEffect(() => {
+    if (!chosen) return
+
+    // Wait for the chosen/faded animation to settle, then hide thumbs and show toast
+    const hideTimer = setTimeout(() => {
+      setThumbsHidden(true)
+      setShowToast(true)
+    }, 600)
+
+    return () => clearTimeout(hideTimer)
+  }, [chosen])
+
+  // Animate toast in after it mounts
+  useEffect(() => {
+    if (!showToast) return
+
+    const raf = requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        setToastVisible(true)
+      })
+    })
+
+    return () => cancelAnimationFrame(raf)
+  }, [showToast])
 
   return (
     <div className={`reaction-bar ${visible ? 'visible' : ''}`}>
-      <div className="reaction-buttons">
+      {/* Thumb buttons — hidden after toast replaces them */}
+      <div className={`reaction-buttons ${thumbsHidden ? 'hidden' : ''}`}>
         <button
           className={`reaction-circle ${chosen === 'up' ? 'chosen' : ''} ${chosen && chosen !== 'up' ? 'faded' : ''}`}
           onClick={() => handleReact('up')}
@@ -34,6 +69,13 @@ export default function ReactionBar({ visible, onReact }) {
           </svg>
         </button>
       </div>
+
+      {/* Inline feedback toast — replaces thumbs */}
+      {showToast && (
+        <div className={`reaction-toast ${toastVisible ? 'visible' : ''}`} role="status" aria-live="polite">
+          <span className="reaction-toast-text">{REACTION_MESSAGES[chosen]}</span>
+        </div>
+      )}
     </div>
   )
 }
