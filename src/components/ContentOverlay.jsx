@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import ReactionBar from './ReactionBar'
-import { flattenSegments, renderSegment } from './segments'
+import { flattenSegments, renderSegment, findFirstTextIndex } from './segments'
 import './ContentOverlay.css'
 
 // Variant → background color mapping (matches BoostCard.css gradient start colors)
@@ -9,6 +9,14 @@ const VARIANT_COLORS = {
   gray: '#F0F5FA',
   beige: '#FFFCF5',
   sage: '#F0F7F0'
+}
+
+// Variant → text color mapping
+const VARIANT_TEXT = {
+  warm: '#3A2E2E',
+  gray: '#1A2E3A',
+  beige: '#4A4036',
+  sage: '#1A2F1A',
 }
 
 // ── Thinking indicator ──
@@ -73,6 +81,8 @@ export default function ContentOverlay({
   const flatSegments = useMemo(() => {
     return content ? flattenSegments(content.segments) : []
   }, [content])
+
+  const firstTextIdx = useMemo(() => findFirstTextIndex(flatSegments), [flatSegments])
 
   // ── OPENING: Expansion → show content area ──
   useEffect(() => {
@@ -165,7 +175,7 @@ export default function ContentOverlay({
       width: '100%',
       height: '100%',
       borderRadius: 0,
-      background: phase === 'collapsing' ? bgColor : (contentVisible ? 'var(--bg-body)' : bgColor)
+      background: bgColor
     }
   }
 
@@ -179,26 +189,25 @@ export default function ContentOverlay({
         style={expansionStyle}
       />
 
-      <div className={`content-sheet content-sheet--${variant} ${contentVisible ? 'visible' : ''}`}>
+      <div
+        className={`content-sheet content-sheet--${variant} ${contentVisible ? 'visible' : ''}`}
+        style={{ '--sheet-bg': bgColor, '--variant-text': VARIANT_TEXT[variant] || VARIANT_TEXT.gray }}
+      >
 
         {/* Sticky header */}
         <div className="content-header">
-          <button className="content-back" onClick={onClose} aria-label="Go back">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <polyline points="15 18 9 12 15 6" />
+          <div className="content-header-spacer" />
+          <button className="content-close" onClick={onClose} aria-label="Close">
+            <svg width="20" height="20" viewBox="0 0 30.55 30.55" fill="currentColor" aria-hidden="true">
+              <path d="M25.9 17.44a1 1 0 0 1 0 2h-5.04l9.39 9.4a1 1 0 0 1-1.41 1.41l-9.4-9.39v5.04a1 1 0 0 1-2 0v-7.46a1 1 0 0 1 1-1h7.46ZM.29.29a1 1 0 0 1 1.42 0l9.39 9.4V4.65a1 1 0 0 1 2 0v7.45a1 1 0 0 1-1 1H4.65a1 1 0 0 1 0-2h5.04L.29 1.71A1 1 0 0 1 .29.29Z" />
             </svg>
           </button>
-          <span className="content-header-cat">{card.category}</span>
-          <div className="content-header-spacer" />
         </div>
 
-        {/* Prompt echo */}
+        {/* Prompt bubble */}
         <div className="content-prompt">
           {card.prompt}
         </div>
-
-        {/* Divider */}
-        <div className="content-divider" />
 
         {/* Thinking indicator — shows while API is loading */}
         <ThinkingIndicator visible={isThinking} />
@@ -226,7 +235,7 @@ export default function ContentOverlay({
                   transition: `opacity 0.5s ease, transform 0.6s cubic-bezier(0.34, 1.3, 0.64, 1)`
                 }}
               >
-                {renderSegment(seg, i)}
+                {renderSegment(seg, i, firstTextIdx)}
               </div>
             ))}
           </div>

@@ -15,13 +15,23 @@ export function flattenSegments(segments) {
   return flat
 }
 
+// Find the index of the first text segment in a flat segment list
+export function findFirstTextIndex(flatSegments) {
+  return flatSegments.findIndex((s) => s.type === 'text')
+}
+
 export function sanitizeText(html) {
   if (!html) return ''
   return html.replace(/<(?!\/?strong\b)[^>]*>/gi, '')
 }
 
-function SegmentText({ content }) {
-  return <p className="seg-text" dangerouslySetInnerHTML={{ __html: sanitizeText(content) }} />
+function SegmentText({ content, isFirst }) {
+  return (
+    <p
+      className={`seg-text ${isFirst ? 'seg-text--first' : ''}`}
+      dangerouslySetInnerHTML={{ __html: sanitizeText(content) }}
+    />
+  )
 }
 
 function SegmentSong({ title, artist, why }) {
@@ -64,10 +74,10 @@ function SegmentFact({ content }) {
   return <p className="seg-fact">{content}</p>
 }
 
-export function renderSegment(seg, i) {
+export function renderSegment(seg, i, firstTextIndex) {
   switch (seg.type) {
     case 'text':
-      return <SegmentText key={i} content={seg.content} />
+      return <SegmentText key={i} content={seg.content} isFirst={i === firstTextIndex} />
     case 'song':
       return <SegmentSong key={i} title={seg.title} artist={seg.artist} why={seg.why} />
     case 'meal':

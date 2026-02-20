@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useMemo, useCallback } from 'react'
-import { flattenSegments, renderSegment } from './segments'
+import { flattenSegments, renderSegment, findFirstTextIndex } from './segments'
 import { getDailyArchiveHeroCopy } from '../data/archiveHeroCopyPool'
 import './ArchivePage.css'
 
@@ -109,6 +109,15 @@ function DayGroup({ dateKey, items, groupIndex, onOpenItem }) {
   )
 }
 
+// ── Sheet background colors (matching BoostCard.css gradient starts) ──
+
+const SHEET_BG = {
+  warm: '#FFF5F2',
+  gray: '#F0F5FA',
+  beige: '#FFFCF5',
+  sage: '#F0F7F0',
+}
+
 // ── Archive Detail Overlay ──
 
 function ArchiveDetail({ item, onClose }) {
@@ -118,6 +127,8 @@ function ArchiveDetail({ item, onClose }) {
   const flatSegments = useMemo(() => {
     return item ? flattenSegments(item.segments) : []
   }, [item])
+
+  const firstTextIdx = useMemo(() => findFirstTextIndex(flatSegments), [flatSegments])
 
   useEffect(() => {
     if (!item) return
@@ -137,25 +148,28 @@ function ArchiveDetail({ item, onClose }) {
 
   if (!item) return null
 
+  const variant = item.variant || 'sage'
+  const sheetBg = SHEET_BG[variant] || SHEET_BG.sage
+  const variantText = VARIANT_TEXT[variant] || VARIANT_TEXT.sage
+
   return (
     <div className={`archive-detail ${visible ? 'archive-detail--visible' : ''} ${closing ? 'archive-detail--closing' : ''}`}>
-      <div className="archive-detail-sheet">
+      <div
+        className={`archive-detail-sheet content-sheet--${variant}`}
+        style={{ '--sheet-bg': sheetBg, '--variant-text': variantText }}
+      >
         {/* Sticky header */}
         <div className="content-header">
-          <button className="content-back" onClick={handleClose} aria-label="Go back">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <polyline points="15 18 9 12 15 6" />
+          <div className="content-header-spacer" />
+          <button className="content-close" onClick={handleClose} aria-label="Close">
+            <svg width="20" height="20" viewBox="0 0 30.55 30.55" fill="currentColor" aria-hidden="true">
+              <path d="M25.9 17.44a1 1 0 0 1 0 2h-5.04l9.39 9.4a1 1 0 0 1-1.41 1.41l-9.4-9.39v5.04a1 1 0 0 1-2 0v-7.46a1 1 0 0 1 1-1h7.46ZM.29.29a1 1 0 0 1 1.42 0l9.39 9.4V4.65a1 1 0 0 1 2 0v7.45a1 1 0 0 1-1 1H4.65a1 1 0 0 1 0-2h5.04L.29 1.71A1 1 0 0 1 .29.29Z" />
             </svg>
           </button>
-          <span className="content-header-cat">{item.category}</span>
-          <div className="content-header-spacer" />
         </div>
 
-        {/* Prompt */}
+        {/* Prompt bubble */}
         <div className="archive-detail-prompt">{item.prompt}</div>
-
-        {/* Divider */}
-        <div className="content-divider" />
 
         {/* Title */}
         <h2 className="archive-detail-title">{item.title}</h2>
@@ -164,7 +178,7 @@ function ArchiveDetail({ item, onClose }) {
         <div className="content-segments">
           {flatSegments.map((seg, i) => (
             <div key={i} className="seg-wrapper" style={{ opacity: 1, transform: 'translateY(0)' }}>
-              {renderSegment(seg, i)}
+              {renderSegment(seg, i, firstTextIdx)}
             </div>
           ))}
         </div>
