@@ -207,7 +207,7 @@ function App() {
 
     closeTimerRef.current = setTimeout(() => {
       startClosing()
-    }, 1800)
+    }, 4600)
   }, [startClosing, boostContent, cards])
 
   const handleSave = useCallback(() => {
