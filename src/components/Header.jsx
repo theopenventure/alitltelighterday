@@ -1,7 +1,7 @@
 import { forwardRef } from 'react'
 import './Header.css'
 
-const Header = forwardRef(function Header({ label = 'today', onShuffle }, ref) {
+const Header = forwardRef(function Header({ label = 'Today', onShuffle }, ref) {
   return (
     <header className="header-float" ref={ref}>
       <div className="header-float-inner">

@@ -78,9 +78,9 @@ const SEED_DATA = [
   // Today
   {
     id: 'seed-1',
-    title: 'a morning that sets the tone',
-    shortTitle: 'something lighter.',
-    category: 'energy',
+    title: 'A Morning That Sets the Tone',
+    shortTitle: 'Something lighter.',
+    category: 'Energy',
     variant: 'warm',
     prompt: 'Give me a 60-second morning routine to start the day with intention.',
     segments: [
@@ -92,9 +92,9 @@ const SEED_DATA = [
   },
   {
     id: 'seed-2',
-    title: 'the art of doing nothing',
-    shortTitle: 'turn it up.',
-    category: 'calm',
+    title: 'The Art of Doing Nothing',
+    shortTitle: 'Turn it up.',
+    category: 'Calm',
     variant: 'gray',
     prompt: 'Help me embrace stillness for just 5 minutes today.',
     segments: [
@@ -106,22 +106,22 @@ const SEED_DATA = [
   // Yesterday
   {
     id: 'seed-3',
-    title: 'something warm and simple',
-    shortTitle: 'you\'ve done enough.',
-    category: 'nourish',
+    title: 'Something Warm and Simple',
+    shortTitle: 'You\'ve done enough.',
+    category: 'Nourish',
     variant: 'beige',
     prompt: 'Suggest a simple, comforting meal I can make in under 15 minutes.',
     segments: [
-      { type: 'meal', name: 'golden turmeric broth bowl', vibe: 'warm, grounding, effortless', desc: 'Heat broth with a pinch of turmeric, ginger, and garlic. Pour over cooked rice or noodles. Top with a soft-boiled egg and a drizzle of sesame oil.' },
+      { type: 'meal', name: 'Golden Turmeric Broth Bowl', vibe: 'Warm, grounding, effortless', desc: 'Heat broth with a pinch of turmeric, ginger, and garlic. Pour over cooked rice or noodles. Top with a soft-boiled egg and a drizzle of sesame oil.' },
       { type: 'text', content: 'Cooking something simple for yourself is a quiet act of care. <strong>You deserve a warm meal today.</strong>' },
     ],
     savedAt: daysAgo(1),
   },
   {
     id: 'seed-4',
-    title: 'a song to shift your energy',
-    shortTitle: 'stretch a little.',
-    category: 'joy',
+    title: 'A Song to Shift Your Energy',
+    shortTitle: 'Stretch a little.',
+    category: 'Joy',
     variant: 'sage',
     prompt: 'Recommend a song that will gently lift my mood.',
     segments: [
@@ -132,16 +132,16 @@ const SEED_DATA = [
   },
   {
     id: 'seed-5',
-    title: 'breathing through the noise',
-    shortTitle: 'breathe easy.',
-    category: 'calm',
+    title: 'Breathing Through the Noise',
+    shortTitle: 'Breathe easy.',
+    category: 'Calm',
     variant: 'gray',
     prompt: 'Guide me through a quick breathing exercise to reset.',
     segments: [
       { type: 'breath', steps: [
-        { label: 'inhale slowly', detail: 'breathe in through your nose for 4 counts. feel your chest expand.' },
-        { label: 'hold gently', detail: 'hold your breath for 4 counts. no tension — just a pause.' },
-        { label: 'exhale completely', detail: 'release through your mouth for 6 counts. let everything go.' },
+        { label: 'Inhale slowly', detail: 'Breathe in through your nose for 4 counts. Feel your chest expand.' },
+        { label: 'Hold gently', detail: 'Hold your breath for 4 counts. No tension — just a pause.' },
+        { label: 'Exhale completely', detail: 'Release through your mouth for 6 counts. Let everything go.' },
       ]},
       { type: 'fact', content: 'Extended exhales activate your parasympathetic nervous system — your body\'s natural calm-down mechanism.' },
     ],
@@ -150,9 +150,9 @@ const SEED_DATA = [
   // 3 days ago
   {
     id: 'seed-6',
-    title: 'move like nobody is watching',
-    shortTitle: 'unplug early.',
-    category: 'energy',
+    title: 'Move Like Nobody Is Watching',
+    shortTitle: 'Unplug early.',
+    category: 'Energy',
     variant: 'warm',
     prompt: 'Give me a fun way to move my body for 5 minutes.',
     segments: [
@@ -163,9 +163,9 @@ const SEED_DATA = [
   },
   {
     id: 'seed-7',
-    title: 'a thought worth keeping',
-    shortTitle: 'just look.',
-    category: 'joy',
+    title: 'A Thought Worth Keeping',
+    shortTitle: 'Just look.',
+    category: 'Joy',
     variant: 'sage',
     prompt: 'Share something that might make me smile today.',
     segments: [
@@ -177,9 +177,9 @@ const SEED_DATA = [
   // A week ago
   {
     id: 'seed-8',
-    title: 'the 2-minute reset',
-    shortTitle: 'let go.',
-    category: 'calm',
+    title: 'The 2-Minute Reset',
+    shortTitle: 'Let go.',
+    category: 'Calm',
     variant: 'gray',
     prompt: 'I only have 2 minutes. Help me find some calm.',
     segments: [
@@ -190,22 +190,22 @@ const SEED_DATA = [
   },
   {
     id: 'seed-9',
-    title: 'fuel that feels good',
-    shortTitle: 'treat yourself.',
-    category: 'nourish',
+    title: 'Fuel That Feels Good',
+    shortTitle: 'Treat yourself.',
+    category: 'Nourish',
     variant: 'beige',
     prompt: 'What\'s a healthy snack that actually tastes amazing?',
     segments: [
-      { type: 'meal', name: 'honey-tahini apple slices', vibe: 'sweet, crunchy, satisfying', desc: 'Slice a crisp apple. Drizzle with tahini and a touch of raw honey. Sprinkle with a pinch of sea salt and cinnamon.' },
+      { type: 'meal', name: 'Honey-Tahini Apple Slices', vibe: 'Sweet, crunchy, satisfying', desc: 'Slice a crisp apple. Drizzle with tahini and a touch of raw honey. Sprinkle with a pinch of sea salt and cinnamon.' },
       { type: 'text', content: 'Nourishment isn\'t about restriction — it\'s about <strong>choosing things that make your body feel cared for.</strong>' },
     ],
     savedAt: daysAgo(7),
   },
   {
     id: 'seed-10',
-    title: 'small steps, big energy',
-    shortTitle: 'feel alive.',
-    category: 'energy',
+    title: 'Small Steps, Big Energy',
+    shortTitle: 'Feel alive.',
+    category: 'Energy',
     variant: 'warm',
     prompt: 'How can I build energy without caffeine?',
     segments: [
@@ -218,9 +218,9 @@ const SEED_DATA = [
   // 4 days ago
   {
     id: 'seed-11',
-    title: 'stretch into the afternoon',
-    shortTitle: 'wake up.',
-    category: 'energy',
+    title: 'Stretch Into the Afternoon',
+    shortTitle: 'Wake up.',
+    category: 'Energy',
     variant: 'warm',
     prompt: 'I\'m in a slump. Give me a quick stretch to wake up.',
     segments: [
@@ -232,22 +232,22 @@ const SEED_DATA = [
   },
   {
     id: 'seed-12',
-    title: 'a cup of calm',
-    shortTitle: 'something warm.',
-    category: 'nourish',
+    title: 'A Cup of Calm',
+    shortTitle: 'Something warm.',
+    category: 'Nourish',
     variant: 'beige',
     prompt: 'What\'s a soothing drink I can make right now?',
     segments: [
-      { type: 'meal', name: 'warm lemon-honey water', vibe: 'simple, soothing, grounding', desc: 'Heat water until steaming (not boiling). Squeeze half a lemon in. Stir in a spoonful of raw honey. Sip slowly, both hands on the cup.' },
+      { type: 'meal', name: 'Warm Lemon-Honey Water', vibe: 'Simple, soothing, grounding', desc: 'Heat water until steaming (not boiling). Squeeze half a lemon in. Stir in a spoonful of raw honey. Sip slowly, both hands on the cup.' },
       { type: 'text', content: 'There\'s a reason every culture has a ritual around warm drinks. <strong>The warmth in your hands becomes warmth in your chest.</strong>' },
     ],
     savedAt: daysAgo(4),
   },
   {
     id: 'seed-13',
-    title: 'the gratitude pivot',
-    shortTitle: 'how curious.',
-    category: 'joy',
+    title: 'The Gratitude Pivot',
+    shortTitle: 'How curious.',
+    category: 'Joy',
     variant: 'sage',
     prompt: 'Help me find something good in today.',
     segments: [
@@ -260,9 +260,9 @@ const SEED_DATA = [
   // 5 days ago
   {
     id: 'seed-14',
-    title: 'walking without a destination',
-    shortTitle: 'be still.',
-    category: 'calm',
+    title: 'Walking Without a Destination',
+    shortTitle: 'Be still.',
+    category: 'Calm',
     variant: 'gray',
     prompt: 'I need to clear my head. What should I do?',
     segments: [
@@ -273,9 +273,9 @@ const SEED_DATA = [
   },
   {
     id: 'seed-15',
-    title: 'the power of a cold splash',
-    shortTitle: 'move more.',
-    category: 'energy',
+    title: 'The Power of a Cold Splash',
+    shortTitle: 'Move more.',
+    category: 'Energy',
     variant: 'warm',
     prompt: 'Give me a 30-second energy hack.',
     segments: [
@@ -287,9 +287,9 @@ const SEED_DATA = [
   },
   {
     id: 'seed-16',
-    title: 'music for focus',
-    shortTitle: 'did you know?',
-    category: 'joy',
+    title: 'Music for Focus',
+    shortTitle: 'Did you know?',
+    category: 'Joy',
     variant: 'sage',
     prompt: 'Recommend something to listen to while I work.',
     segments: [
@@ -301,22 +301,22 @@ const SEED_DATA = [
   // 6 days ago
   {
     id: 'seed-17',
-    title: 'a bowl of comfort',
-    shortTitle: 'savor this.',
-    category: 'nourish',
+    title: 'A Bowl of Comfort',
+    shortTitle: 'Savor this.',
+    category: 'Nourish',
     variant: 'beige',
     prompt: 'I want something warm and filling. What can I make quickly?',
     segments: [
-      { type: 'meal', name: 'miso soup with greens', vibe: 'savory, nurturing, light', desc: 'Dissolve a tablespoon of miso paste in hot (not boiling) water. Add a handful of spinach or kale, some cubed tofu, and a splash of soy sauce. Ready in 3 minutes.' },
+      { type: 'meal', name: 'Miso Soup with Greens', vibe: 'Savory, nurturing, light', desc: 'Dissolve a tablespoon of miso paste in hot (not boiling) water. Add a handful of spinach or kale, some cubed tofu, and a splash of soy sauce. Ready in 3 minutes.' },
       { type: 'text', content: 'In Japan, miso soup is often the first thing eaten in the morning — a gentle wake-up call for your digestive system. <strong>Treat your body kindly.</strong>' },
     ],
     savedAt: daysAgo(6),
   },
   {
     id: 'seed-18',
-    title: 'the five senses check-in',
-    shortTitle: 'soften.',
-    category: 'calm',
+    title: 'The Five Senses Check-In',
+    shortTitle: 'Soften.',
+    category: 'Calm',
     variant: 'gray',
     prompt: 'Guide me through a grounding exercise.',
     segments: [
@@ -329,9 +329,9 @@ const SEED_DATA = [
   // 10 days ago
   {
     id: 'seed-19',
-    title: 'shake it off — literally',
-    shortTitle: 'shake it off.',
-    category: 'energy',
+    title: 'Shake It Off — Literally',
+    shortTitle: 'Shake it off.',
+    category: 'Energy',
     variant: 'warm',
     prompt: 'I feel stuck in my body. Help me reset.',
     segments: [
@@ -342,9 +342,9 @@ const SEED_DATA = [
   },
   {
     id: 'seed-20',
-    title: 'the kindness of strangers',
-    shortTitle: 'imagine.',
-    category: 'joy',
+    title: 'The Kindness of Strangers',
+    shortTitle: 'Imagine.',
+    category: 'Joy',
     variant: 'sage',
     prompt: 'Tell me something that restores my faith in people.',
     segments: [
@@ -355,16 +355,16 @@ const SEED_DATA = [
   },
   {
     id: 'seed-21',
-    title: 'bedtime wind-down',
-    shortTitle: 'slow down.',
-    category: 'calm',
+    title: 'Bedtime Wind-Down',
+    shortTitle: 'Slow down.',
+    category: 'Calm',
     variant: 'gray',
     prompt: 'Help me prepare for a good night\'s sleep.',
     segments: [
       { type: 'breath', steps: [
-        { label: 'breathe in deeply', detail: 'inhale through your nose for 4 counts, filling your belly first, then chest.' },
-        { label: 'hold softly', detail: 'hold for 7 counts. no strain — imagine holding a feather in place.' },
-        { label: 'release slowly', detail: 'exhale through your mouth for 8 counts, like blowing through a straw.' },
+        { label: 'Breathe in deeply', detail: 'Inhale through your nose for 4 counts, filling your belly first, then chest.' },
+        { label: 'Hold softly', detail: 'Hold for 7 counts. No strain — imagine holding a feather in place.' },
+        { label: 'Release slowly', detail: 'Exhale through your mouth for 8 counts, like blowing through a straw.' },
       ]},
       { type: 'text', content: 'This is the 4-7-8 technique. Repeat 3 times. <strong>Your nervous system will begin to downshift.</strong>' },
       { type: 'fact', content: 'The 4-7-8 breathing method was developed by Dr. Andrew Weil and is one of the most effective non-pharmaceutical sleep aids.' },
@@ -374,9 +374,9 @@ const SEED_DATA = [
   // Two weeks ago
   {
     id: 'seed-22',
-    title: 'permission to rest',
-    shortTitle: 'just pause.',
-    category: 'calm',
+    title: 'Permission to Rest',
+    shortTitle: 'Just pause.',
+    category: 'Calm',
     variant: 'gray',
     prompt: 'Remind me that it\'s okay to take a break.',
     segments: [
@@ -387,9 +387,9 @@ const SEED_DATA = [
   },
   {
     id: 'seed-23',
-    title: 'a playlist for the soul',
-    shortTitle: 'wonder why?',
-    category: 'joy',
+    title: 'A Playlist for the Soul',
+    shortTitle: 'Wonder why?',
+    category: 'Joy',
     variant: 'sage',
     prompt: 'Give me a song that feels like a warm hug.',
     segments: [
@@ -400,9 +400,9 @@ const SEED_DATA = [
   },
   {
     id: 'seed-24',
-    title: 'energise your morning',
-    shortTitle: 'rise up.',
-    category: 'energy',
+    title: 'Energise Your Morning',
+    shortTitle: 'Rise up.',
+    category: 'Energy',
     variant: 'warm',
     prompt: 'What\'s a simple thing I can do to start my day strong?',
     segments: [
@@ -414,22 +414,22 @@ const SEED_DATA = [
   // Three weeks ago
   {
     id: 'seed-25',
-    title: 'the comfort of oats',
-    shortTitle: 'fuel up.',
-    category: 'nourish',
+    title: 'The Comfort of Oats',
+    shortTitle: 'Fuel up.',
+    category: 'Nourish',
     variant: 'beige',
     prompt: 'Suggest a breakfast that feels like a hug.',
     segments: [
-      { type: 'meal', name: 'cinnamon-banana overnight oats', vibe: 'creamy, sweet, effortless', desc: 'Mix oats, milk, a mashed banana, cinnamon, and a drizzle of maple syrup. Refrigerate overnight. Wake up to breakfast already made.' },
+      { type: 'meal', name: 'Cinnamon-Banana Overnight Oats', vibe: 'Creamy, sweet, effortless', desc: 'Mix oats, milk, a mashed banana, cinnamon, and a drizzle of maple syrup. Refrigerate overnight. Wake up to breakfast already made.' },
       { type: 'text', content: '<strong>Taking care of tomorrow-you is one of the kindest things today-you can do.</strong>' },
     ],
     savedAt: daysAgo(21),
   },
   {
     id: 'seed-26',
-    title: 'a moment of awe',
-    shortTitle: 'stay curious.',
-    category: 'joy',
+    title: 'A Moment of Awe',
+    shortTitle: 'Stay curious.',
+    category: 'Joy',
     variant: 'sage',
     prompt: 'Share something beautiful about the world.',
     segments: [

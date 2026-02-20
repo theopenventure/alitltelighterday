@@ -9,44 +9,44 @@ import { getTimeOfDay, dateSeed } from './boostPromptPool'
 
 export const archiveHeroCopyPool = [
   {
-    headline: "things you kept.",
-    subhead: "moments that stayed with you. here whenever you need them.",
+    headline: "Things you kept.",
+    subhead: "Moments that stayed with you. Here whenever you need them.",
   },
   {
-    headline: "your quiet collection.",
-    subhead: "everything here found you at the right time. come back when ready.",
+    headline: "Your quiet collection.",
+    subhead: "Everything here found you at the right time. Come back when ready.",
   },
   {
-    headline: "saved for a reason.",
-    subhead: "you kept these because something landed. that instinct was right.",
+    headline: "Saved for a reason.",
+    subhead: "You kept these because something landed. That instinct was right.",
   },
   {
-    headline: "return to this.",
-    subhead: "some things are worth revisiting. these are the ones you chose.",
+    headline: "Return to this.",
+    subhead: "Some things are worth revisiting. These are the ones you chose.",
   },
   {
-    headline: "what stayed.",
-    subhead: "not everything needs to be new. the best thing might be here already.",
+    headline: "What stayed.",
+    subhead: "Not everything needs to be new. The best thing might be here already.",
   },
   {
-    headline: "still here for you.",
-    subhead: "what resonated once tends to resonate again. take your time.",
+    headline: "Still here for you.",
+    subhead: "What resonated once tends to resonate again. Take your time.",
   },
   {
-    headline: "a gentle archive.",
-    subhead: "no rush, no order. just moments you thought were worth keeping.",
+    headline: "A gentle archive.",
+    subhead: "No rush, no order. Just moments you thought were worth keeping.",
   },
   {
-    headline: "yours to revisit.",
-    subhead: "these aren't going anywhere. here whenever the moment feels right.",
+    headline: "Yours to revisit.",
+    subhead: "These aren't going anywhere. Here whenever the moment feels right.",
   },
   {
-    headline: "gathered light.",
-    subhead: "each of these carried something you needed. maybe they still do.",
+    headline: "Gathered light.",
+    subhead: "Each of these carried something you needed. Maybe they still do.",
   },
   {
-    headline: "come back here.",
-    subhead: "this is where the good stuff lives. the things that made you pause.",
+    headline: "Come back here.",
+    subhead: "This is where the good stuff lives. The things that made you pause.",
   },
 ]
 
@@ -55,44 +55,44 @@ export const archiveHeroCopyPool = [
 
 export const archiveEmptyCopyPool = [
   {
-    headline: "nothing.",
-    subhead: "explore a boost and save what speaks to you.",
+    headline: "Nothing.",
+    subhead: "Explore a boost and save what speaks to you.",
   },
   {
-    headline: "oops.",
-    subhead: "nothing here yet. head back and grab something good.",
+    headline: "Oops.",
+    subhead: "Nothing here yet. Head back and grab something good.",
   },
   {
-    headline: "empty.",
-    subhead: "your collection is waiting. save what stays with you.",
+    headline: "Empty.",
+    subhead: "Your collection is waiting. Save what stays with you.",
   },
   {
-    headline: "blank.",
-    subhead: "this page is yours to fill. start whenever you're ready.",
+    headline: "Blank.",
+    subhead: "This page is yours to fill. Start whenever you're ready.",
   },
   {
-    headline: "quiet.",
-    subhead: "no saved moments yet. the right one will find you.",
+    headline: "Quiet.",
+    subhead: "No saved moments yet. The right one will find you.",
   },
   {
-    headline: "oh.",
-    subhead: "nothing saved yet. explore a boost and keep what resonates.",
+    headline: "Oh.",
+    subhead: "Nothing saved yet. Explore a boost and keep what resonates.",
   },
   {
-    headline: "hmm.",
-    subhead: "looks empty here. head back and see what lands today.",
+    headline: "Hmm.",
+    subhead: "Looks empty here. Head back and see what lands today.",
   },
   {
-    headline: "bare.",
-    subhead: "your archive is empty. one saved moment is all it takes.",
+    headline: "Bare.",
+    subhead: "Your archive is empty. One saved moment is all it takes.",
   },
   {
-    headline: "clean.",
-    subhead: "a fresh start. save a boost when something feels right.",
+    headline: "Clean.",
+    subhead: "A fresh start. Save a boost when something feels right.",
   },
   {
-    headline: "open.",
-    subhead: "this space is waiting. something good will find its way here.",
+    headline: "Open.",
+    subhead: "This space is waiting. Something good will find its way here.",
   },
 ]
 

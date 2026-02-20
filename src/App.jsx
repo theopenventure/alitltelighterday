@@ -265,7 +265,7 @@ function App() {
     <div className="app-container">
       <Header
         ref={headerRef}
-        label={activeView === 'archive' ? 'archived' : 'today'}
+        label={activeView === 'archive' ? 'Archived' : 'Today'}
         onShuffle={activeView === 'home' ? handleShuffle : undefined}
       />
 

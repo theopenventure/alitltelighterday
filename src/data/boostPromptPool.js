@@ -1,10 +1,10 @@
 // ── Category metadata (static, never rotates) ──
 
 export const categoryMeta = {
-  energy:  { category: 'energy',    variant: 'warm' },
-  calm:    { category: 'calm',      variant: 'gray' },
-  nourish: { category: 'nourish',   variant: 'beige' },
-  joy:     { category: 'curiosity', variant: 'sage' },
+  energy:  { category: 'Energy',    variant: 'warm' },
+  calm:    { category: 'Calm',      variant: 'gray' },
+  nourish: { category: 'Nourish',   variant: 'beige' },
+  joy:     { category: 'Curiosity', variant: 'sage' },
 }
 
 // ── Time-of-day periods ──
@@ -182,35 +182,35 @@ export const promptPool = {
 
 export const shortTitles = {
   energy: [
-    'turn it up.', 'wake up.', 'move more.', 'feel alive.', 'let\'s go.',
-    'get loud.', 'rise up.', 'shake it off.', 'find your beat.', 'go harder.',
-    'push play.', 'start strong.', 'own it.', 'keep moving.', 'light it up.',
+    'Turn it up.', 'Wake up.', 'Move more.', 'Feel alive.', 'Let\'s go.',
+    'Get loud.', 'Rise up.', 'Shake it off.', 'Find your beat.', 'Go harder.',
+    'Push play.', 'Start strong.', 'Own it.', 'Keep moving.', 'Light it up.',
   ],
   calm: [
-    'slow down.', 'breathe easy.', 'let go.', 'be still.', 'just pause.',
-    'soften.', 'exhale.', 'find quiet.', 'rest here.', 'unwind.',
-    'release.', 'gently now.', 'settle in.', 'peace, okay?', 'drift.',
+    'Slow down.', 'Breathe easy.', 'Let go.', 'Be still.', 'Just pause.',
+    'Soften.', 'Exhale.', 'Find quiet.', 'Rest here.', 'Unwind.',
+    'Release.', 'Gently now.', 'Settle in.', 'Peace, okay?', 'Drift.',
   ],
   nourish: [
-    'eat well.', 'treat yourself.', 'savor this.', 'fuel up.', 'something warm.',
-    'taste more.', 'feed your soul.', 'nourish.', 'indulge.', 'good stuff.',
-    'cook simple.', 'one bowl.', 'comfort food.', 'fresh today.', 'eat real.',
+    'Eat well.', 'Treat yourself.', 'Savor this.', 'Fuel up.', 'Something warm.',
+    'Taste more.', 'Feed your soul.', 'Nourish.', 'Indulge.', 'Good stuff.',
+    'Cook simple.', 'One bowl.', 'Comfort food.', 'Fresh today.', 'Eat real.',
   ],
   joy: [
-    'just look.', 'did you know?', 'how curious.', 'imagine.', 'wonder why?',
-    'think again.', 'stay curious.', 'look closer.', 'oh, really?', 'surprise.',
-    'go deeper.', 'isn\'t it wild?', 'fun fact.', 'no way.', 'mind blown.',
+    'Just look.', 'Did you know?', 'How curious.', 'Imagine.', 'Wonder why?',
+    'Think again.', 'Stay curious.', 'Look closer.', 'Oh, really?', 'Surprise.',
+    'Go deeper.', 'Isn\'t it wild?', 'Fun fact.', 'No way.', 'Mind blown.',
   ],
 }
 
 // ── CTA text derived from segment type ──
 
 export const CTA_MAP = {
-  song: 'play set',
-  meal: 'see recipe',
-  breath: 'start routine',
-  fact: 'read more',
-  text: 'explore',
+  song: 'Play set',
+  meal: 'See recipe',
+  breath: 'Start routine',
+  fact: 'Read more',
+  text: 'Explore',
 }
 
 // ── Time-of-day helper ──
@@ -263,7 +263,7 @@ export function getDailyBoosts(date = new Date()) {
       ...categoryMeta[cat],
       ...selected,
       shortTitle: titles[titleIndex],
-      ctaText: CTA_MAP[selected.segment] || 'explore',
+      ctaText: CTA_MAP[selected.segment] || 'Explore',
     }
   }
 
@@ -292,7 +292,7 @@ export function getRandomBoosts() {
       ...categoryMeta[cat],
       ...selected,
       shortTitle: titles[titleIndex],
-      ctaText: CTA_MAP[selected.segment] || 'explore',
+      ctaText: CTA_MAP[selected.segment] || 'Explore',
     }
   }
 
