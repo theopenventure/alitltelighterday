@@ -19,7 +19,7 @@
 .nav-group {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 0;
   pointer-events: auto;
   position: relative;
 }
@@ -75,8 +75,8 @@
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.70);
   pointer-events: none;
-  /* Each item is 52px wide, gap is 7px → step = 59px. Center of item = 26px, minus dot half = 24px */
-  transform: translateX(calc(var(--dot-index) * 59px + 24px));
+  /* Each item is 52px wide, gap is 0 → step = 52px. Center of item = 26px, minus dot half = 24px */
+  transform: translateX(calc(var(--dot-index) * 52px + 24px));
   transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
