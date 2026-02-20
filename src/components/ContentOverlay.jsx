@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import ReactionBar from './ReactionBar'
 import { flattenSegments, renderSegment, findFirstTextIndex } from './segments'
+import { getRandomThinkingCopy } from '../data/thinkingCopyPool'
 import './ContentOverlay.css'
 
 // Variant → background color mapping (matches BoostCard.css gradient start colors)
@@ -20,14 +21,14 @@ const VARIANT_TEXT = {
 }
 
 // ── Thinking indicator ──
-function ThinkingIndicator({ visible }) {
+function ThinkingIndicator({ visible, label }) {
   return (
     <div className={`thinking ${visible ? 'visible' : ''}`}>
       <div className="thinking-content">
         <div className="thinking-dots">
           <span /><span /><span />
         </div>
-        <div className="thinking-label">Generating</div>
+        <div className="thinking-label">{label || 'Thinking...'}</div>
       </div>
       <div className="thinking-skeleton">
         <div className="skeleton-line skeleton-line--wide" />
@@ -84,7 +85,10 @@ export default function ContentOverlay({
 
   const firstTextIdx = useMemo(() => findFirstTextIndex(flatSegments), [flatSegments])
 
-  // ── OPENING: Expansion → show content area ──
+  // Random loading copy — picked once per card open
+  const [thinkingLabel] = useState(() => getRandomThinkingCopy())
+
+  // ── OPENING: Expansion → prompt bubble → 2s pause → thinking indicator ──
   useEffect(() => {
     const raf = requestAnimationFrame(() => {
       requestAnimationFrame(() => {
@@ -92,14 +96,20 @@ export default function ContentOverlay({
       })
     })
 
+    // Sheet fades in at 250ms — prompt bubble starts animating (CSS 0.3s delay)
     const contentTimer = setTimeout(() => {
       setContentVisible(true)
-      setPhase('thinking')
     }, 250)
+
+    // Thinking indicator shows 2s after sheet is visible (prompt has settled)
+    const thinkingTimer = setTimeout(() => {
+      setPhase('thinking')
+    }, 2250)
 
     return () => {
       cancelAnimationFrame(raf)
       clearTimeout(contentTimer)
+      clearTimeout(thinkingTimer)
     }
   }, [])
 
@@ -210,7 +220,7 @@ export default function ContentOverlay({
         </div>
 
         {/* Thinking indicator — shows while API is loading */}
-        <ThinkingIndicator visible={isThinking} />
+        <ThinkingIndicator visible={isThinking} label={thinkingLabel} />
 
         {/* Error state */}
         {error && !loading && (

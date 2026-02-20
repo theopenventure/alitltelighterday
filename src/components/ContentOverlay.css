@@ -61,15 +61,18 @@
 .content-sheet--sage  { background: linear-gradient(180deg, #F0F7F0, #E0F2E0); }
 
 /* ── Sticky header — top-right close with gradient protection ── */
+/* Matches Header.css pattern: 80px height, 50% solid → transparent */
 .content-header {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: flex-end;
-  padding: 28px 0 16px;
+  height: calc(80px + env(safe-area-inset-top, 0px));
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: 10px;
   position: sticky;
   top: 0;
   z-index: 2;
-  background: linear-gradient(to bottom, var(--sheet-bg) 65%, transparent);
+  background: linear-gradient(to bottom, var(--sheet-bg) 50%, transparent);
 }
 
 .content-header-spacer {
@@ -111,6 +114,7 @@
   font-weight: 500;
   line-height: 1.4;
   color: var(--variant-text, var(--text-primary));
+  width: 250px;
   align-self: flex-start;
   opacity: 0;
   transform: translateY(12px);

@@ -1,14 +1,10 @@
+/* ── Reaction bar — inline at end of article, stacked right-aligned ── */
 .reaction-bar {
-  position: sticky;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 20px 0;
-  padding-bottom: calc(20px + env(safe-area-inset-bottom, 12px));
-  background: linear-gradient(to top, var(--sheet-bg, var(--bg-body)) 65%, transparent);
+  padding: 40px 0;
+  padding-bottom: calc(40px + env(safe-area-inset-bottom, 12px));
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   gap: 0;
   opacity: 0;
   transform: translateY(20px);
@@ -24,8 +20,9 @@
 
 .reaction-buttons {
   display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   gap: 10px;
-  justify-content: center;
 }
 
 .reaction-btn {
@@ -88,7 +85,7 @@
 .reaction-confirmation {
   font-size: 13px;
   color: var(--text-secondary);
-  text-align: center;
+  text-align: right;
   padding-top: 14px;
   opacity: 0;
   transform: translateY(6px);
