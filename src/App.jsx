@@ -10,7 +10,8 @@ import ArchivePage, { ArchiveDetail } from './components/ArchivePage'
 import { getDailyBoosts, getRandomBoosts, getCategoryOrder } from './data/boostPromptPool'
 import { getDailyHeroCopy, getRandomHeroCopy } from './data/heroCopyPool'
 import { generateBoost } from './api/generateBoost'
-import { saveBoost, getSavedBoostsByDay, seedPlaceholderData } from './lib/savedBoosts'
+import { saveBoost, removeBoost, getSavedBoostsByDay, seedPlaceholderData } from './lib/savedBoosts'
+import UndoToast from './components/UndoToast'
 
 // Dynamic category order based on day + time of day
 const CATEGORIES = getCategoryOrder()
@@ -31,6 +32,11 @@ function App() {
   const [activeView, setActiveView] = useState('home')
   const [savedBoosts, setSavedBoosts] = useState(() => getSavedBoostsByDay())
   const [activeArchiveItem, setActiveArchiveItem] = useState(null)
+
+  // Unsave flow
+  const [undoItem, setUndoItem] = useState(null)
+  const [undoToastVisible, setUndoToastVisible] = useState(false)
+  const [removingItemId, setRemovingItemId] = useState(null)
 
   const closeTimerRef = useRef(null)
   const activeBoostRef = useRef(null)
@@ -242,6 +248,46 @@ function App() {
     }
   }, [boostContent, cards])
 
+  // ── Unsave flow from Archive ──
+
+  const handleArchiveUnsave = useCallback((item) => {
+    // Store item for potential undo — don't remove from storage yet
+    setUndoItem(item)
+  }, [])
+
+  const handleArchiveDetailClosed = useCallback(() => {
+    setActiveArchiveItem(null)
+    // If an unsave was triggered, show undo toast after detail closes
+    if (undoItem) {
+      setUndoToastVisible(true)
+    }
+  }, [undoItem])
+
+  const handleUndo = useCallback(() => {
+    // User clicked Undo — keep item in list, clear undo state
+    setUndoItem(null)
+    setUndoToastVisible(false)
+  }, [])
+
+  const handleUndoExpired = useCallback(() => {
+    // Toast expired without undo — actually remove the item
+    setUndoToastVisible(false)
+    if (!undoItem) return
+
+    const itemId = undoItem.id
+    setUndoItem(null)
+
+    // Trigger removal animation
+    setRemovingItemId(itemId)
+
+    // After animation completes, update storage and refresh list
+    setTimeout(() => {
+      const updated = removeBoost(itemId)
+      setSavedBoosts(updated)
+      setRemovingItemId(null)
+    }, 500)
+  }, [undoItem])
+
   const handleShuffle = useCallback(() => {
     setCards(getRandomBoosts())
     setHeroCopy((prev) => getRandomHeroCopy(prev))
@@ -337,12 +383,19 @@ function App() {
         ref={archiveViewRef}
         className={`view-layer ${activeView === 'archive' ? 'view-active' : 'view-exit-right'}`}
       >
-        <ArchivePage savedBoosts={savedBoosts} onScrollProgress={handleArchiveScrollProgress} onOpenItem={setActiveArchiveItem} />
+        <ArchivePage savedBoosts={savedBoosts} onScrollProgress={handleArchiveScrollProgress} onOpenItem={setActiveArchiveItem} removingItemId={removingItemId} />
       </div>
 
       <BottomNav activeTab={navTab} onTabChange={handleTabChange} />
 
-      <ArchiveDetail item={activeArchiveItem} onClose={() => setActiveArchiveItem(null)} />
+      <ArchiveDetail item={activeArchiveItem} onClose={handleArchiveDetailClosed} onUnsave={handleArchiveUnsave} />
+
+      <UndoToast
+        message="You unsaved this item"
+        visible={undoToastVisible}
+        onUndo={handleUndo}
+        onDone={handleUndoExpired}
+      />
 
       {activeBoost && (
         <ContentOverlay

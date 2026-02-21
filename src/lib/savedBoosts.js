@@ -39,6 +39,13 @@ export function saveBoost({ title, shortTitle, category, variant, prompt, segmen
   return getSavedBoostsByDay()
 }
 
+export function removeBoost(id) {
+  const all = readAll()
+  const filtered = all.filter((b) => b.id !== id)
+  writeAll(filtered)
+  return getSavedBoostsByDay()
+}
+
 export function getSavedBoostsByDay() {
   const all = readAll()
   if (all.length === 0) return []

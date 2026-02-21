@@ -1,0 +1,74 @@
+/* ── Undo toast notification ── */
+.undo-toast {
+  position: fixed;
+  bottom: calc(40px + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  padding: 0 var(--space-container);
+  z-index: 200;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+}
+
+.undo-toast-pill {
+  display: flex;
+  align-items: center;
+  height: 54px;
+  gap: 12px;
+  padding: 0 20px;
+  background: #1A1A1A;
+  border-radius: 96px;
+  white-space: nowrap;
+  pointer-events: auto;
+
+  /* Enter: slide up + fade in */
+  opacity: 0;
+  transform: translateY(20px) scale(0.97);
+  transition:
+    opacity 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.45s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+.undo-toast-pill.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Exit: fade out + slide down */
+.undo-toast-pill.exiting {
+  opacity: 0;
+  transform: translateY(10px) scale(0.98);
+  transition:
+    opacity 0.25s ease,
+    transform 0.3s ease;
+}
+
+.undo-toast-text {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: normal;
+  color: #FFFFFF;
+}
+
+.undo-toast-action {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: normal;
+  color: #FFFFFF;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.undo-toast-action:active {
+  opacity: 0.6;
+}

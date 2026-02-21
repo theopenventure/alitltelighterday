@@ -44,7 +44,7 @@ function getDateLabel(dateKey) {
 
 // ── Day Group ──
 
-function DayGroup({ dateKey, items, groupIndex, onOpenItem }) {
+function DayGroup({ dateKey, items, groupIndex, onOpenItem, removingItemId }) {
   const groupRef = useRef(null)
 
   useEffect(() => {
@@ -76,10 +76,11 @@ function DayGroup({ dateKey, items, groupIndex, onOpenItem }) {
       <div className="archive-items">
         {items.map((item, i) => {
           const variant = item.variant || 'sage'
+          const isRemoving = removingItemId === item.id
           return (
             <button
               key={item.id}
-              className="archive-item"
+              className={`archive-item ${isRemoving ? 'archive-item--removing' : ''}`}
               style={{ '--item-index': i }}
               onClick={() => onOpenItem(item)}
             >
@@ -120,9 +121,11 @@ const SHEET_BG = {
 
 // ── Archive Detail Overlay ──
 
-export function ArchiveDetail({ item, onClose }) {
+export function ArchiveDetail({ item, onClose, onUnsave }) {
   const [visible, setVisible] = useState(false)
   const [closing, setClosing] = useState(false)
+  const [saved, setSaved] = useState(true)
+  const autoCloseRef = useRef(null)
 
   const flatSegments = useMemo(() => {
     return item ? flattenSegments(item.segments) : []
@@ -130,21 +133,46 @@ export function ArchiveDetail({ item, onClose }) {
 
   const firstTextIdx = useMemo(() => findFirstTextIndex(flatSegments), [flatSegments])
 
+  // Reset saved state when a new item opens
   useEffect(() => {
     if (!item) return
+    setSaved(true)
     requestAnimationFrame(() => {
       requestAnimationFrame(() => setVisible(true))
     })
   }, [item])
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
+    if (autoCloseRef.current) {
+      clearTimeout(autoCloseRef.current)
+      autoCloseRef.current = null
+    }
     setClosing(true)
     setVisible(false)
     setTimeout(() => {
       setClosing(false)
       onClose()
     }, 380)
-  }
+  }, [onClose])
+
+  const handleSaveToggle = useCallback(() => {
+    if (saved) {
+      // Unsaving
+      setSaved(false)
+      onUnsave?.(item)
+      // Auto-close after 2 seconds
+      autoCloseRef.current = setTimeout(() => {
+        handleClose()
+      }, 2000)
+    }
+  }, [saved, item, onUnsave, handleClose])
+
+  // Cleanup timer on unmount
+  useEffect(() => {
+    return () => {
+      if (autoCloseRef.current) clearTimeout(autoCloseRef.current)
+    }
+  }, [])
 
   if (!item) return null
 
@@ -160,8 +188,12 @@ export function ArchiveDetail({ item, onClose }) {
       >
         {/* Sticky header */}
         <div className="content-header">
-          <button className="content-save content-save--visible content-save--active" aria-label="Saved" disabled>
-            <svg width="31" height="31" viewBox="0 0 34.65 34.65" fill="currentColor" stroke="currentColor" strokeWidth="2.8875" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <button
+            className={`content-save content-save--visible ${saved ? 'content-save--active' : ''}`}
+            onClick={handleSaveToggle}
+            aria-label={saved ? 'Unsave' : 'Save'}
+          >
+            <svg width="31" height="31" viewBox="0 0 34.65 34.65" fill={saved ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2.8875" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path fillRule="evenodd" clipRule="evenodd" d="M21.6563 4.33125C24.8325 4.33125 27.4313 6.93 27.4313 10.1063V28.7307C27.4313 30.1744 25.8432 30.8963 24.8325 29.7413L17.325 21.6563L9.8175 29.7413C8.8069 30.8963 7.2188 30.1744 7.2188 28.7307V10.1063C7.2188 6.93 9.8175 4.33125 12.9938 4.33125H21.6563Z" />
             </svg>
           </button>
@@ -197,7 +229,7 @@ export function ArchiveDetail({ item, onClose }) {
 
 // ── Main Component ──
 
-export default function ArchivePage({ savedBoosts, onScrollProgress, onOpenItem }) {
+export default function ArchivePage({ savedBoosts, onScrollProgress, onOpenItem, removingItemId }) {
   const heroRef = useRef(null)
   const atmosphereRef = useRef(null)
   const isEmpty = !savedBoosts || savedBoosts.length === 0
@@ -281,6 +313,7 @@ export default function ArchivePage({ savedBoosts, onScrollProgress, onOpenItem 
               items={dayGroup.items}
               groupIndex={groupIndex}
               onOpenItem={onOpenItem}
+              removingItemId={removingItemId}
             />
           ))}
         </div>
