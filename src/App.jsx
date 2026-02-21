@@ -18,12 +18,6 @@ const CATEGORIES = getCategoryOrder()
 function App() {
   const [cards, setCards] = useState(() => getDailyBoosts())
   const [heroCopy, setHeroCopy] = useState(() => getDailyHeroCopy())
-  const [exploredCards, setExploredCards] = useState({
-    lift: false,
-    steady: false,
-    space: false,
-    small: false
-  })
   const [activeBoost, setActiveBoost] = useState(null)
   const [boostContent, setBoostContent] = useState(null)
   const [boostLoading, setBoostLoading] = useState(false)
@@ -39,7 +33,6 @@ function App() {
 
   const closeTimerRef = useRef(null)
   const activeBoostRef = useRef(null)
-  const shouldExploreRef = useRef(false)
   const todayViewRef = useRef(null)
   const archiveViewRef = useRef(null)
   const heroRef = useRef(null)
@@ -55,8 +48,6 @@ function App() {
   const spaceRef = useRef(null)
   const smallRef = useRef(null)
   const cardRefMap = { lift: liftRef, steady: steadyRef, space: spaceRef, small: smallRef }
-
-  const allExplored = Object.values(exploredCards).every(Boolean)
 
   // Seed placeholder data on first load
   useEffect(() => {
@@ -147,7 +138,6 @@ function App() {
     }
 
     activeBoostRef.current = category
-    shouldExploreRef.current = false
     setBoostError(null)
     setExpandingCard(category)
     setIsOverlayClosing(false)
@@ -187,23 +177,18 @@ function App() {
 
   const handleOverlayExited = useCallback(() => {
     const category = activeBoostRef.current
-    const shouldExplore = shouldExploreRef.current
 
     // Make card visible + start bounce
     setExpandingCard(null)
     setReturningCard(category)
 
-    // After fade-in completes → apply explored state + clean up
+    // After fade-in completes → clean up
     setTimeout(() => {
-      if (shouldExplore && category) {
-        setExploredCards((prev) => ({ ...prev, [category]: true }))
-      }
       setReturningCard(null)
     }, 350)
 
     // Clean up overlay state immediately
     activeBoostRef.current = null
-    shouldExploreRef.current = false
     setActiveBoost(null)
     setIsOverlayClosing(false)
     setSourceRect(null)
@@ -213,8 +198,6 @@ function App() {
   }, [])
 
   const handleReact = useCallback((type) => {
-    shouldExploreRef.current = true
-
     // Save boost when user loved it
     if (type === 'love' && boostContent && activeBoostRef.current) {
       const category = activeBoostRef.current
@@ -261,7 +244,6 @@ function App() {
   const handleShuffle = useCallback(() => {
     setCards(getRandomBoosts())
     setHeroCopy((prev) => getRandomHeroCopy(prev))
-    setExploredCards({ lift: false, steady: false, space: false, small: false })
     contentCacheRef.current = {}  // new prompts → clear cached content
     savedCategoriesRef.current = {}  // reset save states
   }, [])
@@ -338,7 +320,6 @@ function App() {
                 shortTitle={card.shortTitle}
                 ctaText={card.ctaText}
                 onClick={() => handleOpenBoost(key)}
-                explored={exploredCards[key]}
                 expanding={expandingCard === key}
                 returning={returningCard === key}
                 animDelay={`${0.1 + CATEGORIES.indexOf(key) * 0.1}s`}
@@ -346,7 +327,7 @@ function App() {
             )
           })}
 
-          <FeedFooter allExplored={allExplored} />
+          <FeedFooter />
         </div>
       </div>
 

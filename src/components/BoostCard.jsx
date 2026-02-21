@@ -8,7 +8,6 @@ const BoostCard = forwardRef(function BoostCard({
   shortTitle,
   ctaText = 'Explore',
   onClick,
-  explored,
   expanding,
   returning,
   animDelay = '0.1s'
@@ -25,13 +24,12 @@ const BoostCard = forwardRef(function BoostCard({
   return (
     <div
       ref={ref}
-      className={`card boost-card boost-card--${variant} ${explored ? 'explored' : ''} ${expanding ? 'expanding' : ''} ${returning ? 'returning' : ''}`}
+      className={`card boost-card boost-card--${variant} ${expanding ? 'expanding' : ''} ${returning ? 'returning' : ''}`}
       onClick={isInteractive ? onClick : undefined}
       onKeyDown={handleKeyDown}
       role="button"
       tabIndex={isInteractive ? 0 : -1}
       aria-label={`Explore ${label} boost: ${title}`}
-      aria-disabled={explored}
       style={{ animationDelay: animDelay }}
     >
       {variant === 'warm' && <div className="card-aura" aria-hidden="true" />}

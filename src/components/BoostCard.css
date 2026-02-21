@@ -21,14 +21,6 @@
   transition: opacity 0.3s ease;
 }
 
-/* Explored — dimmed after interaction, still tappable */
-.card.explored {
-  opacity: 0.4 !important;
-  filter: grayscale(25%);
-  cursor: pointer;
-  transition: opacity 0.6s var(--ease-soft), filter 0.6s var(--ease-soft);
-}
-
 /* ── Boost card layout — tall editorial cards ── */
 .boost-card {
   padding: 40px 32px;

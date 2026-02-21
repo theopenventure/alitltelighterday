@@ -78,7 +78,7 @@
   align-items: center;
   height: 65px;
   padding: 0 24px;
-  background: var(--variant-text, #FFFFFF);
+  background: #FFFFFF;
   border-radius: 96px;
   white-space: nowrap;
 
@@ -100,5 +100,5 @@
   font-size: 15px;
   font-weight: 500;
   line-height: normal;
-  color: var(--sheet-bg, var(--text-primary));
+  color: var(--variant-text, var(--text-primary));
 }
