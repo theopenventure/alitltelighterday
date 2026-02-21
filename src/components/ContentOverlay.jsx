@@ -120,8 +120,10 @@ export default function ContentOverlay({
     }, 250)
 
     // Thinking indicator shows 2s after prompt bubble has settled (~550ms)
+    // Only advance to 'thinking' if still in 'expanding' — cached content may
+    // have already moved the phase to 'ready'/'streaming' by now.
     const thinkingTimer = setTimeout(() => {
-      setPhase('thinking')
+      setPhase(prev => prev === 'expanding' ? 'thinking' : prev)
     }, 2550)
 
     return () => {
