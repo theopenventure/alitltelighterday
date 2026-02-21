@@ -284,7 +284,7 @@ export default function ContentOverlay({
         </div>
       </div>
 
-      <Toast message={toastMsg} visible={toastVisible} onDone={handleToastDone} />
+      <Toast message={toastMsg} visible={toastVisible} onDone={handleToastDone} variant={variant} />
     </div>
   )
 }

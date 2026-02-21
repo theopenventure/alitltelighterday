@@ -19,12 +19,9 @@
   height: 65px;
   gap: 8px;
   padding: 0 20px 0 16px;
-  background: #FFFFFF;
+  background: var(--toast-bg, #FFFFFF);
   border-radius: 96px;
   white-space: nowrap;
-  box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.08),
-    0 1px 4px rgba(0, 0, 0, 0.04);
   pointer-events: auto;
 
   /* Enter: slide up + fade in */
@@ -53,7 +50,7 @@
   width: 34px;
   height: 34px;
   flex-shrink: 0;
-  color: var(--variant-text, var(--text-primary));
+  color: var(--toast-fg, var(--text-primary));
 }
 
 .toast-text {
@@ -61,5 +58,5 @@
   font-size: 15px;
   font-weight: 500;
   line-height: normal;
-  color: var(--text-primary);
+  color: var(--toast-fg, var(--text-primary));
 }

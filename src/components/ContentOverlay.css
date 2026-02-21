@@ -148,12 +148,12 @@
   font-weight: 500;
   line-height: 1.4;
   color: var(--variant-text, var(--text-primary));
+  width: fit-content;
   max-width: 250px;
   align-self: flex-end;
   opacity: 0;
   transform: translateY(12px);
   transition: opacity 0.4s var(--ease-soft) 0.3s, transform 0.4s var(--ease-soft) 0.3s;
-  text-wrap: balance;
   margin-top: 40px;
   margin-bottom: 40px;
 }

@@ -4,7 +4,21 @@ import './Toast.css'
 const DISPLAY_DURATION = 2800
 const EXIT_DURATION = 350
 
-export default function Toast({ message, visible, onDone }) {
+const TOAST_BG = {
+  warm: '#3A2E2E',
+  gray: '#1A2E3A',
+  beige: '#4A4036',
+  sage: '#1A2F1A',
+}
+
+const TOAST_FG = {
+  warm: '#FFF5F2',
+  gray: '#F0F5FA',
+  beige: '#FFFCF5',
+  sage: '#F0F7F0',
+}
+
+export default function Toast({ message, visible, onDone, variant }) {
   const [show, setShow] = useState(false)
   const [exiting, setExiting] = useState(false)
   const timerRef = useRef(null)
@@ -46,7 +60,10 @@ export default function Toast({ message, visible, onDone }) {
 
   return (
     <div className="toast" role="status" aria-live="polite">
-      <div className={`toast-pill ${show ? 'visible' : ''} ${exiting ? 'exiting' : ''}`}>
+      <div
+        className={`toast-pill ${show ? 'visible' : ''} ${exiting ? 'exiting' : ''}`}
+        style={variant ? { '--toast-bg': TOAST_BG[variant], '--toast-fg': TOAST_FG[variant] } : undefined}
+      >
         <svg className="toast-icon" viewBox="0 0 34.65 34.65" fill="none" stroke="currentColor" strokeWidth="2.8875" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M9.5 17.5L14.5 22.5L25.5 11.5" />
         </svg>
