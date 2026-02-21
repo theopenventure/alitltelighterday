@@ -46,8 +46,9 @@
 
 .card.expanding {
   opacity: 0 !important;
+  transform: scale(0.98);
   pointer-events: none;
-  transition: opacity 0.15s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 /* ── Boost card layout — tall editorial cards ── */

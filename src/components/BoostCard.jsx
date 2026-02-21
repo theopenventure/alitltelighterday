@@ -21,7 +21,9 @@ const BoostCard = forwardRef(function BoostCard({
   }, [isInteractive])
 
   const handlePointerUp = useCallback(() => {
-    setPressed(false)
+    // Delay removal so click can fire first and add expanding class —
+    // prevents the elastic bounce-back flash between press and expand
+    setTimeout(() => setPressed(false), 100)
   }, [])
 
   const handleKeyDown = (e) => {
