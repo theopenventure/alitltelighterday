@@ -16,6 +16,12 @@ function writeAll(boosts) {
 
 // ── Public API ──
 
+export function isBoostSaved(title) {
+  if (!title) return false
+  const all = readAll()
+  return all.some((b) => b.title === title)
+}
+
 export function saveBoost({ title, shortTitle, category, variant, prompt, segments }) {
   const all = readAll()
   const today = new Date().toISOString().slice(0, 10)

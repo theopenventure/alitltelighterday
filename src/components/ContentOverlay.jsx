@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import ReactionBar from './ReactionBar'
 import Toast from './Toast'
 import { flattenSegments, renderSegment, findFirstTextIndex } from './segments'
+import { isBoostSaved } from '../lib/savedBoosts'
 import { getRandomThinkingCopy } from '../data/thinkingCopyPool'
 import './ContentOverlay.css'
 
@@ -80,6 +81,7 @@ export default function ContentOverlay({
   const [toastVisible, setToastVisible] = useState(false)
   const intervalRef = useRef(null)
   const savedRectRef = useRef(sourceRect)
+  const contentRef = useRef(content)
 
   const handleSaveToggle = useCallback(() => {
     const next = !saved
@@ -102,6 +104,16 @@ export default function ContentOverlay({
 
   const firstTextIdx = useMemo(() => findFirstTextIndex(flatSegments), [flatSegments])
 
+  // Keep content ref in sync so timers can check it
+  useEffect(() => { contentRef.current = content }, [content])
+
+  // Sync saved state from localStorage when content arrives
+  useEffect(() => {
+    if (content?.title) {
+      setSaved(isBoostSaved(content.title))
+    }
+  }, [content])
+
   // Random loading copy — picked once per card open
   const [thinkingLabel] = useState(() => getRandomThinkingCopy())
 
@@ -119,8 +131,11 @@ export default function ContentOverlay({
     }, 250)
 
     // Thinking indicator shows 2s after prompt bubble has settled (~550ms)
+    // Skip if content already arrived (e.g. cached) to avoid overriding content phase
     const thinkingTimer = setTimeout(() => {
-      setPhase('thinking')
+      if (!contentRef.current) {
+        setPhase('thinking')
+      }
     }, 2550)
 
     return () => {
