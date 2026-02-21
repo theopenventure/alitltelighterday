@@ -120,7 +120,7 @@ const SHEET_BG = {
 
 // ── Archive Detail Overlay ──
 
-function ArchiveDetail({ item, onClose }) {
+export function ArchiveDetail({ item, onClose }) {
   const [visible, setVisible] = useState(false)
   const [closing, setClosing] = useState(false)
 
@@ -189,8 +189,7 @@ function ArchiveDetail({ item, onClose }) {
 
 // ── Main Component ──
 
-export default function ArchivePage({ savedBoosts, onScrollProgress }) {
-  const [activeItem, setActiveItem] = useState(null)
+export default function ArchivePage({ savedBoosts, onScrollProgress, onOpenItem }) {
   const heroRef = useRef(null)
   const atmosphereRef = useRef(null)
   const isEmpty = !savedBoosts || savedBoosts.length === 0
@@ -273,13 +272,12 @@ export default function ArchivePage({ savedBoosts, onScrollProgress }) {
               dateKey={dayGroup.dateKey}
               items={dayGroup.items}
               groupIndex={groupIndex}
-              onOpenItem={setActiveItem}
+              onOpenItem={onOpenItem}
             />
           ))}
         </div>
       )}
 
-      <ArchiveDetail item={activeItem} onClose={() => setActiveItem(null)} />
     </div>
   )
 }

@@ -6,7 +6,7 @@ import BoostCard from './components/BoostCard'
 import FeedFooter from './components/FeedFooter'
 import ContentOverlay from './components/ContentOverlay'
 import HeroScreen from './components/HeroScreen'
-import ArchivePage from './components/ArchivePage'
+import ArchivePage, { ArchiveDetail } from './components/ArchivePage'
 import { getDailyBoosts, getRandomBoosts, getCategoryOrder } from './data/boostPromptPool'
 import { getDailyHeroCopy, getRandomHeroCopy } from './data/heroCopyPool'
 import { generateBoost } from './api/generateBoost'
@@ -30,6 +30,7 @@ function App() {
   // View switching
   const [activeView, setActiveView] = useState('home')
   const [savedBoosts, setSavedBoosts] = useState(() => getSavedBoostsByDay())
+  const [activeArchiveItem, setActiveArchiveItem] = useState(null)
 
   const closeTimerRef = useRef(null)
   const activeBoostRef = useRef(null)
@@ -336,10 +337,12 @@ function App() {
         ref={archiveViewRef}
         className={`view-layer ${activeView === 'archive' ? 'view-active' : 'view-exit-right'}`}
       >
-        <ArchivePage savedBoosts={savedBoosts} onScrollProgress={handleArchiveScrollProgress} />
+        <ArchivePage savedBoosts={savedBoosts} onScrollProgress={handleArchiveScrollProgress} onOpenItem={setActiveArchiveItem} />
       </div>
 
       <BottomNav activeTab={navTab} onTabChange={handleTabChange} />
+
+      <ArchiveDetail item={activeArchiveItem} onClose={() => setActiveArchiveItem(null)} />
 
       {activeBoost && (
         <ContentOverlay
