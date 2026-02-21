@@ -31,6 +31,7 @@ function App() {
   const [isOverlayClosing, setIsOverlayClosing] = useState(false)
   const [sourceRect, setSourceRect] = useState(null)
   const [expandingCard, setExpandingCard] = useState(null)
+  const [returningCard, setReturningCard] = useState(null)
 
   // View switching
   const [activeView, setActiveView] = useState('home')
@@ -184,12 +185,24 @@ function App() {
   }, [isOverlayClosing])
 
   const handleOverlayExited = useCallback(() => {
-    if (shouldExploreRef.current && activeBoostRef.current) {
-      setExploredCards((prev) => ({ ...prev, [activeBoostRef.current]: true }))
-    }
+    const category = activeBoostRef.current
+    const shouldExplore = shouldExploreRef.current
+
+    // Make card visible + start bounce
+    setExpandingCard(null)
+    setReturningCard(category)
+
+    // After bounce completes → apply explored state + clean up
+    setTimeout(() => {
+      if (shouldExplore && category) {
+        setExploredCards((prev) => ({ ...prev, [category]: true }))
+      }
+      setReturningCard(null)
+    }, 350)
+
+    // Clean up overlay state immediately
     activeBoostRef.current = null
     shouldExploreRef.current = false
-    setExpandingCard(null)
     setActiveBoost(null)
     setIsOverlayClosing(false)
     setSourceRect(null)
@@ -315,6 +328,7 @@ function App() {
                 onClick={() => handleOpenBoost(key)}
                 explored={exploredCards[key]}
                 expanding={expandingCard === key}
+                returning={returningCard === key}
                 animDelay={`${0.1 + CATEGORIES.indexOf(key) * 0.1}s`}
               />
             )
