@@ -10,7 +10,7 @@ import ArchivePage from './components/ArchivePage'
 import { getDailyBoosts, getRandomBoosts, getCategoryOrder } from './data/boostPromptPool'
 import { getDailyHeroCopy, getRandomHeroCopy } from './data/heroCopyPool'
 import { generateBoost } from './api/generateBoost'
-import { saveBoost, isBoostSaved, getSavedBoostsByDay, seedPlaceholderData } from './lib/savedBoosts'
+import { saveBoost, removeBoost, isBoostSaved, getSavedBoostsByDay, seedPlaceholderData } from './lib/savedBoosts'
 
 // Dynamic category order based on day + time of day
 const CATEGORIES = getCategoryOrder()
@@ -220,18 +220,23 @@ function App() {
     }, 4600)
   }, [startClosing, boostContent, cards])
 
-  const handleSave = useCallback(() => {
+  const handleSave = useCallback((shouldSave) => {
     if (!boostContent || !activeBoostRef.current) return
     const card = cards[activeBoostRef.current]
-    const updated = saveBoost({
-      title: boostContent.title,
-      shortTitle: card.shortTitle,
-      category: card.category,
-      variant: card.variant,
-      prompt: card.prompt,
-      segments: boostContent.segments,
-    })
-    setSavedBoosts(updated)
+    if (shouldSave) {
+      const updated = saveBoost({
+        title: boostContent.title,
+        shortTitle: card.shortTitle,
+        category: card.category,
+        variant: card.variant,
+        prompt: card.prompt,
+        segments: boostContent.segments,
+      })
+      setSavedBoosts(updated)
+    } else {
+      const updated = removeBoost(boostContent.title)
+      setSavedBoosts(updated)
+    }
   }, [boostContent, cards])
 
   const handleShuffle = useCallback(() => {

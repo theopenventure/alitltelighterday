@@ -81,11 +81,12 @@ export default function ContentOverlay({
   const [toastVisible, setToastVisible] = useState(false)
   const intervalRef = useRef(null)
   const savedRectRef = useRef(sourceRect)
+  const cachedOnMount = useRef(!!content)
 
   const handleSaveToggle = useCallback(() => {
     const next = !saved
     setSaved(next)
-    onSave?.()
+    onSave?.(next)
     setToastMsg(next ? 'Saved to your collection' : 'Removed from your collection')
     setToastVisible(true)
   }, [saved, onSave])
@@ -137,12 +138,24 @@ export default function ContentOverlay({
   useEffect(() => {
     if (!content || phase === 'collapsing') return
 
-    // Brief pause to let thinking dissolve, then show title
+    // Cached content: skip thinking, reveal everything quickly
+    if (cachedOnMount.current) {
+      const revealTimer = setTimeout(() => {
+        setPhase('ready')
+        requestAnimationFrame(() => {
+          setPhase('streaming')
+          setVisibleSegments(flatSegments.length)
+          setTimeout(() => setReactionBarVisible(true), 300)
+        })
+      }, 150)
+      return () => clearTimeout(revealTimer)
+    }
+
+    // Fresh content: brief pause to let thinking dissolve, then stream
     const titleTimer = setTimeout(() => {
       setPhase('ready')
     }, 300)
 
-    // Then stream segments
     const streamTimer = setTimeout(() => {
       setPhase('streaming')
       const total = flatSegments.length
