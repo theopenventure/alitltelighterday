@@ -1,30 +1,8 @@
 import { useState, useRef, useEffect, useMemo, useCallback } from 'react'
-import { flattenSegments, renderSegment, findFirstTextIndex } from './segments'
+import { flattenSegments, renderSegment, findFirstTextIndex } from '../lib/segments'
 import { getDailyArchiveHeroCopy } from '../data/archiveHeroCopyPool'
+import { VARIANT_BG, VARIANT_TEXT, VARIANT_SUB } from '../data/variants'
 import './ArchivePage.css'
-
-// ── Variant color maps ──
-
-const VARIANT_BG = {
-  warm: '#FFF5F2',
-  gray: '#F0F5FA',
-  beige: '#FFFCF5',
-  sage: '#ECF6EB',
-}
-
-const VARIANT_TEXT = {
-  warm: '#3A2E2E',
-  gray: '#1A2E3A',
-  beige: '#4A4036',
-  sage: '#1A2F1A',
-}
-
-const VARIANT_SUB = {
-  warm: '#6A5555',
-  gray: '#4A6070',
-  beige: '#7A7066',
-  sage: '#596A59',
-}
 
 // ── Date label helper ──
 
@@ -109,15 +87,6 @@ function DayGroup({ dateKey, items, groupIndex, onOpenItem }) {
   )
 }
 
-// ── Sheet background colors (matching BoostCard.css gradient starts) ──
-
-const SHEET_BG = {
-  warm: '#FFF5F2',
-  gray: '#F0F5FA',
-  beige: '#FFFCF5',
-  sage: '#F0F7F0',
-}
-
 // ── Archive Detail Overlay ──
 
 function ArchiveDetail({ item, onClose }) {
@@ -149,7 +118,7 @@ function ArchiveDetail({ item, onClose }) {
   if (!item) return null
 
   const variant = item.variant || 'sage'
-  const sheetBg = SHEET_BG[variant] || SHEET_BG.sage
+  const sheetBg = VARIANT_BG[variant] || VARIANT_BG.sage
   const variantText = VARIANT_TEXT[variant] || VARIANT_TEXT.sage
 
   return (

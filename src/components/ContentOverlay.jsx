@@ -1,25 +1,10 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import ReactionBar from './ReactionBar'
 import Toast from './Toast'
-import { flattenSegments, renderSegment, findFirstTextIndex } from './segments'
+import { flattenSegments, renderSegment, findFirstTextIndex } from '../lib/segments'
 import { getRandomThinkingCopy } from '../data/thinkingCopyPool'
+import { VARIANT_BG, VARIANT_TEXT } from '../data/variants'
 import './ContentOverlay.css'
-
-// Variant → background color mapping (matches BoostCard.css gradient start colors)
-const VARIANT_COLORS = {
-  warm: '#FFF5F2',
-  gray: '#F0F5FA',
-  beige: '#FFFCF5',
-  sage: '#F0F7F0'
-}
-
-// Variant → text color mapping
-const VARIANT_TEXT = {
-  warm: '#3A2E2E',
-  gray: '#1A2E3A',
-  beige: '#4A4036',
-  sage: '#1A2F1A',
-}
 
 // ── Thinking indicator ──
 function ThinkingIndicator({ visible, label }) {
@@ -94,7 +79,7 @@ export default function ContentOverlay({
   }, [])
 
   const variant = card.variant || 'gray'
-  const bgColor = VARIANT_COLORS[variant] || VARIANT_COLORS.gray
+  const bgColor = VARIANT_BG[variant] || VARIANT_BG.gray
 
   const flatSegments = useMemo(() => {
     return content ? flattenSegments(content.segments) : []

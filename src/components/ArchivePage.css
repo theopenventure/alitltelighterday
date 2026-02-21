@@ -243,12 +243,6 @@
   display: none;
 }
 
-/* ── Variant gradient backgrounds (same as ContentOverlay) ── */
-.archive-detail-sheet.content-sheet--warm  { background: linear-gradient(180deg, #FFF5F2, #F4E4E4); }
-.archive-detail-sheet.content-sheet--gray  { background: linear-gradient(180deg, #F0F5FA, #E0ECF5); }
-.archive-detail-sheet.content-sheet--beige { background: linear-gradient(180deg, #FFFCF5, #F5F0E6); }
-.archive-detail-sheet.content-sheet--sage  { background: linear-gradient(180deg, #F0F7F0, #E0F2E0); }
-
 /* ── Prompt bubble (same as ContentOverlay) ── */
 .archive-detail-prompt {
   background: #FFFFFF;

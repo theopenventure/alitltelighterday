@@ -7,8 +7,8 @@ import FeedFooter from './components/FeedFooter'
 import ContentOverlay from './components/ContentOverlay'
 import HeroScreen from './components/HeroScreen'
 import ArchivePage from './components/ArchivePage'
-import { getDailyBoosts, getRandomBoosts, getCategoryOrder } from './data/boostPromptPool'
-import { getDailyHeroCopy, getRandomHeroCopy } from './data/heroCopyPool'
+import { getDailyBoosts, getCategoryOrder } from './data/boostPromptPool'
+import { getDailyHeroCopy } from './data/heroCopyPool'
 import { generateBoost } from './api/generateBoost'
 import { saveBoost, getSavedBoostsByDay, seedPlaceholderData } from './lib/savedBoosts'
 
@@ -16,8 +16,8 @@ import { saveBoost, getSavedBoostsByDay, seedPlaceholderData } from './lib/saved
 const CATEGORIES = getCategoryOrder()
 
 function App() {
-  const [cards, setCards] = useState(() => getDailyBoosts())
-  const [heroCopy, setHeroCopy] = useState(() => getDailyHeroCopy())
+  const [cards] = useState(() => getDailyBoosts())
+  const [heroCopy] = useState(() => getDailyHeroCopy())
   const [exploredCards, setExploredCards] = useState({
     lift: false,
     steady: false,
@@ -198,29 +198,7 @@ function App() {
     setBoostLoading(false)
   }, [])
 
-  const handleReact = useCallback((type) => {
-    shouldExploreRef.current = true
-
-    // Save boost when user loved it
-    if (type === 'love' && boostContent && activeBoostRef.current) {
-      const card = cards[activeBoostRef.current]
-      const updated = saveBoost({
-        title: boostContent.title,
-        shortTitle: card.shortTitle,
-        category: card.category,
-        variant: card.variant,
-        prompt: card.prompt,
-        segments: boostContent.segments,
-      })
-      setSavedBoosts(updated)
-    }
-
-    closeTimerRef.current = setTimeout(() => {
-      startClosing()
-    }, 4600)
-  }, [startClosing, boostContent, cards])
-
-  const handleSave = useCallback(() => {
+  const doSaveBoost = useCallback(() => {
     if (!boostContent || !activeBoostRef.current) return
     const card = cards[activeBoostRef.current]
     const updated = saveBoost({
@@ -234,12 +212,22 @@ function App() {
     setSavedBoosts(updated)
   }, [boostContent, cards])
 
-  const handleShuffle = useCallback(() => {
-    setCards(getRandomBoosts())
-    setHeroCopy((prev) => getRandomHeroCopy(prev))
-    setExploredCards({ lift: false, steady: false, space: false, small: false })
-    contentCacheRef.current = {}  // new prompts → clear cached content
-  }, [])
+  const handleReact = useCallback((type) => {
+    shouldExploreRef.current = true
+
+    // Save boost when user thumbs-up'd it
+    if (type === 'up') {
+      doSaveBoost()
+    }
+
+    closeTimerRef.current = setTimeout(() => {
+      startClosing()
+    }, 4600)
+  }, [startClosing, doSaveBoost])
+
+  const handleSave = useCallback(() => {
+    doSaveBoost()
+  }, [doSaveBoost])
 
   const handleTabChange = useCallback((tabId) => {
     // Block tab change while overlay is open

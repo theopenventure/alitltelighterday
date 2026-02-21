@@ -1,4 +1,4 @@
-import { getTimeOfDay, dateSeed } from './boostPromptPool'
+import { dateSeed } from './boostPromptPool'
 
 // ── Archive hero copy pool ──
 // Same structure as heroCopyPool: { headline, subhead }

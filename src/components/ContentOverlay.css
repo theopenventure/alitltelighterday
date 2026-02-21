@@ -54,12 +54,6 @@
   transform: translateY(0) scale(1);
 }
 
-/* ── Variant gradient backgrounds ── */
-.content-sheet--warm  { background: linear-gradient(180deg, #FFF5F2, #F4E4E4); }
-.content-sheet--gray  { background: linear-gradient(180deg, #F0F5FA, #E0ECF5); }
-.content-sheet--beige { background: linear-gradient(180deg, #FFFCF5, #F5F0E6); }
-.content-sheet--sage  { background: linear-gradient(180deg, #F0F7F0, #E0F2E0); }
-
 /* ── Sticky header — top-right close with gradient protection ── */
 .content-header {
   display: flex;
@@ -310,7 +304,7 @@
   border: none;
   border-radius: var(--radius-pill);
   padding: 11px 24px;
-  font-family: 'Manrope', sans-serif;
+  font-family: var(--font-sans);
   font-size: 15px;
   font-weight: 500;
   color: var(--variant-text, var(--text-primary));
