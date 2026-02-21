@@ -249,30 +249,4 @@
 .archive-detail-sheet.content-sheet--beige { background: linear-gradient(180deg, #FFFCF5, #F5F0E6); }
 .archive-detail-sheet.content-sheet--sage  { background: linear-gradient(180deg, #F0F7F0, #E0F2E0); }
 
-/* ── Prompt bubble (same as ContentOverlay) ── */
-.archive-detail-prompt {
-  background: #FFFFFF;
-  padding: 16px;
-  border-radius: 16px;
-  font-family: var(--font-sans);
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 1.4;
-  color: var(--variant-text, var(--text-primary));
-  width: 250px;
-  align-self: flex-start;
-  text-wrap: balance;
-  margin-bottom: 28px;
-}
-
-/* ── Title (same as ContentOverlay — Playfair 48px) ── */
-.archive-detail-title {
-  font-family: var(--font-serif);
-  font-size: 48px;
-  font-weight: 400;
-  line-height: 40px;
-  letter-spacing: 0;
-  color: var(--variant-text, var(--text-primary));
-  margin-bottom: 40px;
-  text-wrap: balance;
-}
+/* Prompt and title reuse .content-prompt and .content-title from ContentOverlay.css */

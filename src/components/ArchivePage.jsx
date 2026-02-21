@@ -160,19 +160,27 @@ export function ArchiveDetail({ item, onClose }) {
       >
         {/* Sticky header */}
         <div className="content-header">
+          <button className="content-save content-save--visible content-save--active" aria-label="Saved" disabled>
+            <svg width="31" height="31" viewBox="0 0 34.65 34.65" fill="currentColor" stroke="currentColor" strokeWidth="2.8875" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path fillRule="evenodd" clipRule="evenodd" d="M21.6563 4.33125C24.8325 4.33125 27.4313 6.93 27.4313 10.1063V28.7307C27.4313 30.1744 25.8432 30.8963 24.8325 29.7413L17.325 21.6563L9.8175 29.7413C8.8069 30.8963 7.2188 30.1744 7.2188 28.7307V10.1063C7.2188 6.93 9.8175 4.33125 12.9938 4.33125H21.6563Z" />
+            </svg>
+          </button>
           <div className="content-header-spacer" />
           <button className="content-close" onClick={handleClose} aria-label="Close">
-            <svg width="20" height="20" viewBox="0 0 30.55 30.55" fill="currentColor" aria-hidden="true">
-              <path d="M25.9 17.44a1 1 0 0 1 0 2h-5.04l9.39 9.4a1 1 0 0 1-1.41 1.41l-9.4-9.39v5.04a1 1 0 0 1-2 0v-7.46a1 1 0 0 1 1-1h7.46ZM.29.29a1 1 0 0 1 1.42 0l9.39 9.4V4.65a1 1 0 0 1 2 0v7.45a1 1 0 0 1-1 1H4.65a1 1 0 0 1 0-2h5.04L.29 1.71A1 1 0 0 1 .29.29Z" />
+            <svg width="31" height="31" viewBox="0 0 34.65 34.65" fill="none" stroke="currentColor" strokeWidth="2.8875" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M30.3189 30.3188L20.2126 20.2125" />
+              <path d="M20.2126 26.9982V20.2125H26.9983" />
+              <path d="M4.3314 4.3313L14.4376 14.4375" />
+              <path d="M14.4377 7.6519V14.4375H7.6521" />
             </svg>
           </button>
         </div>
 
-        {/* Prompt bubble */}
-        <div className="archive-detail-prompt">{item.prompt}</div>
+        {/* Prompt bubble — reuse ContentOverlay class, skip enter animation */}
+        <div className="content-prompt" style={{ opacity: 1, transform: 'translateY(0)' }}>{item.prompt}</div>
 
-        {/* Title */}
-        <h2 className="archive-detail-title">{item.title}</h2>
+        {/* Title — reuse ContentOverlay class, skip enter animation */}
+        <h2 className="content-title" style={{ opacity: 1, transform: 'translateY(0)' }}>{item.title}</h2>
 
         {/* Segments */}
         <div className="content-segments">
