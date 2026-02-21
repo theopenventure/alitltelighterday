@@ -290,7 +290,7 @@ function App() {
     <div className="app-container">
       <Header
         ref={headerRef}
-        label={activeView === 'archive' ? 'Archived' : 'Today'}
+        label={activeView === 'archive' ? 'Collection' : 'Today'}
       />
 
       {/* Today view */}
