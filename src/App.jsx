@@ -198,7 +198,7 @@ function App() {
         setExploredCards((prev) => ({ ...prev, [category]: true }))
       }
       setReturningCard(null)
-    }, 350)
+    }, 400)
 
     // Clean up overlay state immediately
     activeBoostRef.current = null

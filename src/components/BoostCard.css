@@ -4,17 +4,40 @@
   overflow: hidden;
   position: relative;
   opacity: 0;
-  transform: translateY(20px);
+  transform: scale(1);
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Press — instant squish down, same pattern as save icon */
 .card:active {
-  transform: scale(0.96);
-  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: scale(0.93);
+  transition: transform 0.1s ease-out;
 }
 
+/* Expanding — holds compressed + fades out as overlay takes over */
+.card.expanding {
+  transform: scale(0.93);
+  opacity: 0 !important;
+  pointer-events: none;
+  transition:
+    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.2s ease;
+}
+
+/* Returning — pops back from compressed state.
+   The springy cubic-bezier handles the overshoot automatically. */
+.card.returning {
+  opacity: 1 !important;
+  transform: scale(1);
+  pointer-events: none;
+  transition:
+    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.15s ease;
+}
+
+/* Explored — dimmed after interaction */
 .card.explored {
   opacity: 0.4;
   filter: grayscale(25%);
@@ -25,24 +48,6 @@
 
 .card.explored:active {
   transform: none;
-}
-
-.card.expanding {
-  opacity: 0 !important;
-  pointer-events: none;
-  transition: opacity 0.15s ease;
-}
-
-@keyframes cardBounceBack {
-  0%   { transform: scale(0.92); opacity: 0; }
-  40%  { opacity: 1; }
-  50%  { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
-.card.returning {
-  animation: cardBounceBack 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-  pointer-events: none;
 }
 
 /* ── Boost card layout — tall editorial cards ── */
