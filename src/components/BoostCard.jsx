@@ -12,7 +12,7 @@ const BoostCard = forwardRef(function BoostCard({
   expanding,
   animDelay = '0.1s'
 }, ref) {
-  const isInteractive = !explored && onClick
+  const isInteractive = !!onClick
 
   const handleKeyDown = (e) => {
     if (isInteractive && (e.key === 'Enter' || e.key === ' ')) {
@@ -30,7 +30,7 @@ const BoostCard = forwardRef(function BoostCard({
       role="button"
       tabIndex={isInteractive ? 0 : -1}
       aria-label={`Explore ${label} boost: ${title}`}
-      aria-disabled={explored}
+      aria-disabled={false}
       style={{ animationDelay: animDelay }}
     >
       {variant === 'warm' && <div className="card-aura" aria-hidden="true" />}

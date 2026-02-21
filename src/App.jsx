@@ -10,7 +10,7 @@ import ArchivePage from './components/ArchivePage'
 import { getDailyBoosts, getRandomBoosts, getCategoryOrder } from './data/boostPromptPool'
 import { getDailyHeroCopy, getRandomHeroCopy } from './data/heroCopyPool'
 import { generateBoost } from './api/generateBoost'
-import { saveBoost, getSavedBoostsByDay, seedPlaceholderData } from './lib/savedBoosts'
+import { saveBoost, isBoostSaved, getSavedBoostsByDay, seedPlaceholderData } from './lib/savedBoosts'
 
 // Dynamic category order based on day + time of day
 const CATEGORIES = getCategoryOrder()
@@ -346,6 +346,7 @@ function App() {
           onExited={handleOverlayExited}
           onReact={handleReact}
           onSave={handleSave}
+          isSaved={boostContent ? isBoostSaved(boostContent.title) : false}
         />
       )}
     </div>

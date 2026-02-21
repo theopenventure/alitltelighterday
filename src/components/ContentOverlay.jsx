@@ -68,6 +68,7 @@ export default function ContentOverlay({
   onExited,
   onReact,
   onSave,
+  isSaved,
 }) {
   // Phases: 'expanding' → 'thinking' → 'ready' → 'streaming' → 'collapsing'
   const [phase, setPhase] = useState('expanding')
@@ -75,7 +76,7 @@ export default function ContentOverlay({
   const [visibleSegments, setVisibleSegments] = useState(0)
   const [reactionBarVisible, setReactionBarVisible] = useState(false)
   const [contentVisible, setContentVisible] = useState(false)
-  const [saved, setSaved] = useState(false)
+  const [saved, setSaved] = useState(isSaved || false)
   const [toastMsg, setToastMsg] = useState(null)
   const [toastVisible, setToastVisible] = useState(false)
   const intervalRef = useRef(null)

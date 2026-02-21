@@ -39,6 +39,13 @@ export function saveBoost({ title, shortTitle, category, variant, prompt, segmen
   return getSavedBoostsByDay()
 }
 
+export function isBoostSaved(title) {
+  if (!title) return false
+  const all = readAll()
+  const today = new Date().toISOString().slice(0, 10)
+  return all.some((b) => b.title === title && b.savedAt.slice(0, 10) === today)
+}
+
 export function getSavedBoostsByDay() {
   const all = readAll()
   if (all.length === 0) return []
