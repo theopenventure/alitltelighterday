@@ -259,7 +259,8 @@
   font-weight: 500;
   line-height: 1.4;
   color: var(--variant-text, var(--text-primary));
-  width: 250px;
+  width: fit-content;
+  max-width: 250px;
   align-self: flex-start;
   text-wrap: balance;
   margin-bottom: 28px;
