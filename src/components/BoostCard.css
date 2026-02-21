@@ -10,9 +10,26 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-.card:active {
-  transform: scale(0.96);
-  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+/* Press — smooth, slightly slow squeeze */
+.card--pressed {
+  transform: scale(0.95);
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Release — elastic spring back (inherits base .card transition:
+   transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)) */
+
+/* Close bounce — card lands back from overlay */
+@keyframes cardReturn {
+  0%   { transform: scale(0.90); opacity: 0; }
+  30%  { opacity: 1; }
+  65%  { transform: scale(1.035); }
+  82%  { transform: scale(0.99); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.card--returning {
+  animation: cardReturn 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .card.explored {
@@ -23,7 +40,7 @@
   transition: opacity 0.6s var(--ease-soft), filter 0.6s var(--ease-soft), transform 0.3s var(--ease-soft);
 }
 
-.card.explored:active {
+.card.explored.card--pressed {
   transform: none;
 }
 

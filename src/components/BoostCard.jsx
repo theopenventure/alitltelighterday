@@ -1,4 +1,4 @@
-import { forwardRef } from 'react'
+import { forwardRef, useState, useCallback } from 'react'
 import './BoostCard.css'
 
 const BoostCard = forwardRef(function BoostCard({
@@ -10,9 +10,19 @@ const BoostCard = forwardRef(function BoostCard({
   onClick,
   explored,
   expanding,
+  returning,
   animDelay = '0.1s'
 }, ref) {
   const isInteractive = !explored && onClick
+  const [pressed, setPressed] = useState(false)
+
+  const handlePointerDown = useCallback(() => {
+    if (isInteractive) setPressed(true)
+  }, [isInteractive])
+
+  const handlePointerUp = useCallback(() => {
+    setPressed(false)
+  }, [])
 
   const handleKeyDown = (e) => {
     if (isInteractive && (e.key === 'Enter' || e.key === ' ')) {
@@ -21,11 +31,25 @@ const BoostCard = forwardRef(function BoostCard({
     }
   }
 
+  const classes = [
+    'card',
+    'boost-card',
+    `boost-card--${variant}`,
+    explored && 'explored',
+    expanding && 'expanding',
+    pressed && 'card--pressed',
+    returning && 'card--returning',
+  ].filter(Boolean).join(' ')
+
   return (
     <div
       ref={ref}
-      className={`card boost-card boost-card--${variant} ${explored ? 'explored' : ''} ${expanding ? 'expanding' : ''}`}
+      className={classes}
       onClick={isInteractive ? onClick : undefined}
+      onPointerDown={isInteractive ? handlePointerDown : undefined}
+      onPointerUp={handlePointerUp}
+      onPointerLeave={handlePointerUp}
+      onPointerCancel={handlePointerUp}
       onKeyDown={handleKeyDown}
       role="button"
       tabIndex={isInteractive ? 0 : -1}
