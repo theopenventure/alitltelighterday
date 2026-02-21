@@ -7,30 +7,18 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Press — instant squish, same pattern as save icon :active */
-.card:active {
-  transform: scale(0.93) !important;
-  transition: transform 0.1s ease-out;
-}
-
-/* Expanding — squished + fade out as overlay takes over */
+/* Expanding — fade out as overlay takes over */
 .card.expanding {
-  transform: scale(0.93) !important;
   opacity: 0 !important;
   pointer-events: none;
   transition: opacity 0.2s ease;
 }
 
-/* Returning — pop back with springy overshoot (same as bookmarkPop) */
-@keyframes cardPop {
-  0%   { transform: scale(0.93); opacity: 1; }
-  50%  { transform: scale(1.05); opacity: 1; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
+/* Returning — fade back in */
 .card.returning {
-  animation: cardPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 1 !important;
   pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
 /* Explored — dimmed after interaction */
@@ -40,10 +28,6 @@
   pointer-events: none;
   cursor: default;
   transition: opacity 0.6s var(--ease-soft), filter 0.6s var(--ease-soft);
-}
-
-.card.explored:active {
-  transform: none;
 }
 
 /* ── Boost card layout — tall editorial cards ── */

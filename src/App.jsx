@@ -192,13 +192,13 @@ function App() {
     setExpandingCard(null)
     setReturningCard(category)
 
-    // After bounce completes → apply explored state + clean up
+    // After fade-in completes → apply explored state + clean up
     setTimeout(() => {
       if (shouldExplore && category) {
         setExploredCards((prev) => ({ ...prev, [category]: true }))
       }
       setReturningCard(null)
-    }, 400)
+    }, 350)
 
     // Clean up overlay state immediately
     activeBoostRef.current = null
