@@ -1,8 +1,10 @@
-import { useState, useRef, useEffect, useMemo, useCallback } from 'react'
+import { useState, useRef, useEffect, useMemo, useCallback, forwardRef, useImperativeHandle } from 'react'
 import { flattenSegments, renderSegment, findFirstTextIndex } from '../lib/segments'
 import { getDailyArchiveHeroCopy } from '../data/archiveHeroCopyPool'
 import { VARIANT_BG, VARIANT_TEXT, VARIANT_SUB } from '../data/variants'
 import './ArchivePage.css'
+
+const DETAIL_CLOSE_DURATION = 380
 
 // ── Date label helper ──
 
@@ -112,7 +114,7 @@ function ArchiveDetail({ item, onClose }) {
     setTimeout(() => {
       setClosing(false)
       onClose()
-    }, 380)
+    }, DETAIL_CLOSE_DURATION)
   }
 
   if (!item) return null
@@ -158,7 +160,7 @@ function ArchiveDetail({ item, onClose }) {
 
 // ── Main Component ──
 
-export default function ArchivePage({ savedBoosts, onScrollProgress }) {
+const ArchivePage = forwardRef(function ArchivePage({ savedBoosts, onScrollProgress }, ref) {
   const [activeItem, setActiveItem] = useState(null)
   const heroRef = useRef(null)
   const atmosphereRef = useRef(null)
@@ -172,7 +174,7 @@ export default function ArchivePage({ savedBoosts, onScrollProgress }) {
     }
   }, [])
 
-  // Scroll handler — called from App.jsx via the view-layer scroll container
+  // Scroll handler — called from App.jsx via ref
   const handleScroll = useCallback((scrollTop) => {
     const heroEl = heroRef.current
     const atmosphereEl = atmosphereRef.current
@@ -205,18 +207,10 @@ export default function ArchivePage({ savedBoosts, onScrollProgress }) {
     }
   }, [onScrollProgress])
 
-  // Expose handleScroll via a ref-callback pattern on the component
-  // We'll use a data attribute approach — App.jsx will call this directly
-  useEffect(() => {
-    // Store handler on the DOM for App.jsx to access
-    const page = document.querySelector('.archive-page')
-    if (page) {
-      page.__archiveScroll = handleScroll
-    }
-    return () => {
-      if (page) delete page.__archiveScroll
-    }
-  }, [handleScroll])
+  // Expose handleScroll to parent via ref
+  useImperativeHandle(ref, () => ({
+    handleScroll
+  }), [handleScroll])
 
   return (
     <div className="archive-page">
@@ -251,4 +245,6 @@ export default function ArchivePage({ savedBoosts, onScrollProgress }) {
       <ArchiveDetail item={activeItem} onClose={() => setActiveItem(null)} />
     </div>
   )
-}
+})
+
+export default ArchivePage

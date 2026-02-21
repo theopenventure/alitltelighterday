@@ -6,6 +6,16 @@ import { getRandomThinkingCopy } from '../data/thinkingCopyPool'
 import { VARIANT_BG, VARIANT_TEXT } from '../data/variants'
 import './ContentOverlay.css'
 
+// Animation timing constants (ms)
+const SHEET_FADE_IN_DELAY = 250
+const THINKING_SHOW_DELAY = 2550
+const TITLE_REVEAL_DELAY = 300
+const STREAM_START_DELAY = 800
+const SEGMENT_STREAM_INTERVAL = 400
+const REACTION_BAR_DELAY = 500
+const CONTRACT_DELAY = 100
+const EXIT_ANIMATION_DURATION = 500
+
 // ── Thinking indicator ──
 function ThinkingIndicator({ visible, label }) {
   return (
@@ -101,12 +111,12 @@ export default function ContentOverlay({
     // Sheet fades in at 250ms — prompt bubble starts animating (CSS 0.3s delay)
     const contentTimer = setTimeout(() => {
       setContentVisible(true)
-    }, 250)
+    }, SHEET_FADE_IN_DELAY)
 
-    // Thinking indicator shows 2s after prompt bubble has settled (~550ms)
+    // Thinking indicator shows after prompt bubble has settled
     const thinkingTimer = setTimeout(() => {
       setPhase('thinking')
-    }, 2550)
+    }, THINKING_SHOW_DELAY)
 
     return () => {
       cancelAnimationFrame(raf)
@@ -122,7 +132,7 @@ export default function ContentOverlay({
     // Brief pause to let thinking dissolve, then show title
     const titleTimer = setTimeout(() => {
       setPhase('ready')
-    }, 300)
+    }, TITLE_REVEAL_DELAY)
 
     // Then stream segments
     const streamTimer = setTimeout(() => {
@@ -134,10 +144,10 @@ export default function ContentOverlay({
         setVisibleSegments(count)
         if (count >= total) {
           clearInterval(intervalRef.current)
-          setTimeout(() => setReactionBarVisible(true), 500)
+          setTimeout(() => setReactionBarVisible(true), REACTION_BAR_DELAY)
         }
-      }, 400)
-    }, 800)
+      }, SEGMENT_STREAM_INTERVAL)
+    }, STREAM_START_DELAY)
 
     return () => {
       clearTimeout(titleTimer)
@@ -155,11 +165,11 @@ export default function ContentOverlay({
 
     const contractTimer = setTimeout(() => {
       setExpanded(false)
-    }, 100)
+    }, CONTRACT_DELAY)
 
     const exitTimer = setTimeout(() => {
       onExited()
-    }, 500)
+    }, EXIT_ANIMATION_DURATION)
 
     return () => {
       clearTimeout(contractTimer)

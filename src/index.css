@@ -19,6 +19,12 @@
   --ease-elastic: cubic-bezier(0.34, 1.56, 0.64, 1);
   --anim-duration: 0.8s;
 
+  /* Variant gradients — single source of truth */
+  --gradient-warm: linear-gradient(180deg, #FFF5F2, #F4E4E4);
+  --gradient-gray: linear-gradient(180deg, #F0F5FA, #E0ECF5);
+  --gradient-beige: linear-gradient(180deg, #FFFCF5, #F5F0E6);
+  --gradient-sage: linear-gradient(180deg, #F0F7F0, #E0F2E0);
+
   /* Fonts */
   --font-serif: 'Playfair Display', serif;
   --font-sans: 'Manrope', sans-serif;
@@ -68,7 +74,7 @@ body {
 }
 
 /* ── Shared variant gradients ── */
-.content-sheet--warm  { background: linear-gradient(180deg, #FFF5F2, #F4E4E4); }
-.content-sheet--gray  { background: linear-gradient(180deg, #F0F5FA, #E0ECF5); }
-.content-sheet--beige { background: linear-gradient(180deg, #FFFCF5, #F5F0E6); }
-.content-sheet--sage  { background: linear-gradient(180deg, #F0F7F0, #E0F2E0); }
+.content-sheet--warm  { background: var(--gradient-warm); }
+.content-sheet--gray  { background: var(--gradient-gray); }
+.content-sheet--beige { background: var(--gradient-beige); }
+.content-sheet--sage  { background: var(--gradient-sage); }

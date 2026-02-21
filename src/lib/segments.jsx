@@ -1,5 +1,7 @@
 // Shared segment renderers — used by ContentOverlay and ArchiveDetail
 
+import DOMPurify from 'dompurify'
+
 export function flattenSegments(segments) {
   if (!segments) return []
   const flat = []
@@ -31,7 +33,7 @@ export function findFirstTextIndex(flatSegments) {
 
 export function sanitizeText(html) {
   if (!html) return ''
-  return html.replace(/<(?!\/?strong\b)[^>]*>/gi, '')
+  return DOMPurify.sanitize(html, { ALLOWED_TAGS: ['strong'] })
 }
 
 function SegmentText({ content, isFirst }) {

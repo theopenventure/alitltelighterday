@@ -9,8 +9,8 @@ import HeroScreen from './components/HeroScreen'
 import ArchivePage from './components/ArchivePage'
 import { getDailyBoosts, getCategoryOrder } from './data/boostPromptPool'
 import { getDailyHeroCopy } from './data/heroCopyPool'
-import { generateBoost } from './api/generateBoost'
 import { saveBoost, getSavedBoostsByDay, seedPlaceholderData } from './lib/savedBoosts'
+import useBoostOverlay from './hooks/useBoostOverlay'
 
 // Dynamic category order based on day + time of day
 const CATEGORIES = getCategoryOrder()
@@ -18,34 +18,18 @@ const CATEGORIES = getCategoryOrder()
 function App() {
   const [cards] = useState(() => getDailyBoosts())
   const [heroCopy] = useState(() => getDailyHeroCopy())
-  const [exploredCards, setExploredCards] = useState({
-    lift: false,
-    steady: false,
-    space: false,
-    small: false
-  })
-  const [activeBoost, setActiveBoost] = useState(null)
-  const [boostContent, setBoostContent] = useState(null)
-  const [boostLoading, setBoostLoading] = useState(false)
-  const [boostError, setBoostError] = useState(null)
-  const [isOverlayClosing, setIsOverlayClosing] = useState(false)
-  const [sourceRect, setSourceRect] = useState(null)
-  const [expandingCard, setExpandingCard] = useState(null)
 
   // View switching
   const [activeView, setActiveView] = useState('home')
   const [savedBoosts, setSavedBoosts] = useState(() => getSavedBoostsByDay())
 
-  const closeTimerRef = useRef(null)
-  const activeBoostRef = useRef(null)
-  const shouldExploreRef = useRef(false)
   const todayViewRef = useRef(null)
   const archiveViewRef = useRef(null)
   const heroRef = useRef(null)
   const headerRef = useRef(null)
   const homeScrollRef = useRef(0)
   const archiveScrollRef = useRef(0)
-  const contentCacheRef = useRef({})  // category → generated content (persists across opens)
+  const archivePageRef = useRef(null)
 
   // Card refs for measuring position
   const liftRef = useRef(null)
@@ -54,7 +38,27 @@ function App() {
   const smallRef = useRef(null)
   const cardRefMap = { lift: liftRef, steady: steadyRef, space: spaceRef, small: smallRef }
 
-  const allExplored = Object.values(exploredCards).every(Boolean)
+  const handleSaveBoost = useCallback((boostData) => {
+    const updated = saveBoost(boostData)
+    setSavedBoosts(updated)
+  }, [])
+
+  const {
+    activeBoost,
+    boostContent,
+    boostLoading,
+    boostError,
+    isOverlayClosing,
+    sourceRect,
+    expandingCard,
+    exploredCards,
+    allExplored,
+    handleOpenBoost,
+    startClosing,
+    handleOverlayExited,
+    handleReact,
+    handleSave,
+  } = useBoostOverlay({ cards, cardRefMap, onSaveBoost: handleSaveBoost })
 
   // Seed placeholder data on first load
   useEffect(() => {
@@ -112,122 +116,18 @@ function App() {
     headerEl.style.opacity = headerProgress
   }, [activeView])
 
-  // Archive view scroll listener (mirrors the homepage hero parallax)
+  // Archive view scroll listener — delegates to ArchivePage via ref
   useEffect(() => {
     const container = archiveViewRef.current
     if (!container) return
 
     const onScroll = () => {
-      const scrollTop = container.scrollTop
-      // Delegate to ArchivePage's internal scroll handler via DOM
-      const archivePage = container.querySelector('.archive-page')
-      if (archivePage && archivePage.__archiveScroll) {
-        archivePage.__archiveScroll(scrollTop)
-      }
+      archivePageRef.current?.handleScroll(container.scrollTop)
     }
 
     container.addEventListener('scroll', onScroll, { passive: true })
     return () => container.removeEventListener('scroll', onScroll)
   }, [])
-
-  const handleOpenBoost = useCallback(async (category) => {
-    const card = cards[category]
-
-    const cardEl = cardRefMap[category]?.current
-    if (cardEl) {
-      const rect = cardEl.getBoundingClientRect()
-      setSourceRect({
-        top: rect.top,
-        left: rect.left,
-        width: rect.width,
-        height: rect.height
-      })
-    }
-
-    activeBoostRef.current = category
-    shouldExploreRef.current = false
-    setBoostError(null)
-    setExpandingCard(category)
-    setIsOverlayClosing(false)
-    setActiveBoost(category)
-
-    // If we already generated content for this card, show it instantly
-    const cached = contentCacheRef.current[category]
-    if (cached) {
-      setBoostContent(cached)
-      setBoostLoading(false)
-      return
-    }
-
-    setBoostContent(null)
-    setBoostLoading(true)
-
-    try {
-      const result = await generateBoost(category, card.prompt)
-      contentCacheRef.current[category] = result
-      setBoostContent(result)
-    } catch (err) {
-      console.error('Boost generation failed:', err)
-      setBoostError(err.message)
-    } finally {
-      setBoostLoading(false)
-    }
-  }, [cards])
-
-  const startClosing = useCallback(() => {
-    if (isOverlayClosing) return
-    if (closeTimerRef.current) {
-      clearTimeout(closeTimerRef.current)
-      closeTimerRef.current = null
-    }
-    setIsOverlayClosing(true)
-  }, [isOverlayClosing])
-
-  const handleOverlayExited = useCallback(() => {
-    if (shouldExploreRef.current && activeBoostRef.current) {
-      setExploredCards((prev) => ({ ...prev, [activeBoostRef.current]: true }))
-    }
-    activeBoostRef.current = null
-    shouldExploreRef.current = false
-    setExpandingCard(null)
-    setActiveBoost(null)
-    setIsOverlayClosing(false)
-    setSourceRect(null)
-    setBoostContent(null)
-    setBoostError(null)
-    setBoostLoading(false)
-  }, [])
-
-  const doSaveBoost = useCallback(() => {
-    if (!boostContent || !activeBoostRef.current) return
-    const card = cards[activeBoostRef.current]
-    const updated = saveBoost({
-      title: boostContent.title,
-      shortTitle: card.shortTitle,
-      category: card.category,
-      variant: card.variant,
-      prompt: card.prompt,
-      segments: boostContent.segments,
-    })
-    setSavedBoosts(updated)
-  }, [boostContent, cards])
-
-  const handleReact = useCallback((type) => {
-    shouldExploreRef.current = true
-
-    // Save boost when user thumbs-up'd it
-    if (type === 'up') {
-      doSaveBoost()
-    }
-
-    closeTimerRef.current = setTimeout(() => {
-      startClosing()
-    }, 4600)
-  }, [startClosing, doSaveBoost])
-
-  const handleSave = useCallback(() => {
-    doSaveBoost()
-  }, [doSaveBoost])
 
   const handleTabChange = useCallback((tabId) => {
     // Block tab change while overlay is open
@@ -317,7 +217,7 @@ function App() {
         ref={archiveViewRef}
         className={`view-layer ${activeView === 'archive' ? 'view-active' : 'view-exit-right'}`}
       >
-        <ArchivePage savedBoosts={savedBoosts} onScrollProgress={handleArchiveScrollProgress} />
+        <ArchivePage ref={archivePageRef} savedBoosts={savedBoosts} onScrollProgress={handleArchiveScrollProgress} />
       </div>
 
       <BottomNav activeTab={navTab} onTabChange={handleTabChange} />

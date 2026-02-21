@@ -5,14 +5,14 @@
   position: relative;
   opacity: 0;
   transform: translateY(20px);
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.4s var(--ease-elastic);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
 
 .card:active {
   transform: scale(0.96);
-  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: transform 0.25s var(--ease-soft);
 }
 
 .card.explored {
@@ -54,22 +54,22 @@
 
 /* ── Gradient variants ── */
 .boost-card--warm {
-  background: linear-gradient(180deg, #FFF5F2 0%, #F4E4E4 100%);
+  background: var(--gradient-warm);
   color: var(--text-warm);
 }
 
 .boost-card--gray {
-  background: linear-gradient(180deg, #F0F5FA 0%, #E0ECF5 100%);
+  background: var(--gradient-gray);
   color: var(--text-cool);
 }
 
 .boost-card--beige {
-  background: linear-gradient(180deg, #FFFCF5 0%, #F5F0E6 100%);
+  background: var(--gradient-beige);
   color: var(--text-earth);
 }
 
 .boost-card--sage {
-  background: linear-gradient(180deg, #F0F7F0 0%, #E0F2E0 100%);
+  background: var(--gradient-sage);
   color: var(--text-green);
 }
 

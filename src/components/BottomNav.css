@@ -41,14 +41,14 @@
   font: inherit;
   position: relative;
   color: rgba(0, 0, 0, 0.40);
-  transition: color 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: color 0.35s var(--ease-soft);
 }
 
 .nav-item svg {
   width: 31px;
   height: 31px;
   flex-shrink: 0;
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.4s var(--ease-elastic);
 }
 
 .nav-item:active svg {
@@ -62,7 +62,7 @@
 }
 
 .nav-item--active svg {
-  animation: navPop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: navPop 0.45s var(--ease-elastic);
 }
 
 /* ── Sliding dot ── */
@@ -77,7 +77,7 @@
   pointer-events: none;
   /* Each item is 52px wide, gap is 0 → step = 52px. Center of item = 26px, minus dot half = 24px */
   transform: translateX(calc(var(--dot-index) * 52px + 24px));
-  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.45s var(--ease-elastic);
 }
 
 /* ── Animations ── */
