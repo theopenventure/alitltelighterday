@@ -47,6 +47,7 @@ function App() {
   const homeScrollRef = useRef(0)
   const archiveScrollRef = useRef(0)
   const contentCacheRef = useRef({})  // category → generated content (persists across opens)
+  const savedCategoriesRef = useRef({})  // category → true if user saved this boost
 
   // Card refs for measuring position
   const liftRef = useRef(null)
@@ -216,7 +217,8 @@ function App() {
 
     // Save boost when user loved it
     if (type === 'love' && boostContent && activeBoostRef.current) {
-      const card = cards[activeBoostRef.current]
+      const category = activeBoostRef.current
+      const card = cards[category]
       const updated = saveBoost({
         title: boostContent.title,
         shortTitle: card.shortTitle,
@@ -226,6 +228,7 @@ function App() {
         segments: boostContent.segments,
       })
       setSavedBoosts(updated)
+      savedCategoriesRef.current[category] = true
     }
 
     closeTimerRef.current = setTimeout(() => {
@@ -235,16 +238,24 @@ function App() {
 
   const handleSave = useCallback(() => {
     if (!boostContent || !activeBoostRef.current) return
-    const card = cards[activeBoostRef.current]
-    const updated = saveBoost({
-      title: boostContent.title,
-      shortTitle: card.shortTitle,
-      category: card.category,
-      variant: card.variant,
-      prompt: card.prompt,
-      segments: boostContent.segments,
-    })
-    setSavedBoosts(updated)
+    const category = activeBoostRef.current
+    const wasSaved = savedCategoriesRef.current[category]
+    if (wasSaved) {
+      // Toggle off — just mark as unsaved (content stays in localStorage)
+      savedCategoriesRef.current[category] = false
+    } else {
+      const card = cards[category]
+      const updated = saveBoost({
+        title: boostContent.title,
+        shortTitle: card.shortTitle,
+        category: card.category,
+        variant: card.variant,
+        prompt: card.prompt,
+        segments: boostContent.segments,
+      })
+      setSavedBoosts(updated)
+      savedCategoriesRef.current[category] = true
+    }
   }, [boostContent, cards])
 
   const handleShuffle = useCallback(() => {
@@ -252,6 +263,7 @@ function App() {
     setHeroCopy((prev) => getRandomHeroCopy(prev))
     setExploredCards({ lift: false, steady: false, space: false, small: false })
     contentCacheRef.current = {}  // new prompts → clear cached content
+    savedCategoriesRef.current = {}  // reset save states
   }, [])
 
   const handleTabChange = useCallback((tabId) => {
@@ -303,7 +315,7 @@ function App() {
     <div className="app-container">
       <Header
         ref={headerRef}
-        label={activeView === 'archive' ? 'Archived' : 'Today'}
+        label={activeView === 'archive' ? 'Collections' : 'Today'}
       />
 
       {/* Today view */}
@@ -356,6 +368,7 @@ function App() {
           error={boostError}
           sourceRect={sourceRect}
           isClosing={isOverlayClosing}
+          initialSaved={!!savedCategoriesRef.current[activeBoost]}
           onClose={startClosing}
           onExited={handleOverlayExited}
           onReact={handleReact}

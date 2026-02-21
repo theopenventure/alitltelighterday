@@ -13,7 +13,7 @@ const BoostCard = forwardRef(function BoostCard({
   returning,
   animDelay = '0.1s'
 }, ref) {
-  const isInteractive = !explored && !returning && onClick
+  const isInteractive = !returning && onClick
 
   const handleKeyDown = (e) => {
     if (isInteractive && (e.key === 'Enter' || e.key === ' ')) {

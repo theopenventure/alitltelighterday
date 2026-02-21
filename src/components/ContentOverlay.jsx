@@ -64,6 +64,7 @@ export default function ContentOverlay({
   error,       // string or null
   sourceRect,
   isClosing,
+  initialSaved = false,
   onClose,
   onExited,
   onReact,
@@ -75,7 +76,7 @@ export default function ContentOverlay({
   const [visibleSegments, setVisibleSegments] = useState(0)
   const [reactionBarVisible, setReactionBarVisible] = useState(false)
   const [contentVisible, setContentVisible] = useState(false)
-  const [saved, setSaved] = useState(false)
+  const [saved, setSaved] = useState(initialSaved)
   const [toastMsg, setToastMsg] = useState(null)
   const [toastVisible, setToastVisible] = useState(false)
   const intervalRef = useRef(null)
@@ -119,8 +120,9 @@ export default function ContentOverlay({
     }, 250)
 
     // Thinking indicator shows 2s after prompt bubble has settled (~550ms)
+    // Skip if content already arrived (cached) to avoid overwriting ready/streaming phase
     const thinkingTimer = setTimeout(() => {
-      setPhase('thinking')
+      setPhase((prev) => prev === 'expanding' ? 'thinking' : prev)
     }, 2550)
 
     return () => {

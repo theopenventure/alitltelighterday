@@ -148,7 +148,7 @@
   font-weight: 500;
   line-height: 1.4;
   color: var(--variant-text, var(--text-primary));
-  width: 250px;
+  max-width: 250px;
   align-self: flex-end;
   opacity: 0;
   transform: translateY(12px);

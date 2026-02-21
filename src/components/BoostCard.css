@@ -21,12 +21,11 @@
   transition: opacity 0.3s ease;
 }
 
-/* Explored — dimmed after interaction */
+/* Explored — dimmed after interaction, still tappable */
 .card.explored {
   opacity: 0.4 !important;
   filter: grayscale(25%);
-  pointer-events: none;
-  cursor: default;
+  cursor: pointer;
   transition: opacity 0.6s var(--ease-soft), filter 0.6s var(--ease-soft);
 }
 
