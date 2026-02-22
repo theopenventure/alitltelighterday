@@ -31,6 +31,7 @@ function App() {
   const [activeView, setActiveView] = useState('home')
   const [savedBoosts, setSavedBoosts] = useState(() => getSavedBoostsByDay())
   const [activeArchiveItem, setActiveArchiveItem] = useState(null)
+  const [archiveSourceRect, setArchiveSourceRect] = useState(null)
 
   // Unsave flow
   const [undoItem, setUndoItem] = useState(null)
@@ -253,6 +254,11 @@ function App() {
     savedCategoriesRef.current[category] = false
   }, [boostContent, savedBoosts])
 
+  const handleOpenArchiveItem = useCallback((item, rect) => {
+    setArchiveSourceRect(rect || null)
+    setActiveArchiveItem(item)
+  }, [])
+
   // ── Unsave flow from Archive ──
 
   const handleArchiveUnsave = useCallback((item) => {
@@ -267,6 +273,7 @@ function App() {
 
   const handleArchiveDetailClosed = useCallback(() => {
     setActiveArchiveItem(null)
+    setArchiveSourceRect(null)
     // If an unsave was triggered (not undone), remove the item
     if (undoItem) {
       const itemId = undoItem.id
@@ -388,12 +395,12 @@ function App() {
         ref={archiveViewRef}
         className={`view-layer ${activeView === 'archive' ? 'view-active' : 'view-exit-right'}`}
       >
-        <ArchivePage savedBoosts={savedBoosts} onScrollProgress={handleArchiveScrollProgress} onOpenItem={setActiveArchiveItem} removingItemId={removingItemId} />
+        <ArchivePage savedBoosts={savedBoosts} onScrollProgress={handleArchiveScrollProgress} onOpenItem={handleOpenArchiveItem} removingItemId={removingItemId} />
       </div>
 
       <BottomNav activeTab={navTab} onTabChange={handleTabChange} />
 
-      <ArchiveDetail item={activeArchiveItem} onClose={handleArchiveDetailClosed} onUnsave={handleArchiveUnsave} onUndoUnsave={handleArchiveUndone} />
+      <ArchiveDetail item={activeArchiveItem} sourceRect={archiveSourceRect} onClose={handleArchiveDetailClosed} onUnsave={handleArchiveUnsave} onUndoUnsave={handleArchiveUndone} />
 
       {activeBoost && (
         <ContentOverlay
