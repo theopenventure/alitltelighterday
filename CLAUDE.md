@@ -2,4 +2,4 @@
 
 ## CSS Standards
 
-- All interactive and content surfaces must include `-webkit-user-select: none; user-select: none;` to prevent accidental text selection on mobile. Apply this to scrollable sheets, overlay content, tappable list items, and card surfaces.
+- Text selection is globally disabled via `-webkit-user-select: none; user-select: none;` on the universal `*` selector in `src/index.css`. Do not remove this rule. If a specific element needs selectable text, opt it back in explicitly with `user-select: text`.
