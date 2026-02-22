@@ -69,6 +69,7 @@ export default function ContentOverlay({
   onExited,
   onReact,
   onSave,
+  onUnsaveConfirmed,
 }) {
   // Phases: 'expanding' → 'thinking' → 'ready' → 'streaming' → 'collapsing'
   const [phase, setPhase] = useState('expanding')
@@ -79,20 +80,42 @@ export default function ContentOverlay({
   const [saved, setSaved] = useState(initialSaved)
   const [toastMsg, setToastMsg] = useState(null)
   const [toastVisible, setToastVisible] = useState(false)
+  const [pendingUnsave, setPendingUnsave] = useState(false)
   const intervalRef = useRef(null)
   const savedRectRef = useRef(sourceRect)
 
   const handleSaveToggle = useCallback(() => {
     const next = !saved
     setSaved(next)
-    onSave?.()
-    setToastMsg(next ? 'Saved to your collection' : 'Removed from your collection')
+    if (next) {
+      // Saving
+      onSave?.()
+      setPendingUnsave(false)
+      setToastMsg('Saved to your collection')
+    } else {
+      // Unsaving — don't remove from storage yet, wait for undo window
+      setPendingUnsave(true)
+      setToastMsg('Removed from your collection')
+    }
     setToastVisible(true)
   }, [saved, onSave])
 
   const handleToastDone = useCallback(() => {
     setToastVisible(false)
-  }, [])
+    if (pendingUnsave) {
+      // Undo window expired — actually remove from storage
+      setPendingUnsave(false)
+      onUnsaveConfirmed?.()
+    }
+  }, [pendingUnsave, onUnsaveConfirmed])
+
+  const handleToastUndo = useCallback(() => {
+    // User clicked Undo — re-save the item
+    setSaved(true)
+    setPendingUnsave(false)
+    setToastVisible(false)
+    onSave?.()
+  }, [onSave])
 
   const variant = card.variant || 'gray'
   const bgColor = VARIANT_COLORS[variant] || VARIANT_COLORS.gray
@@ -284,7 +307,7 @@ export default function ContentOverlay({
         </div>
       </div>
 
-      <Toast message={toastMsg} visible={toastVisible} onDone={handleToastDone} variant={variant} />
+      <Toast message={toastMsg} visible={toastVisible} onDone={handleToastDone} onUndo={pendingUnsave ? handleToastUndo : undefined} variant={variant} />
     </div>
   )
 }

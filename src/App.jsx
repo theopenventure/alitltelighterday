@@ -11,7 +11,6 @@ import { getDailyBoosts, getRandomBoosts, getCategoryOrder } from './data/boostP
 import { getDailyHeroCopy, getRandomHeroCopy } from './data/heroCopyPool'
 import { generateBoost } from './api/generateBoost'
 import { saveBoost, removeBoost, getSavedBoostsByDay, seedPlaceholderData } from './lib/savedBoosts'
-import UndoToast from './components/UndoToast'
 
 // Dynamic category order based on day + time of day
 const CATEGORIES = getCategoryOrder()
@@ -35,7 +34,6 @@ function App() {
 
   // Unsave flow
   const [undoItem, setUndoItem] = useState(null)
-  const [undoToastVisible, setUndoToastVisible] = useState(false)
   const [removingItemId, setRemovingItemId] = useState(null)
 
   const closeTimerRef = useRef(null)
@@ -229,24 +227,31 @@ function App() {
   const handleSave = useCallback(() => {
     if (!boostContent || !activeBoostRef.current) return
     const category = activeBoostRef.current
-    const wasSaved = savedCategoriesRef.current[category]
-    if (wasSaved) {
-      // Toggle off — just mark as unsaved (content stays in localStorage)
-      savedCategoriesRef.current[category] = false
-    } else {
-      const card = cards[category]
-      const updated = saveBoost({
-        title: boostContent.title,
-        shortTitle: card.shortTitle,
-        category: card.category,
-        variant: card.variant,
-        prompt: card.prompt,
-        segments: boostContent.segments,
-      })
-      setSavedBoosts(updated)
-      savedCategoriesRef.current[category] = true
-    }
+    const card = cards[category]
+    const updated = saveBoost({
+      title: boostContent.title,
+      shortTitle: card.shortTitle,
+      category: card.category,
+      variant: card.variant,
+      prompt: card.prompt,
+      segments: boostContent.segments,
+    })
+    setSavedBoosts(updated)
+    savedCategoriesRef.current[category] = true
   }, [boostContent, cards])
+
+  const handleContentUnsaveConfirmed = useCallback(() => {
+    if (!boostContent || !activeBoostRef.current) return
+    const category = activeBoostRef.current
+    // Find and remove the item from storage by title match
+    const allBoosts = savedBoosts.flatMap(g => g.items)
+    const match = allBoosts.find(b => b.title === boostContent.title)
+    if (match) {
+      const updated = removeBoost(match.id)
+      setSavedBoosts(updated)
+    }
+    savedCategoriesRef.current[category] = false
+  }, [boostContent, savedBoosts])
 
   // ── Unsave flow from Archive ──
 
@@ -255,37 +260,28 @@ function App() {
     setUndoItem(item)
   }, [])
 
-  const handleArchiveDetailClosed = useCallback(() => {
-    setActiveArchiveItem(null)
-    // If an unsave was triggered, show undo toast after detail closes
-    if (undoItem) {
-      setUndoToastVisible(true)
-    }
-  }, [undoItem])
-
-  const handleUndo = useCallback(() => {
-    // User clicked Undo — keep item in list, clear undo state
+  const handleArchiveUndone = useCallback(() => {
+    // User clicked Undo inside ArchiveDetail — keep item, clear undo state
     setUndoItem(null)
-    setUndoToastVisible(false)
   }, [])
 
-  const handleUndoExpired = useCallback(() => {
-    // Toast expired without undo — actually remove the item
-    setUndoToastVisible(false)
-    if (!undoItem) return
+  const handleArchiveDetailClosed = useCallback(() => {
+    setActiveArchiveItem(null)
+    // If an unsave was triggered (not undone), remove the item
+    if (undoItem) {
+      const itemId = undoItem.id
+      setUndoItem(null)
 
-    const itemId = undoItem.id
-    setUndoItem(null)
+      // Trigger removal animation
+      setRemovingItemId(itemId)
 
-    // Trigger removal animation
-    setRemovingItemId(itemId)
-
-    // After animation completes, update storage and refresh list
-    setTimeout(() => {
-      const updated = removeBoost(itemId)
-      setSavedBoosts(updated)
-      setRemovingItemId(null)
-    }, 500)
+      // After animation completes, update storage and refresh list
+      setTimeout(() => {
+        const updated = removeBoost(itemId)
+        setSavedBoosts(updated)
+        setRemovingItemId(null)
+      }, 500)
+    }
   }, [undoItem])
 
   const handleShuffle = useCallback(() => {
@@ -388,14 +384,7 @@ function App() {
 
       <BottomNav activeTab={navTab} onTabChange={handleTabChange} />
 
-      <ArchiveDetail item={activeArchiveItem} onClose={handleArchiveDetailClosed} onUnsave={handleArchiveUnsave} />
-
-      <UndoToast
-        message="You unsaved this item"
-        visible={undoToastVisible}
-        onUndo={handleUndo}
-        onDone={handleUndoExpired}
-      />
+      <ArchiveDetail item={activeArchiveItem} onClose={handleArchiveDetailClosed} onUnsave={handleArchiveUnsave} onUndoUnsave={handleArchiveUndone} />
 
       {activeBoost && (
         <ContentOverlay
@@ -410,6 +399,7 @@ function App() {
           onExited={handleOverlayExited}
           onReact={handleReact}
           onSave={handleSave}
+          onUnsaveConfirmed={handleContentUnsaveConfirmed}
         />
       )}
     </div>

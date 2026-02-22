@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import './Toast.css'
 
 const DISPLAY_DURATION = 2800
+const UNDO_DISPLAY_DURATION = 3000
 const EXIT_DURATION = 350
 
 const TOAST_BG = {
@@ -18,11 +19,13 @@ const TOAST_FG = {
   sage: '#F0F7F0',
 }
 
-export default function Toast({ message, visible, onDone, variant }) {
+export default function Toast({ message, visible, onDone, onUndo, variant }) {
   const [show, setShow] = useState(false)
   const [exiting, setExiting] = useState(false)
   const timerRef = useRef(null)
   const exitRef = useRef(null)
+
+  const duration = onUndo ? UNDO_DISPLAY_DURATION : DISPLAY_DURATION
 
   useEffect(() => {
     if (visible && message) {
@@ -46,7 +49,7 @@ export default function Toast({ message, visible, onDone, variant }) {
           setExiting(false)
           onDone?.()
         }, EXIT_DURATION)
-      }, DISPLAY_DURATION)
+      }, duration)
 
       return () => {
         cancelAnimationFrame(enterRaf)
@@ -54,7 +57,22 @@ export default function Toast({ message, visible, onDone, variant }) {
         clearTimeout(exitRef.current)
       }
     }
-  }, [visible, message, onDone])
+  }, [visible, message, onDone, duration])
+
+  const handleUndo = () => {
+    // Clear auto-dismiss timer
+    clearTimeout(timerRef.current)
+    clearTimeout(exitRef.current)
+
+    // Animate out
+    setExiting(true)
+    setShow(false)
+
+    setTimeout(() => {
+      setExiting(false)
+      onUndo?.()
+    }, EXIT_DURATION)
+  }
 
   if (!visible && !exiting) return null
 
@@ -68,6 +86,11 @@ export default function Toast({ message, visible, onDone, variant }) {
           <path d="M9.5 17.5L14.5 22.5L25.5 11.5" />
         </svg>
         <span className="toast-text">{message}</span>
+        {onUndo && (
+          <button className="toast-undo" onClick={handleUndo}>
+            Undo
+          </button>
+        )}
       </div>
     </div>
   )

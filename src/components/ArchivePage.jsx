@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useMemo, useCallback } from 'react'
 import { flattenSegments, renderSegment, findFirstTextIndex } from './segments'
+import Toast from './Toast'
 import { getDailyArchiveHeroCopy } from '../data/archiveHeroCopyPool'
 import './ArchivePage.css'
 
@@ -121,11 +122,12 @@ const SHEET_BG = {
 
 // ── Archive Detail Overlay ──
 
-export function ArchiveDetail({ item, onClose, onUnsave }) {
+export function ArchiveDetail({ item, onClose, onUnsave, onUndoUnsave }) {
   const [visible, setVisible] = useState(false)
   const [closing, setClosing] = useState(false)
   const [saved, setSaved] = useState(true)
-  const autoCloseRef = useRef(null)
+  const [toastVisible, setToastVisible] = useState(false)
+  const [pendingUnsave, setPendingUnsave] = useState(false)
 
   const flatSegments = useMemo(() => {
     return item ? flattenSegments(item.segments) : []
@@ -133,20 +135,18 @@ export function ArchiveDetail({ item, onClose, onUnsave }) {
 
   const firstTextIdx = useMemo(() => findFirstTextIndex(flatSegments), [flatSegments])
 
-  // Reset saved state when a new item opens
+  // Reset state when a new item opens
   useEffect(() => {
     if (!item) return
     setSaved(true)
+    setToastVisible(false)
+    setPendingUnsave(false)
     requestAnimationFrame(() => {
       requestAnimationFrame(() => setVisible(true))
     })
   }, [item])
 
   const handleClose = useCallback(() => {
-    if (autoCloseRef.current) {
-      clearTimeout(autoCloseRef.current)
-      autoCloseRef.current = null
-    }
     setClosing(true)
     setVisible(false)
     setTimeout(() => {
@@ -157,22 +157,28 @@ export function ArchiveDetail({ item, onClose, onUnsave }) {
 
   const handleSaveToggle = useCallback(() => {
     if (saved) {
-      // Unsaving
+      // Unsaving — show toast with undo, don't close yet
       setSaved(false)
+      setPendingUnsave(true)
       onUnsave?.(item)
-      // Auto-close after 2 seconds
-      autoCloseRef.current = setTimeout(() => {
-        handleClose()
-      }, 2000)
+      setToastVisible(true)
     }
-  }, [saved, item, onUnsave, handleClose])
+  }, [saved, item, onUnsave])
 
-  // Cleanup timer on unmount
-  useEffect(() => {
-    return () => {
-      if (autoCloseRef.current) clearTimeout(autoCloseRef.current)
-    }
-  }, [])
+  const handleToastUndo = useCallback(() => {
+    // User clicked Undo — re-activate save, cancel unsave
+    setSaved(true)
+    setPendingUnsave(false)
+    setToastVisible(false)
+    onUndoUnsave?.()
+  }, [onUndoUnsave])
+
+  const handleToastDone = useCallback(() => {
+    // Toast expired without undo — close the detail, then App.jsx removes the item
+    setToastVisible(false)
+    setPendingUnsave(false)
+    handleClose()
+  }, [handleClose])
 
   if (!item) return null
 
@@ -223,6 +229,15 @@ export function ArchiveDetail({ item, onClose, onUnsave }) {
           ))}
         </div>
       </div>
+
+      {/* Undo toast — inside the detail overlay */}
+      <Toast
+        message="Removed from your collection"
+        visible={toastVisible}
+        onDone={handleToastDone}
+        onUndo={pendingUnsave ? handleToastUndo : undefined}
+        variant={variant}
+      />
     </div>
   )
 }
