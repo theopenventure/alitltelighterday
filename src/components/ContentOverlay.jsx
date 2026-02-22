@@ -83,6 +83,10 @@ export default function ContentOverlay({
   const [pendingUnsave, setPendingUnsave] = useState(false)
   const intervalRef = useRef(null)
   const savedRectRef = useRef(sourceRect)
+  const pendingUnsaveRef = useRef(false)
+
+  // Keep ref in sync so the closing effect can read the latest value
+  pendingUnsaveRef.current = pendingUnsave
 
   const handleSaveToggle = useCallback(() => {
     const next = !saved
@@ -189,6 +193,13 @@ export default function ContentOverlay({
   // ── CLOSING: Collapse back to card ──
   useEffect(() => {
     if (!isClosing) return
+
+    // Flush pending unsave — overlay is unmounting, so confirm removal now
+    if (pendingUnsaveRef.current) {
+      pendingUnsaveRef.current = false
+      setPendingUnsave(false)
+      onUnsaveConfirmed?.()
+    }
 
     setPhase('collapsing')
     setContentVisible(false)

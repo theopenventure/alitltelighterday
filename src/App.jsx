@@ -270,7 +270,16 @@ function App() {
     // If an unsave was triggered (not undone), remove the item
     if (undoItem) {
       const itemId = undoItem.id
+      const itemTitle = undoItem.title
       setUndoItem(null)
+
+      // Sync homepage save state — find matching category key
+      for (const key of Object.keys(contentCacheRef.current)) {
+        if (contentCacheRef.current[key]?.title === itemTitle) {
+          savedCategoriesRef.current[key] = false
+          break
+        }
+      }
 
       // Trigger removal animation
       setRemovingItemId(itemId)
@@ -280,7 +289,7 @@ function App() {
         const updated = removeBoost(itemId)
         setSavedBoosts(updated)
         setRemovingItemId(null)
-      }, 500)
+      }, 600)
     }
   }, [undoItem])
 

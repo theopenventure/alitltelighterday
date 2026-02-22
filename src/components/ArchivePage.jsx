@@ -126,6 +126,7 @@ export function ArchiveDetail({ item, onClose, onUnsave, onUndoUnsave }) {
   const [visible, setVisible] = useState(false)
   const [closing, setClosing] = useState(false)
   const [saved, setSaved] = useState(true)
+  const [toastMsg, setToastMsg] = useState(null)
   const [toastVisible, setToastVisible] = useState(false)
   const [pendingUnsave, setPendingUnsave] = useState(false)
 
@@ -140,6 +141,7 @@ export function ArchiveDetail({ item, onClose, onUnsave, onUndoUnsave }) {
     if (!item) return
     setSaved(true)
     setToastVisible(false)
+    setToastMsg(null)
     setPendingUnsave(false)
     requestAnimationFrame(() => {
       requestAnimationFrame(() => setVisible(true))
@@ -156,14 +158,21 @@ export function ArchiveDetail({ item, onClose, onUnsave, onUndoUnsave }) {
   }, [onClose])
 
   const handleSaveToggle = useCallback(() => {
-    if (saved) {
+    const next = !saved
+    setSaved(next)
+    if (next) {
+      // Re-saving — cancel pending unsave
+      setPendingUnsave(false)
+      onUndoUnsave?.()
+      setToastMsg('Saved to your collection')
+    } else {
       // Unsaving — show toast with undo, don't close yet
-      setSaved(false)
       setPendingUnsave(true)
       onUnsave?.(item)
-      setToastVisible(true)
+      setToastMsg('Removed from your collection')
     }
-  }, [saved, item, onUnsave])
+    setToastVisible(true)
+  }, [saved, item, onUnsave, onUndoUnsave])
 
   const handleToastUndo = useCallback(() => {
     // User clicked Undo — re-activate save, cancel unsave
@@ -174,11 +183,13 @@ export function ArchiveDetail({ item, onClose, onUnsave, onUndoUnsave }) {
   }, [onUndoUnsave])
 
   const handleToastDone = useCallback(() => {
-    // Toast expired without undo — close the detail, then App.jsx removes the item
     setToastVisible(false)
-    setPendingUnsave(false)
-    handleClose()
-  }, [handleClose])
+    if (pendingUnsave) {
+      // Undo window expired while unsaved — close the detail, then App.jsx removes the item
+      setPendingUnsave(false)
+      handleClose()
+    }
+  }, [handleClose, pendingUnsave])
 
   if (!item) return null
 
@@ -230,9 +241,9 @@ export function ArchiveDetail({ item, onClose, onUnsave, onUndoUnsave }) {
         </div>
       </div>
 
-      {/* Undo toast — inside the detail overlay */}
+      {/* Toast — inside the detail overlay */}
       <Toast
-        message="Removed from your collection"
+        message={toastMsg}
         visible={toastVisible}
         onDone={handleToastDone}
         onUndo={pendingUnsave ? handleToastUndo : undefined}

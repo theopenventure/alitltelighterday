@@ -135,7 +135,6 @@
 .archive-items {
   display: flex;
   flex-direction: column;
-  gap: 16px;
 }
 
 .archive-item {
@@ -147,6 +146,7 @@
   background: none;
   border: none;
   padding: 0;
+  margin-bottom: 16px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   max-height: 200px;
@@ -168,17 +168,35 @@
   transition: opacity 0.1s ease;
 }
 
+/* ── Removal: "gentle release" ── */
+
+@keyframes cardRelease {
+  0% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    filter: blur(0px);
+  }
+  40% {
+    opacity: 0.4;
+    transform: translateX(0) scale(0.97);
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-30px) scale(0.95);
+    filter: blur(4px);
+  }
+}
+
 .archive-item--removing {
-  opacity: 0 !important;
+  animation: cardRelease 0.38s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   max-height: 0 !important;
-  padding-top: 0;
-  padding-bottom: 0;
+  margin-bottom: 0 !important;
   overflow: hidden;
-  transform: translateY(0) !important;
+  pointer-events: none;
   transition:
-    opacity 0.3s ease,
-    max-height 0.4s ease 0.15s,
-    padding 0.3s ease 0.15s;
+    max-height 0.35s cubic-bezier(0.22, 1, 0.36, 1) 0.18s,
+    margin-bottom 0.35s cubic-bezier(0.22, 1, 0.36, 1) 0.18s;
 }
 
 .archive-item-square {
