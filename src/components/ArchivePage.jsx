@@ -227,6 +227,11 @@ export function ArchiveDetail({ item, sourceRect, onClose, onUnsave, onUndoUnsav
   const variantText = VARIANT_TEXT[variant] || VARIANT_TEXT.sage
   const squareBg = VARIANT_BG[variant] || VARIANT_BG.sage
 
+  // Sync rect during render so the very first paint starts at the square position
+  if (sourceRect) {
+    savedRectRef.current = sourceRect
+  }
+
   // Expansion layer style — animates from square position to fullscreen
   const rect = savedRectRef.current
   let expansionStyle
