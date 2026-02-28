@@ -4,7 +4,7 @@ export const categoryMeta = {
   lift:   { category: 'Get curious',     variant: 'warm' },
   steady: { category: 'Calm your body',  variant: 'gray' },
   space:  { category: 'Quiet your mind', variant: 'sage' },
-  small:  { category: 'Treat yourself',  variant: 'beige' },
+  small:  { category: 'Gift yourself',   variant: 'beige' },
 }
 
 // ── Time-of-day periods ──
@@ -13,1517 +13,1520 @@ export const categoryMeta = {
 
 // ── Prompt pools: 90 curated prompts per category (360 total) ──
 // Each prompt: { prompt, detail, segment, time, shortTitle, cta }
+// Prompt Framework v2: 60-80 chars, strict formulas, no state assumptions, no "shoulds"
 
 export const promptPool = {
 
   // ═══════════════════════════════════════════════════════════════
   // LIFT — "Get curious" (90 prompts)
-  // Feeling more alive. Gentle spark, not hype.
+  // Formula: [Show/Tell me] + [Something unexpected/surprising]
+  // Cognitive redirection via wonder. Lean forward.
   // Segment mix: ~28 text, ~22 fact, ~20 breath, ~10 list, ~10 song
   // ═══════════════════════════════════════════════════════════════
 
   lift: [
 
-    // ── LIFT: Morning (25 prompts) ──
+    // ── LIFT: Morning — Starting (25 prompts) ──
 
-    { prompt: 'A stretch that takes ten seconds and changes everything.',
-      detail: 'Just ten seconds', segment: 'breath', time: 'morning',
-      shortTitle: 'Ten seconds', cta: 'Move' },
+    { prompt: 'Show me something a wild animal does that sounds completely made up.',
+      detail: 'Almost unbelievable', segment: 'fact', time: 'morning',
+      shortTitle: 'Made up', cta: 'Oh, really?' },
 
-    { prompt: 'Something to notice before I check my phone.',
-      detail: 'One glance, no screen', segment: 'text', time: 'morning',
-      shortTitle: 'Before the phone', cta: 'Try this' },
+    { prompt: 'Tell me something worth noticing before the morning moves too fast.',
+      detail: 'Before it passes', segment: 'text', time: 'morning',
+      shortTitle: 'Before it goes', cta: 'Try this' },
 
-    { prompt: 'A wild animal fact to start my morning.',
-      detail: 'A wild fact to start the day', segment: 'fact', time: 'morning',
-      shortTitle: 'Morning wonder', cta: 'Oh, really?' },
+    { prompt: 'Show me a stretch so small it surprises me how much my body opens up.',
+      detail: 'Tiny but real', segment: 'breath', time: 'morning',
+      shortTitle: 'Small stretch', cta: 'Move' },
 
-    { prompt: 'A tiny movement to wake up my whole body.',
-      detail: 'A tiny wake-up trick', segment: 'breath', time: 'morning',
-      shortTitle: 'Wake up move', cta: 'Move' },
-
-    { prompt: 'A strange food fact I can think about at breakfast.',
-      detail: 'Something to think about at breakfast', segment: 'fact', time: 'morning',
+    { prompt: 'Tell me a fact about breakfast that is surprisingly strange to think about.',
+      detail: 'A breakfast surprise', segment: 'fact', time: 'morning',
       shortTitle: 'Breakfast fact', cta: 'Oh, really?' },
 
-    { prompt: 'A song that feels like the first light of the day.',
-      detail: 'A gentle first track', segment: 'song', time: 'morning',
+    { prompt: 'Show me a reason to look out the window before I start anything today.',
+      detail: 'One glance outside', segment: 'text', time: 'morning',
+      shortTitle: 'Window first', cta: 'Try this' },
+
+    { prompt: 'Tell me a song that sounds like the very first light of the morning.',
+      detail: 'First light', segment: 'song', time: 'morning',
       shortTitle: 'First light', cta: 'Play it' },
 
-    { prompt: 'One small thing to pay attention to today.',
-      detail: 'Just that one thing', segment: 'text', time: 'morning',
-      shortTitle: 'Notice this', cta: 'Try this' },
+    { prompt: 'Show me a creature that experiences the world in a way I never imagined.',
+      detail: 'A different world', segment: 'fact', time: 'morning',
+      shortTitle: 'Other senses', cta: 'Oh, really?' },
 
-    { prompt: 'A quick hand exercise to get the blood moving.',
-      detail: 'Instant circulation boost', segment: 'breath', time: 'morning',
-      shortTitle: 'Hands alive', cta: 'Move' },
+    { prompt: 'Tell me about something happening right now in nature that I can\'t see.',
+      detail: 'Invisible nature', segment: 'text', time: 'morning',
+      shortTitle: 'Hidden nature', cta: 'Try this' },
 
-    { prompt: 'A creature that does something unbelievable.',
-      detail: 'Nature does wild things', segment: 'fact', time: 'morning',
-      shortTitle: 'Wild creature', cta: 'Oh, really?' },
+    { prompt: 'Show me a tiny movement I can do right now that wakes up my whole spine.',
+      detail: 'A spine hello', segment: 'breath', time: 'morning',
+      shortTitle: 'Spine wake-up', cta: 'Move' },
 
-    { prompt: 'A reason to walk to a different room right now.',
-      detail: 'Change your scenery by ten feet', segment: 'text', time: 'morning',
-      shortTitle: 'New room', cta: 'Try this' },
+    { prompt: 'Tell me something my body is doing right now that I had no idea about.',
+      detail: 'Your body right now', segment: 'fact', time: 'morning',
+      shortTitle: 'Body secret', cta: 'Oh, really?' },
 
-    { prompt: 'Three breaths that tell my body the day is safe.',
-      detail: 'A nervous system hello', segment: 'breath', time: 'morning',
-      shortTitle: 'Safe start', cta: 'Breathe' },
+    { prompt: 'Show me something about early morning light that most people miss.',
+      detail: 'Morning light', segment: 'text', time: 'morning',
+      shortTitle: 'Morning glow', cta: 'Look up' },
 
-    { prompt: 'A fact about fruit that will surprise me.',
-      detail: 'A breakfast table fact', segment: 'fact', time: 'morning',
-      shortTitle: 'Fruit twist', cta: 'Oh, really?' },
+    { prompt: 'Tell me a song that makes getting ready feel like a scene from a film.',
+      detail: 'A movie moment', segment: 'song', time: 'morning',
+      shortTitle: 'Getting ready', cta: 'Play it' },
 
-    { prompt: 'Things worth noticing on a morning walk.',
-      detail: 'Small things you might miss', segment: 'list', time: 'morning',
-      shortTitle: 'Walk and look', cta: 'Try this' },
+    { prompt: 'Show me a hand movement so quick it surprises me with how good it feels.',
+      detail: 'Just your hands', segment: 'breath', time: 'morning',
+      shortTitle: 'Hand thing', cta: 'Move' },
 
-    { prompt: 'A surprising reason to drink a glass of water.',
-      detail: 'Hydration as brain care', segment: 'fact', time: 'morning',
-      shortTitle: 'Water first', cta: 'Oh, really?' },
+    { prompt: 'Tell me something trees do underground that sounds almost like talking.',
+      detail: 'Underground whispers', segment: 'fact', time: 'morning',
+      shortTitle: 'Tree talk', cta: 'Oh, really?' },
 
-    { prompt: 'Something I can do with my face in three seconds.',
-      detail: 'A face wake-up', segment: 'breath', time: 'morning',
-      shortTitle: 'Face reset', cta: 'Try this' },
+    { prompt: 'Show me something about this morning that only happens once and is gone.',
+      detail: 'One-time-only', segment: 'text', time: 'morning',
+      shortTitle: 'Only today', cta: 'Look up' },
 
-    { prompt: 'A song for getting ready with no rush at all.',
-      detail: 'Morning pace, no hurry', segment: 'song', time: 'morning',
-      shortTitle: 'No rush', cta: 'Play it' },
+    { prompt: 'Tell me a three-second face movement that is surprisingly satisfying.',
+      detail: 'A face surprise', segment: 'breath', time: 'morning',
+      shortTitle: 'Face thing', cta: 'Move' },
 
-    { prompt: 'Something trees do that sounds almost human.',
-      detail: 'The wood wide web', segment: 'fact', time: 'morning',
-      shortTitle: 'Tree secret', cta: 'Oh, really?' },
+    { prompt: 'Show me a fact about water that sounds stranger the more I think about it.',
+      detail: 'Water is weird', segment: 'fact', time: 'morning',
+      shortTitle: 'Water fact', cta: 'Oh, really?' },
 
-    { prompt: 'A tiny sensory adventure I can have right here.',
-      detail: 'Micro-exploration', segment: 'text', time: 'morning',
-      shortTitle: 'Tiny adventure', cta: 'Try this' },
+    { prompt: 'Tell me about a sound I could hear this morning if I really listened.',
+      detail: 'Listen closely', segment: 'text', time: 'morning',
+      shortTitle: 'Morning sound', cta: 'Try this' },
 
-    { prompt: 'Something oddly satisfying I can do with my toes.',
-      detail: 'From the ground up', segment: 'breath', time: 'morning',
-      shortTitle: 'Toe thing', cta: 'Try this' },
+    { prompt: 'Show me a song that feels like walking outside into cool fresh air.',
+      detail: 'Cool air track', segment: 'song', time: 'morning',
+      shortTitle: 'Fresh air', cta: 'Play it' },
 
-    { prompt: 'Something about the sky that only happens today.',
-      detail: 'A one-time-only sky', segment: 'text', time: 'morning',
-      shortTitle: 'Today only', cta: 'Look up' },
+    { prompt: 'Tell me a breath pattern that is oddly fun to try first thing in the day.',
+      detail: 'A playful breath', segment: 'breath', time: 'morning',
+      shortTitle: 'Fun breath', cta: 'Move' },
 
-    { prompt: 'Incredible things my body is doing right now.',
-      detail: 'You are more amazing than you think', segment: 'list', time: 'morning',
-      shortTitle: 'Body facts', cta: 'Oh, really?' },
+    { prompt: 'Show me something a small insect does that is genuinely mind-blowing.',
+      detail: 'Tiny and mighty', segment: 'fact', time: 'morning',
+      shortTitle: 'Tiny wonder', cta: 'Oh, really?' },
 
-    { prompt: 'A sound I can make that resets my nervous system.',
-      detail: 'Sound as a reset', segment: 'breath', time: 'morning',
-      shortTitle: 'One sound', cta: 'Try this' },
+    { prompt: 'Tell me a surprising thing that happens in my brain while I am waking up.',
+      detail: 'Waking-up science', segment: 'text', time: 'morning',
+      shortTitle: 'Brain waking', cta: 'Try this' },
 
-    { prompt: 'The gentlest animal fact I will hear all day.',
-      detail: 'The gentlest animal fact', segment: 'fact', time: 'morning',
-      shortTitle: 'Gentle fact', cta: 'Oh, really?' },
+    { prompt: 'Show me a balance move so quick no one would even notice I was doing it.',
+      detail: 'A secret balance', segment: 'breath', time: 'morning',
+      shortTitle: 'Balance trick', cta: 'Move' },
 
-    { prompt: 'A twist I can do sitting that my spine will love.',
-      detail: 'A morning twist', segment: 'breath', time: 'morning',
-      shortTitle: 'Spinal twist', cta: 'Move' },
+    { prompt: 'Tell me things happening right now on Earth that sound too wild to be real.',
+      detail: 'Earth right now', segment: 'list', time: 'morning',
+      shortTitle: 'Right now', cta: 'Go on' },
 
-    { prompt: 'One small thing to look forward to today.',
-      detail: 'One small pull forward', segment: 'text', time: 'morning',
-      shortTitle: 'One thing', cta: 'Try this' },
+    { prompt: 'Show me small things most people walk right past without ever noticing.',
+      detail: 'Easy to miss', segment: 'list', time: 'morning',
+      shortTitle: 'Walk past', cta: 'Go on' },
 
-    // ── LIFT: Afternoon (30 prompts) ──
+    // ── LIFT: Afternoon — Resetting (30 prompts) ──
 
-    { prompt: 'A reason to stand up for just ten seconds.',
-      detail: 'Just ten seconds of standing', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Stand up', cta: 'Move' },
+    { prompt: 'Tell me about a place on Earth where the rules of nature seem to break.',
+      detail: 'Rules don\'t apply', segment: 'text', time: 'afternoon',
+      shortTitle: 'Broken rules', cta: 'Try this' },
 
-    { prompt: 'The best animal group name I have never heard.',
-      detail: 'A fact that deserves to be shared', segment: 'fact', time: 'afternoon',
-      shortTitle: 'Group name', cta: 'Oh, really?' },
+    { prompt: 'Show me a few things happening on Earth right now that sound impossible.',
+      detail: 'Right this second', segment: 'list', time: 'afternoon',
+      shortTitle: 'Impossible now', cta: 'Go on' },
 
-    { prompt: 'A quick shoulder move to fix my posture.',
-      detail: 'A quick posture check', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Shoulder fix', cta: 'Move' },
-
-    { prompt: 'A song that feels like walking into the sunshine.',
-      detail: 'Instant mood shift', segment: 'song', time: 'afternoon',
-      shortTitle: 'Into the sun', cta: 'Play it' },
-
-    { prompt: 'Something about sunlight most people don\'t know.',
-      detail: 'Time-traveling photons', segment: 'fact', time: 'afternoon',
+    { prompt: 'Tell me a fact about sunlight that most people have never thought about.',
+      detail: 'Sunlight surprise', segment: 'fact', time: 'afternoon',
       shortTitle: 'Sunlight fact', cta: 'Oh, really?' },
 
-    { prompt: 'A strange little energy jolt I can do at my desk.',
-      detail: 'A percussive wake-up', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Energy jolt', cta: 'Try this' },
+    { prompt: 'Show me a shoulder move so subtle it looks like nothing but feels great.',
+      detail: 'A subtle shift', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Shoulder shift', cta: 'Move' },
 
-    { prompt: 'A way to arrive in the present moment right now.',
-      detail: 'A grounding spark', segment: 'text', time: 'afternoon',
-      shortTitle: 'Be here now', cta: 'Try this' },
+    { prompt: 'Tell me a song that feels like walking into a warm patch of sunshine.',
+      detail: 'A warm patch', segment: 'song', time: 'afternoon',
+      shortTitle: 'Into the sun', cta: 'Play it' },
 
-    { prompt: 'Something surprising that crows can do.',
-      detail: 'Crows remember', segment: 'fact', time: 'afternoon',
-      shortTitle: 'Clever crows', cta: 'Oh, really?' },
+    { prompt: 'Show me something about the color blue that I have probably never heard.',
+      detail: 'Blue is stranger', segment: 'fact', time: 'afternoon',
+      shortTitle: 'Blue secret', cta: 'Oh, really?' },
 
-    { prompt: 'An absurd little exercise that actually works.',
-      detail: 'Quick and a little silly', segment: 'breath', time: 'afternoon',
-      shortTitle: 'A silly one', cta: 'Move' },
+    { prompt: 'Tell me about something ordinary that becomes amazing when you zoom in.',
+      detail: 'Zoom in close', segment: 'text', time: 'afternoon',
+      shortTitle: 'Zoom in', cta: 'Try this' },
 
-    { prompt: 'Tiny things I could do in the next two minutes.',
-      detail: 'Micro-adventures', segment: 'list', time: 'afternoon',
-      shortTitle: 'Two minutes', cta: 'Try this' },
+    { prompt: 'Show me a quick twist I can do sitting that my whole back will thank me for.',
+      detail: 'A seated twist', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Seated twist', cta: 'Move' },
 
-    { prompt: 'Something wild about the human sense of smell.',
-      detail: 'A sensory challenge', segment: 'fact', time: 'afternoon',
-      shortTitle: 'Nose power', cta: 'Oh, really?' },
+    { prompt: 'Tell me the best animal group name that I have absolutely never heard of.',
+      detail: 'A name worth knowing', segment: 'fact', time: 'afternoon',
+      shortTitle: 'Group name', cta: 'Oh, really?' },
 
-    { prompt: 'A five-second move to open up my chest.',
-      detail: 'Open your chest', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Chest opener', cta: 'Move' },
+    { prompt: 'Show me a reason to stand up for just ten seconds and then sit back down.',
+      detail: 'Just ten seconds', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Stand and sit', cta: 'Move' },
 
-    { prompt: 'A song that makes me feel like the main character.',
-      detail: 'Main character energy', segment: 'song', time: 'afternoon',
-      shortTitle: 'Main character', cta: 'Play it' },
+    { prompt: 'Tell me something about the afternoon sky that changes every single day.',
+      detail: 'Never the same', segment: 'text', time: 'afternoon',
+      shortTitle: 'Today\'s sky', cta: 'Look up' },
 
-    { prompt: 'A mind-blowing fact about the size of things.',
-      detail: 'Infinite possibilities', segment: 'fact', time: 'afternoon',
-      shortTitle: 'Scale check', cta: 'Oh, really?' },
+    { prompt: 'Show me a fact about the human hand that is strangely hard to believe.',
+      detail: 'Hand facts', segment: 'fact', time: 'afternoon',
+      shortTitle: 'Hand truth', cta: 'Oh, really?' },
 
-    { prompt: 'Something my eyes need after staring at a screen.',
-      detail: 'A rest for your eyes', segment: 'text', time: 'afternoon',
-      shortTitle: 'Eye rest', cta: 'Try this' },
+    { prompt: 'Tell me a song that makes the middle of the day feel like a slow stroll.',
+      detail: 'A slow stroll', segment: 'song', time: 'afternoon',
+      shortTitle: 'Slow stroll', cta: 'Play it' },
 
-    { prompt: 'A wall exercise that resets more than I expect.',
-      detail: 'Tension you can actually use', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Wall move', cta: 'Try this' },
+    { prompt: 'Show me a posture shift so easy it barely counts but somehow changes things.',
+      detail: 'Barely counts', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Tiny shift', cta: 'Move' },
 
-    { prompt: 'An animal fact that serves absolutely no purpose.',
-      detail: 'A fact for no reason', segment: 'fact', time: 'afternoon',
-      shortTitle: 'Useless fact', cta: 'Oh, really?' },
+    { prompt: 'Tell me something about how my eyes see color that sounds like science fiction.',
+      detail: 'Color fiction', segment: 'fact', time: 'afternoon',
+      shortTitle: 'Color trick', cta: 'Oh, really?' },
 
-    { prompt: 'A sneaky excuse to get up and walk somewhere.',
-      detail: 'Movement disguised as hydration', segment: 'text', time: 'afternoon',
-      shortTitle: 'Sneaky walk', cta: 'Move' },
+    { prompt: 'Show me a place in the world where something truly strange happens daily.',
+      detail: 'Daily strangeness', segment: 'text', time: 'afternoon',
+      shortTitle: 'Strange place', cta: 'Try this' },
 
-    { prompt: 'Things most people have never thought about.',
-      detail: 'Mind-opening tidbits', segment: 'list', time: 'afternoon',
-      shortTitle: 'Think about this', cta: 'Go on' },
+    { prompt: 'Tell me a few things that are surprisingly recent inventions.',
+      detail: 'Newer than you think', segment: 'list', time: 'afternoon',
+      shortTitle: 'Recent things', cta: 'Go on' },
 
-    { prompt: 'A quick brain-body sync I can do with my fingers.',
-      detail: 'Finger agility reset', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Finger trick', cta: 'Try this' },
+    { prompt: 'Show me a neck roll so slow it becomes something completely different.',
+      detail: 'Slow becomes new', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Slow roll', cta: 'Move' },
 
-    { prompt: 'How dolphins call their friends.',
-      detail: 'Dolphins have friend names', segment: 'fact', time: 'afternoon',
-      shortTitle: 'Dolphin names', cta: 'Oh, really?' },
+    { prompt: 'Tell me about an ocean creature that does something no one would believe.',
+      detail: 'Deep sea wonder', segment: 'fact', time: 'afternoon',
+      shortTitle: 'Ocean creature', cta: 'Oh, really?' },
 
-    { prompt: 'A neck stretch my body has been waiting for.',
-      detail: 'A neck thank-you', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Neck stretch', cta: 'Move' },
+    { prompt: 'Show me something about this exact moment in time that will never repeat.',
+      detail: 'Only this once', segment: 'text', time: 'afternoon',
+      shortTitle: 'Never again', cta: 'Try this' },
 
-    { prompt: 'A song for the last hour of the workday.',
-      detail: 'A closing-time feeling', segment: 'song', time: 'afternoon',
-      shortTitle: 'Clock out', cta: 'Play it' },
+    { prompt: 'Tell me a song that makes standing at a window feel like an adventure.',
+      detail: 'Window adventure', segment: 'song', time: 'afternoon',
+      shortTitle: 'Window song', cta: 'Play it' },
 
-    { prompt: 'A reason to step outside for sixty seconds.',
-      detail: 'Just one minute outside', segment: 'text', time: 'afternoon',
-      shortTitle: 'Go outside', cta: 'Move' },
+    { prompt: 'Show me something about gravity that I probably took for granted today.',
+      detail: 'Gravity is wild', segment: 'fact', time: 'afternoon',
+      shortTitle: 'Gravity fact', cta: 'Oh, really?' },
 
-    { prompt: 'How far I will walk in my lifetime.',
-      detail: 'You are a long-distance walker', segment: 'fact', time: 'afternoon',
-      shortTitle: 'Walking miles', cta: 'Oh, really?' },
+    { prompt: 'Tell me a wrist circle so intentional it actually becomes interesting.',
+      detail: 'Wrist wonder', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Wrist circles', cta: 'Move' },
 
-    { prompt: 'A stretch that hits more than I expect.',
-      detail: 'Full arm extension', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Surprise stretch', cta: 'Move' },
+    { prompt: 'Show me something about clouds that makes them seem like living things.',
+      detail: 'Clouds are alive', segment: 'text', time: 'afternoon',
+      shortTitle: 'Living clouds', cta: 'Look up' },
 
-    { prompt: 'An attention game I can play right now.',
-      detail: 'An attention exercise', segment: 'text', time: 'afternoon',
-      shortTitle: 'Sound game', cta: 'Try this' },
+    { prompt: 'Tell me about the strangest fruit in the world and why it got that way.',
+      detail: 'Fruit gone rogue', segment: 'fact', time: 'afternoon',
+      shortTitle: 'Strange fruit', cta: 'Oh, really?' },
 
-    { prompt: 'The most violent-sounding ocean creature.',
-      detail: 'The toughest little shrimp', segment: 'fact', time: 'afternoon',
-      shortTitle: 'Ocean punch', cta: 'Oh, really?' },
+    { prompt: 'Show me a few ordinary things that look completely different under a microscope.',
+      detail: 'Zoomed in beauty', segment: 'list', time: 'afternoon',
+      shortTitle: 'Micro world', cta: 'Go on' },
 
-    { prompt: 'Five-second things that shift my energy.',
-      detail: 'Quick resets', segment: 'list', time: 'afternoon',
-      shortTitle: 'Five seconds', cta: 'Try this' },
+    { prompt: 'Tell me about a small thing I could notice right now if I just looked up.',
+      detail: 'Look up now', segment: 'text', time: 'afternoon',
+      shortTitle: 'Just look up', cta: 'Look up' },
 
-    { prompt: 'One breath that counts as a real break.',
-      detail: 'A single sigh', segment: 'breath', time: 'afternoon',
-      shortTitle: 'One sigh', cta: 'Breathe' },
+    { prompt: 'Show me a toe exercise that sounds ridiculous but is oddly satisfying.',
+      detail: 'Oddly satisfying', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Toe thing', cta: 'Move' },
 
-    // ── LIFT: Evening (20 prompts) ──
+    { prompt: 'Tell me a few sounds worth paying attention to in the middle of the day.',
+      detail: 'Midday sounds', segment: 'list', time: 'afternoon',
+      shortTitle: 'Day sounds', cta: 'Go on' },
 
-    { prompt: 'Something about starlight that blows my mind.',
-      detail: 'Ancient starlight', segment: 'fact', time: 'evening',
-      shortTitle: 'Old light', cta: 'Oh, really?' },
+    { prompt: 'Show me something about a bird I see every day that I never knew before.',
+      detail: 'A common bird secret', segment: 'text', time: 'afternoon',
+      shortTitle: 'Bird secret', cta: 'Try this' },
 
-    { prompt: 'A reason to go outside and look up right now.',
-      detail: 'A small dose of awe', segment: 'text', time: 'evening',
-      shortTitle: 'Look up', cta: 'Try this' },
+    // ── LIFT: Evening — Shedding (20 prompts) ──
 
-    { prompt: 'A song that feels like a drive at dusk.',
-      detail: 'A golden-hour track', segment: 'song', time: 'evening',
-      shortTitle: 'Dusk drive', cta: 'Play it' },
+    { prompt: 'Tell me a song that sounds like the world slowing down just for a moment.',
+      detail: 'The world slows', segment: 'song', time: 'evening',
+      shortTitle: 'Slowing down', cta: 'Play it' },
 
-    { prompt: 'A number about Earth that sounds made up.',
-      detail: 'More than you think', segment: 'fact', time: 'evening',
-      shortTitle: 'Earth number', cta: 'Oh, really?' },
+    { prompt: 'Show me a fact about the night sky that changes how I look at it tonight.',
+      detail: 'Look up tonight', segment: 'fact', time: 'evening',
+      shortTitle: 'Night sky', cta: 'Oh, really?' },
 
-    { prompt: 'A weird reason to lie on the floor for a minute.',
-      detail: 'Floor time', segment: 'breath', time: 'evening',
-      shortTitle: 'Floor moment', cta: 'Try this' },
+    { prompt: 'Tell me about something that only happens in the sky during this hour.',
+      detail: 'This hour only', segment: 'text', time: 'evening',
+      shortTitle: 'Evening sky', cta: 'Look up' },
 
-    { prompt: 'The biggest heartbeat on the planet.',
-      detail: 'The biggest heartbeat', segment: 'fact', time: 'evening',
-      shortTitle: 'Biggest heart', cta: 'Oh, really?' },
+    { prompt: 'Show me a gentle stretch that feels like putting the whole day behind me.',
+      detail: 'A closing stretch', segment: 'breath', time: 'evening',
+      shortTitle: 'Day behind', cta: 'Move' },
 
-    { prompt: 'A question about my day only my eyes can answer.',
-      detail: 'A small evening reflection', segment: 'text', time: 'evening',
-      shortTitle: 'Best sight', cta: 'Try this' },
+    { prompt: 'Tell me something surprising about what my brain does while I am sleeping.',
+      detail: 'Sleep is wild', segment: 'fact', time: 'evening',
+      shortTitle: 'Sleep brain', cta: 'Oh, really?' },
 
-    { prompt: 'A hand thing that is weirdly relaxing.',
-      detail: 'A hand thing', segment: 'breath', time: 'evening',
-      shortTitle: 'Hand thing', cta: 'Try this' },
+    { prompt: 'Show me something about the moon tonight that I would never have guessed.',
+      detail: 'Moon surprise', segment: 'text', time: 'evening',
+      shortTitle: 'Moon fact', cta: 'Look up' },
 
-    { prompt: 'A tiny creature that can survive almost anything.',
-      detail: 'Perspective from a micro-animal', segment: 'fact', time: 'evening',
-      shortTitle: 'Tiny survivor', cta: 'Oh, really?' },
+    { prompt: 'Tell me a song that turns the last hour of the day into something warm.',
+      detail: 'A warm hour', segment: 'song', time: 'evening',
+      shortTitle: 'Last hour', cta: 'Play it' },
 
-    { prompt: 'Things more beautiful when you actually look.',
-      detail: 'Worth a second glance', segment: 'list', time: 'evening',
-      shortTitle: 'Look again', cta: 'Go on' },
+    { prompt: 'Show me a fact about stars that makes them feel closer than they actually are.',
+      detail: 'Stars feel close', segment: 'fact', time: 'evening',
+      shortTitle: 'Close stars', cta: 'Oh, really?' },
 
-    { prompt: 'A song for sitting somewhere with nothing to prove.',
-      detail: 'Evening ease', segment: 'song', time: 'evening',
-      shortTitle: 'Nowhere to be', cta: 'Play it' },
+    { prompt: 'Tell me something about darkness that is genuinely more beautiful than light.',
+      detail: 'Darkness is beautiful', segment: 'text', time: 'evening',
+      shortTitle: 'Dark beauty', cta: 'Try this' },
 
-    { prompt: 'A way to notice my own heartbeat right now.',
-      detail: 'Your own percussion', segment: 'breath', time: 'evening',
-      shortTitle: 'Heartbeat', cta: 'Try this' },
+    { prompt: 'Show me a jaw release so gentle it feels like the day quietly unclenching.',
+      detail: 'An unclenching', segment: 'breath', time: 'evening',
+      shortTitle: 'Jaw release', cta: 'Move' },
 
-    { prompt: 'A planet where time works completely differently.',
-      detail: 'Time works differently elsewhere', segment: 'fact', time: 'evening',
-      shortTitle: 'Strange time', cta: 'Oh, really?' },
+    { prompt: 'Tell me a song for the exact feeling of watching the last light disappear.',
+      detail: 'Last light track', segment: 'song', time: 'evening',
+      shortTitle: 'Last light', cta: 'Play it' },
 
-    { prompt: 'Three things in this room I didn\'t notice today.',
-      detail: 'Evening eyes', segment: 'text', time: 'evening',
-      shortTitle: 'Three things', cta: 'Try this' },
+    { prompt: 'Show me something about the sound of nighttime that most people overlook.',
+      detail: 'Night sounds', segment: 'fact', time: 'evening',
+      shortTitle: 'Night sounds', cta: 'Oh, really?' },
 
-    { prompt: 'A gentle movement that is strangely soothing.',
-      detail: 'A slow sway', segment: 'breath', time: 'evening',
-      shortTitle: 'Gentle sway', cta: 'Move' },
+    { prompt: 'Tell me about an evening ritual from another culture that sounds beautiful.',
+      detail: 'A world ritual', segment: 'text', time: 'evening',
+      shortTitle: 'Evening ritual', cta: 'Try this' },
 
-    { prompt: 'Something in nature that glows in the dark.',
-      detail: 'Glowing mushrooms', segment: 'fact', time: 'evening',
-      shortTitle: 'Glow in dark', cta: 'Oh, really?' },
+    { prompt: 'Show me a slow shoulder movement that feels like quietly setting things down.',
+      detail: 'Setting it down', segment: 'breath', time: 'evening',
+      shortTitle: 'Set it down', cta: 'Move' },
 
-    { prompt: 'A song for doing absolutely nothing tonight.',
-      detail: 'A nothing-to-do track', segment: 'song', time: 'evening',
-      shortTitle: 'Do nothing', cta: 'Play it' },
+    { prompt: 'Tell me something about the way animals settle in for the night together.',
+      detail: 'Animals at dusk', segment: 'text', time: 'evening',
+      shortTitle: 'Settling in', cta: 'Try this' },
 
-    { prompt: 'Something about tonight\'s moon I\'ll never see again.',
-      detail: 'A unique moon', segment: 'text', time: 'evening',
-      shortTitle: 'Moon tonight', cta: 'Look up' },
+    { prompt: 'Show me a song that feels like the exact moment I decide the day is done.',
+      detail: 'Day is done', segment: 'song', time: 'evening',
+      shortTitle: 'Done now', cta: 'Play it' },
 
-    { prompt: 'A few questions to sit with. No answers needed.',
-      detail: 'Curious questions', segment: 'list', time: 'evening',
-      shortTitle: 'Sit with these', cta: 'Go on' },
+    { prompt: 'Tell me what happens to the sky in the minutes just after the sun sets.',
+      detail: 'Post-sunset magic', segment: 'text', time: 'evening',
+      shortTitle: 'After sunset', cta: 'Look up' },
 
-    { prompt: 'Music that travels thousands of miles underwater.',
-      detail: 'Invisible music', segment: 'fact', time: 'evening',
-      shortTitle: 'Ocean music', cta: 'Oh, really?' },
+    { prompt: 'Show me a breathing pattern that makes a long exhale feel like a reward.',
+      detail: 'A reward exhale', segment: 'breath', time: 'evening',
+      shortTitle: 'Reward breath', cta: 'Move' },
+
+    { prompt: 'Tell me a few unexpected things that glow in the dark in the natural world.',
+      detail: 'Things that glow', segment: 'list', time: 'evening',
+      shortTitle: 'Night glow', cta: 'Go on' },
+
+    { prompt: 'Show me a fact about dreaming that makes tonight feel more interesting.',
+      detail: 'Dream science', segment: 'fact', time: 'evening',
+      shortTitle: 'Dream fact', cta: 'Oh, really?' },
 
     // ── LIFT: Anytime (15 prompts) ──
 
-    { prompt: 'A five-second tension trick where the release is the point.',
-      detail: 'Tension and release', segment: 'breath', time: 'anytime',
-      shortTitle: 'Clench release', cta: 'Try this' },
+    { prompt: 'Tell me about a color that exists in nature but barely looks real.',
+      detail: 'Unreal colors', segment: 'text', time: 'anytime',
+      shortTitle: 'Unreal color', cta: 'Try this' },
 
-    { prompt: 'How fast the Earth is spinning right now.',
-      detail: 'You are moving right now', segment: 'fact', time: 'anytime',
-      shortTitle: 'Fast rock', cta: 'Oh, really?' },
-
-    { prompt: 'A song that feels like something good is coming.',
-      detail: 'An anticipation track', segment: 'song', time: 'anytime',
-      shortTitle: 'Something good', cta: 'Play it' },
-
-    { prompt: 'A ten-second listening game I can play right now.',
-      detail: 'A listening game', segment: 'text', time: 'anytime',
-      shortTitle: 'Count sounds', cta: 'Try this' },
-
-    { prompt: 'A fact about my body that I can never un-know.',
-      detail: 'An uncomfortable fact', segment: 'fact', time: 'anytime',
+    { prompt: 'Show me a fact about my body that I genuinely will never be able to un-know.',
+      detail: 'Can\'t un-know this', segment: 'fact', time: 'anytime',
       shortTitle: 'Can\'t un-know', cta: 'Oh, really?' },
 
-    { prompt: 'A stretch that opens everything at once.',
-      detail: 'A side stretch', segment: 'breath', time: 'anytime',
-      shortTitle: 'Open it all', cta: 'Move' },
+    { prompt: 'Tell me a side stretch that opens everything and takes almost no effort.',
+      detail: 'Open it all', segment: 'breath', time: 'anytime',
+      shortTitle: 'Side stretch', cta: 'Move' },
 
-    { prompt: 'Incredible things happening right now on Earth.',
-      detail: 'The world is busy', segment: 'list', time: 'anytime',
-      shortTitle: 'Right now', cta: 'Go on' },
+    { prompt: 'Show me something about how plants move that will change how I see gardens.',
+      detail: 'Plants move too', segment: 'fact', time: 'anytime',
+      shortTitle: 'Moving plants', cta: 'Oh, really?' },
 
-    { prompt: 'A creature that experiences the world totally differently.',
-      detail: 'Different senses', segment: 'fact', time: 'anytime',
-      shortTitle: 'Different world', cta: 'Oh, really?' },
+    { prompt: 'Tell me about a texture in the room I am in that deserves more attention.',
+      detail: 'Touch something new', segment: 'text', time: 'anytime',
+      shortTitle: 'Room texture', cta: 'Try this' },
 
-    { prompt: 'A reason to take ten steps in any direction.',
+    { prompt: 'Show me a reason to take ten steps in any direction just to see what happens.',
       detail: 'Just ten steps', segment: 'text', time: 'anytime',
       shortTitle: 'Ten steps', cta: 'Move' },
 
-    { prompt: 'A song that reminds me I like being alive.',
-      detail: 'A small aliveness track', segment: 'song', time: 'anytime',
-      shortTitle: 'Feel alive', cta: 'Play it' },
+    { prompt: 'Tell me something about an octopus that seems genuinely impossible.',
+      detail: 'Octopus magic', segment: 'fact', time: 'anytime',
+      shortTitle: 'Octopus fact', cta: 'Oh, really?' },
 
-    { prompt: 'A wrist exercise that releases hidden tension.',
-      detail: 'Wrist circles', segment: 'breath', time: 'anytime',
-      shortTitle: 'Wrist circles', cta: 'Move' },
+    { prompt: 'Show me a quick balance check that my whole body quietly enjoys doing.',
+      detail: 'A balance check', segment: 'breath', time: 'anytime',
+      shortTitle: 'Balance check', cta: 'Move' },
 
-    { prompt: 'Things that are surprisingly recent inventions.',
-      detail: 'Newer than you think', segment: 'list', time: 'anytime',
-      shortTitle: 'Recent things', cta: 'Oh, really?' },
+    { prompt: 'Tell me a few incredible things the human body does without being asked.',
+      detail: 'Without being asked', segment: 'list', time: 'anytime',
+      shortTitle: 'Body wonders', cta: 'Go on' },
 
-    { prompt: 'Something an octopus can do that seems impossible.',
-      detail: 'Octopus flexibility', segment: 'fact', time: 'anytime',
-      shortTitle: 'Octopus trick', cta: 'Oh, really?' },
+    { prompt: 'Show me something about how sound travels that makes the world feel bigger.',
+      detail: 'Sound travels far', segment: 'fact', time: 'anytime',
+      shortTitle: 'Sound fact', cta: 'Oh, really?' },
 
-    { prompt: 'A sound worth remembering from this week.',
-      detail: 'A sound worth remembering', segment: 'text', time: 'anytime',
+    { prompt: 'Tell me about a sound from this week that is quietly worth remembering.',
+      detail: 'A sound worth keeping', segment: 'text', time: 'anytime',
       shortTitle: 'That sound', cta: 'Try this' },
 
-    { prompt: 'A balance check my body secretly loves.',
-      detail: 'A balance check', segment: 'breath', time: 'anytime',
-      shortTitle: 'Balance check', cta: 'Try this' },
+    { prompt: 'Show me a wrist exercise that is surprisingly more satisfying than it looks.',
+      detail: 'Wrist surprise', segment: 'breath', time: 'anytime',
+      shortTitle: 'Wrist thing', cta: 'Move' },
+
+    { prompt: 'Tell me something about how animals navigate that sounds like a superpower.',
+      detail: 'Animal superpowers', segment: 'text', time: 'anytime',
+      shortTitle: 'Superpower', cta: 'Try this' },
+
+    { prompt: 'Show me a few things that are surprisingly recent inventions in our world.',
+      detail: 'Newer than you think', segment: 'list', time: 'anytime',
+      shortTitle: 'Recent things', cta: 'Go on' },
+
+    { prompt: 'Tell me a deep breath pattern that somehow manages to feel fun to do.',
+      detail: 'A fun breath', segment: 'breath', time: 'anytime',
+      shortTitle: 'Fun to breathe', cta: 'Move' },
   ],
 
   // ═══════════════════════════════════════════════════════════════
   // STEADY — "Calm your body" (90 prompts)
+  // Formula: [Give/Show me] + [Way to feel physical ease/lightness]
   // Body-first, always. Plain language. ZERO songs.
-  // Segment mix: ~50 breath, ~30 text, ~10 list
+  // Segment mix: ~30 text, ~50 breath, ~10 list
   // ═══════════════════════════════════════════════════════════════
 
   steady: [
 
-    // ── STEADY: Morning (25 prompts) ──
+    // ── STEADY: Morning — Starting (25 prompts) ──
 
-    { prompt: 'Three slow breaths before my feet hit the floor.',
-      detail: 'A gentle start', segment: 'breath', time: 'morning',
-      shortTitle: 'Before the floor', cta: 'Breathe' },
+    { prompt: 'Give me three slow breaths I can take before my feet touch the floor.',
+      detail: 'Before the floor', segment: 'breath', time: 'morning',
+      shortTitle: 'Three breaths', cta: 'Breathe' },
 
-    { prompt: 'A belly breathing exercise. Just three rounds.',
+    { prompt: 'Show me a belly breathing exercise I can do in just three quiet rounds.',
       detail: 'Belly breathing', segment: 'breath', time: 'morning',
       shortTitle: 'Belly breath', cta: 'Breathe' },
 
-    { prompt: 'Where am I holding tension I don\'t notice?',
-      detail: 'A morning jaw release', segment: 'text', time: 'morning',
-      shortTitle: 'Hidden tension', cta: 'Let go' },
+    { prompt: 'Give me a way to notice where my body is holding on this morning.',
+      detail: 'A morning notice', segment: 'text', time: 'morning',
+      shortTitle: 'Morning notice', cta: 'Soften' },
 
-    { prompt: 'A way to feel grounded before the day starts.',
-      detail: 'Grounded before the day', segment: 'breath', time: 'morning',
+    { prompt: 'Show me a way to feel grounded before the morning asks anything of me.',
+      detail: 'Grounded first', segment: 'breath', time: 'morning',
       shortTitle: 'Feel grounded', cta: 'Settle in' },
 
-    { prompt: 'A simple breathing check I can do in bed.',
-      detail: 'A diaphragm check', segment: 'breath', time: 'morning',
-      shortTitle: 'Breath check', cta: 'Breathe' },
+    { prompt: 'Give me a simple breathing check I could do without even leaving the bed.',
+      detail: 'A bed breath', segment: 'breath', time: 'morning',
+      shortTitle: 'Still in bed', cta: 'Breathe' },
 
-    { prompt: 'Something I don\'t have to plan right now.',
-      detail: 'Permission to go slow', segment: 'text', time: 'morning',
-      shortTitle: 'Just one hour', cta: 'Settle in' },
-
-    { prompt: 'A breathing pattern that calms in one round.',
-      detail: 'Box breathing', segment: 'breath', time: 'morning',
-      shortTitle: 'Box breath', cta: 'Breathe' },
-
-    { prompt: 'A slow neck movement that releases yesterday.',
-      detail: 'A morning neck release', segment: 'breath', time: 'morning',
-      shortTitle: 'Neck release', cta: 'Soften' },
-
-    { prompt: 'A few things my body might need this morning.',
-      detail: 'A body menu', segment: 'list', time: 'morning',
-      shortTitle: 'Pick one', cta: 'Try this' },
-
-    { prompt: 'A spot where I hold tension without knowing it.',
-      detail: 'Tongue tension release', segment: 'text', time: 'morning',
-      shortTitle: 'Hidden spot', cta: 'Soften' },
-
-    { prompt: 'A calmer way to breathe through my nose.',
-      detail: 'Nose-only breathing', segment: 'breath', time: 'morning',
-      shortTitle: 'Nose breath', cta: 'Breathe' },
-
-    { prompt: 'A gentler way to think about this morning.',
-      detail: 'Lower the bar', segment: 'text', time: 'morning',
-      shortTitle: 'Just start', cta: 'Settle in' },
-
-    { prompt: 'A warm-hands trick that feels like a small gift.',
-      detail: 'Warm hands, warm eyes', segment: 'breath', time: 'morning',
-      shortTitle: 'Warm hands', cta: 'Try this' },
-
-    { prompt: 'A shoulder roll. Slower than I think it should be.',
-      detail: 'Deliberate slow rolls', segment: 'breath', time: 'morning',
-      shortTitle: 'Slow rolls', cta: 'Soften' },
-
-    { prompt: 'A doorway stretch that opens up my chest.',
-      detail: 'Doorway stretch', segment: 'breath', time: 'morning',
-      shortTitle: 'Doorway stretch', cta: 'Try this' },
-
-    { prompt: 'A reminder about the thing I am dreading today.',
-      detail: 'A pre-worry reminder', segment: 'text', time: 'morning',
+    { prompt: 'Show me a gentle reminder that nothing has to be planned right this second.',
+      detail: 'No rush yet', segment: 'text', time: 'morning',
       shortTitle: 'Not yet', cta: 'Settle in' },
 
-    { prompt: 'A shoulder exercise that feels like a big sigh.',
+    { prompt: 'Give me a box breathing pattern that calms everything in just one round.',
+      detail: 'One round only', segment: 'breath', time: 'morning',
+      shortTitle: 'Box breath', cta: 'Breathe' },
+
+    { prompt: 'Show me a slow neck movement that feels like gently clearing yesterday.',
+      detail: 'Yesterday\'s gone', segment: 'breath', time: 'morning',
+      shortTitle: 'Neck release', cta: 'Soften' },
+
+    { prompt: 'Give me a few things my body might quietly love first thing this morning.',
+      detail: 'A body menu', segment: 'list', time: 'morning',
+      shortTitle: 'Morning menu', cta: 'Try this' },
+
+    { prompt: 'Show me a part of my body that is often holding on without me knowing.',
+      detail: 'A hidden spot', segment: 'text', time: 'morning',
+      shortTitle: 'Hidden spot', cta: 'Soften' },
+
+    { prompt: 'Give me a calmer way to breathe through just my nose for a few rounds.',
+      detail: 'Nose-only calm', segment: 'breath', time: 'morning',
+      shortTitle: 'Nose breath', cta: 'Breathe' },
+
+    { prompt: 'Show me a gentler way to think about how this morning could unfold.',
+      detail: 'A softer morning', segment: 'text', time: 'morning',
+      shortTitle: 'Softer start', cta: 'Settle in' },
+
+    { prompt: 'Give me a warm-hands trick that feels like a small gift from me to me.',
+      detail: 'Warm hands', segment: 'breath', time: 'morning',
+      shortTitle: 'Warm hands', cta: 'Try this' },
+
+    { prompt: 'Show me a shoulder roll so slow it becomes something else entirely.',
+      detail: 'Slow on purpose', segment: 'breath', time: 'morning',
+      shortTitle: 'Slow rolls', cta: 'Soften' },
+
+    { prompt: 'Give me a doorway stretch that opens up my chest in under ten seconds.',
+      detail: 'Open the chest', segment: 'breath', time: 'morning',
+      shortTitle: 'Doorway open', cta: 'Try this' },
+
+    { prompt: 'Show me how to move through this next hour without needing any rush.',
+      detail: 'No rush needed', segment: 'text', time: 'morning',
+      shortTitle: 'Unhurried', cta: 'Settle in' },
+
+    { prompt: 'Give me a shoulder exercise that feels like one long exhale of relief.',
       detail: 'A shoulder sigh', segment: 'breath', time: 'morning',
       shortTitle: 'Shoulder sigh', cta: 'Let go' },
 
-    { prompt: 'A pressure point trick that quietly grounds me.',
-      detail: 'Palm pressure points', segment: 'breath', time: 'morning',
+    { prompt: 'Show me a pressure point in my palm that quietly brings me back to here.',
+      detail: 'Palm grounding', segment: 'breath', time: 'morning',
       shortTitle: 'Palm press', cta: 'Try this' },
 
-    { prompt: 'A muscle I am probably tensing for no reason.',
-      detail: 'Forehead check', segment: 'text', time: 'morning',
-      shortTitle: 'Smooth brow', cta: 'Soften' },
+    { prompt: 'Give me a way to notice a muscle that might be holding on for no reason.',
+      detail: 'For no reason', segment: 'text', time: 'morning',
+      shortTitle: 'Let it go', cta: 'Soften' },
 
-    { prompt: 'The slowest breath I have taken all morning.',
-      detail: 'The slowest breath', segment: 'breath', time: 'morning',
-      shortTitle: 'Slow one', cta: 'Breathe' },
+    { prompt: 'Show me what the slowest breath I have taken all morning could feel like.',
+      detail: 'The slowest one', segment: 'breath', time: 'morning',
+      shortTitle: 'Slowest breath', cta: 'Breathe' },
 
-    { prompt: 'A grounding trick I can do with my toes.',
-      detail: 'Toe wiggle grounding', segment: 'breath', time: 'morning',
+    { prompt: 'Give me a grounding trick I can do with just my toes on any surface.',
+      detail: 'Toe grounding', segment: 'breath', time: 'morning',
       shortTitle: 'Toe ground', cta: 'Try this' },
 
-    { prompt: 'Permission to move through this morning slowly.',
+    { prompt: 'Show me what it feels like to give this morning permission to be slow.',
       detail: 'A speed check', segment: 'text', time: 'morning',
       shortTitle: 'Go slow', cta: 'Settle in' },
 
-    { prompt: 'A gentle neck hold that takes five seconds.',
-      detail: 'A neck hold', segment: 'breath', time: 'morning',
+    { prompt: 'Give me a gentle neck hold that takes five seconds and changes everything.',
+      detail: 'Five-second hold', segment: 'breath', time: 'morning',
       shortTitle: 'Neck hold', cta: 'Soften' },
 
-    { prompt: 'A morning body checklist. Notice, don\'t fix.',
-      detail: 'A body scan list', segment: 'list', time: 'morning',
-      shortTitle: 'Body check', cta: 'Try this' },
+    { prompt: 'Show me a morning body checklist where I just notice without fixing.',
+      detail: 'Notice, don\'t fix', segment: 'list', time: 'morning',
+      shortTitle: 'Body scan', cta: 'Try this' },
 
-    { prompt: 'A way to get heavier and calmer in my chair.',
-      detail: 'Heavy exhales', segment: 'breath', time: 'morning',
-      shortTitle: 'Get heavy', cta: 'Breathe' },
+    { prompt: 'Give me three breaths that each feel a little longer than the one before.',
+      detail: 'Longer each time', segment: 'breath', time: 'morning',
+      shortTitle: 'Grow the breath', cta: 'Breathe' },
 
-    // ── STEADY: Afternoon (30 prompts) ──
+    // ── STEADY: Afternoon — Resetting (30 prompts) ──
 
-    { prompt: 'A shoulder check I probably need right now.',
-      detail: 'A shoulder check', segment: 'text', time: 'afternoon',
-      shortTitle: 'Drop them', cta: 'Let go' },
+    { prompt: 'Show me a way to let my shoulders drop without anyone around me noticing.',
+      detail: 'A quiet drop', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Shoulders down', cta: 'Soften' },
 
-    { prompt: 'A long exhale that calms my nervous system.',
-      detail: 'Extended exhale', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Long exhale', cta: 'Breathe' },
+    { prompt: 'Give me a quick jaw release I can do that is barely visible from outside.',
+      detail: 'A jaw release', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Jaw soften', cta: 'Soften' },
 
-    { prompt: 'What happens when I unclench my hands right now.',
-      detail: 'Open palms reset', segment: 'text', time: 'afternoon',
-      shortTitle: 'Open hands', cta: 'Let go' },
+    { prompt: 'Show me a way to feel my feet on the floor and let that be enough.',
+      detail: 'Floor connection', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Feet on floor', cta: 'Settle in' },
 
-    { prompt: 'A way to feel the ground through my feet.',
-      detail: 'Desk grounding', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Feel the ground', cta: 'Settle in' },
+    { prompt: 'Give me a breathing pattern I can follow that takes less than one minute.',
+      detail: 'Under one minute', segment: 'breath', time: 'afternoon',
+      shortTitle: 'One minute', cta: 'Breathe' },
 
-    { prompt: 'A quick tension inventory for right now.',
-      detail: 'A tension checklist', segment: 'list', time: 'afternoon',
-      shortTitle: 'Tension check', cta: 'Try this' },
+    { prompt: 'Show me what it looks like to take a break that my whole body agrees with.',
+      detail: 'A body-approved break', segment: 'text', time: 'afternoon',
+      shortTitle: 'Body says yes', cta: 'Settle in' },
 
-    { prompt: 'A breathing trick using just my lips.',
-      detail: 'Straw breath', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Straw breath', cta: 'Breathe' },
+    { prompt: 'Give me a long exhale that feels like it carries something away with it.',
+      detail: 'Carry it away', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Long exhale', cta: 'Let go' },
 
-    { prompt: 'A shoulder squeeze that feels like a self-hug.',
-      detail: 'Shoulder squeeze', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Shoulder hug', cta: 'Soften' },
+    { prompt: 'Show me a hand stretch that releases something I did not know I was holding.',
+      detail: 'Hands open up', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Hand stretch', cta: 'Try this' },
 
-    { prompt: 'Muscles in my face I could let rest right now.',
-      detail: 'A face relaxation cue', segment: 'text', time: 'afternoon',
-      shortTitle: 'Rest my face', cta: 'Soften' },
+    { prompt: 'Give me a way to reset my posture that feels more like a gift than a fix.',
+      detail: 'A posture gift', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Posture reset', cta: 'Soften' },
 
-    { prompt: 'A sigh that is actually medicine.',
-      detail: 'The physiological sigh', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Sigh it out', cta: 'Breathe' },
+    { prompt: 'Show me a few things my body could quietly use in the middle of the day.',
+      detail: 'A midday menu', segment: 'list', time: 'afternoon',
+      shortTitle: 'Midday needs', cta: 'Try this' },
 
-    { prompt: 'A ten-second break that counts as a real break.',
-      detail: 'A ten-second vacation', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Lean back', cta: 'Settle in' },
+    { prompt: 'Give me a way to make my next few breaths feel intentional and easy.',
+      detail: 'Intentional ease', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Easy breaths', cta: 'Breathe' },
 
-    { prompt: 'A part of my body I could let go soft right now.',
-      detail: 'Belly release', segment: 'text', time: 'afternoon',
-      shortTitle: 'Go soft', cta: 'Let go' },
+    { prompt: 'Show me a part of my body that could use a moment of quiet attention.',
+      detail: 'Quiet attention', segment: 'text', time: 'afternoon',
+      shortTitle: 'One spot', cta: 'Soften' },
 
-    { prompt: 'A gentle side stretch for my neck.',
-      detail: 'A neck side stretch', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Ear to shoulder', cta: 'Soften' },
+    { prompt: 'Give me a spinal twist so easy I can do it without getting up from here.',
+      detail: 'A seated twist', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Seated twist', cta: 'Try this' },
 
-    { prompt: 'A way to slow my breathing down right now.',
-      detail: 'Decreasing tempo breath', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Slow it down', cta: 'Breathe' },
+    { prompt: 'Show me how to make one glass of water feel like a real moment of care.',
+      detail: 'Mindful water', segment: 'text', time: 'afternoon',
+      shortTitle: 'Slow water', cta: 'Settle in' },
 
-    { prompt: 'A full body shake that takes ten seconds.',
-      detail: 'A full body shake', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Shake it off', cta: 'Try this' },
+    { prompt: 'Give me a sigh that is built to actually release something from my body.',
+      detail: 'A proper sigh', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Real sigh', cta: 'Let go' },
 
-    { prompt: 'A desk-friendly head rub that my scalp needs.',
-      detail: 'A desk-friendly head rub', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Scalp rub', cta: 'Try this' },
+    { prompt: 'Show me a hip shift I can do while sitting that changes how I feel right away.',
+      detail: 'A hip shift', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Hip shift', cta: 'Try this' },
 
-    { prompt: 'A body scan to find where I am holding today.',
-      detail: 'A tension scan', segment: 'text', time: 'afternoon',
-      shortTitle: 'Find it', cta: 'Soften' },
+    { prompt: 'Give me a way to bring my attention back to my body without any effort.',
+      detail: 'No effort needed', segment: 'text', time: 'afternoon',
+      shortTitle: 'Come back', cta: 'Settle in' },
 
-    { prompt: 'A gentle stretch using just my hands and head.',
-      detail: 'A gentle neck traction', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Head cradle', cta: 'Soften' },
+    { prompt: 'Show me a humming breath that is quietly one of the most calming things.',
+      detail: 'Humming calm', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Hum breath', cta: 'Breathe' },
 
-    { prompt: 'Where my body stores stress and what to do about it.',
-      detail: 'A stress-spot guide', segment: 'list', time: 'afternoon',
-      shortTitle: 'Stress spots', cta: 'Try this' },
+    { prompt: 'Give me a two-second thing I can do with my hands that grounds everything.',
+      detail: 'A hand ground', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Hands now', cta: 'Try this' },
 
-    { prompt: 'A strange little trick that calms from the inside.',
-      detail: 'Tongue-to-roof trick', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Inside trick', cta: 'Try this' },
+    { prompt: 'Show me how to notice what my body has been quietly carrying all afternoon.',
+      detail: 'Afternoon check', segment: 'text', time: 'afternoon',
+      shortTitle: 'Body check', cta: 'Soften' },
 
-    { prompt: 'A gentle reminder about what is actually in this room.',
-      detail: 'A gentle reality check', segment: 'text', time: 'afternoon',
-      shortTitle: 'Not here', cta: 'Let go' },
+    { prompt: 'Give me a chest opener that takes five seconds and feels like breathing room.',
+      detail: 'Breathing room', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Chest open', cta: 'Try this' },
 
-    { prompt: 'A hug I can give myself in five seconds.',
-      detail: 'The butterfly hug', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Self hug', cta: 'Try this' },
+    { prompt: 'Show me a way to let my face soften when I did not realize it was tight.',
+      detail: 'Face softness', segment: 'text', time: 'afternoon',
+      shortTitle: 'Soft face', cta: 'Soften' },
 
-    { prompt: 'A nostril breathing pattern for a busy afternoon.',
-      detail: 'Alternate nostril breathing', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Nostril switch', cta: 'Breathe' },
+    { prompt: 'Give me a three-count exhale I can do between anything and anything else.',
+      detail: 'Between things', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Between breath', cta: 'Breathe' },
 
-    { prompt: 'A way to press into something solid and feel held.',
-      detail: 'A grounding press', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Palms down', cta: 'Settle in' },
+    { prompt: 'Show me a leg stretch I can do right here that my lower back will love.',
+      detail: 'A leg stretch', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Leg stretch', cta: 'Try this' },
 
-    { prompt: 'A spot in my throat that could use some softening.',
-      detail: 'Throat release', segment: 'text', time: 'afternoon',
-      shortTitle: 'Open throat', cta: 'Soften' },
+    { prompt: 'Give me a gentle way to check in with my body without trying to change it.',
+      detail: 'Just checking in', segment: 'text', time: 'afternoon',
+      shortTitle: 'Just notice', cta: 'Settle in' },
 
-    { prompt: 'A counted breath that gives my mind something to hold.',
-      detail: 'Counted breaths', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Count breath', cta: 'Breathe' },
+    { prompt: 'Show me a breathing pattern where the exhale is twice as long as the inhale.',
+      detail: 'Long exhale ratio', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Double exhale', cta: 'Breathe' },
 
-    { prompt: 'A secret grounding move nobody can see me do.',
-      detail: 'Secret grounding', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Secret move', cta: 'Try this' },
+    { prompt: 'Give me a few body signals that are quietly asking for a pause right now.',
+      detail: 'Your body is talking', segment: 'list', time: 'afternoon',
+      shortTitle: 'Body signals', cta: 'Try this' },
 
-    { prompt: 'A sitting reset to center my weight in the chair.',
-      detail: 'A sitting reset', segment: 'text', time: 'afternoon',
-      shortTitle: 'Center weight', cta: 'Settle in' },
+    { prompt: 'Show me a palm press I can do under a table that calms my whole system.',
+      detail: 'A secret press', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Palm press', cta: 'Try this' },
 
-    { prompt: 'A way to empty my lungs that feels like a reset.',
-      detail: 'Empty lungs reset', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Empty out', cta: 'Breathe' },
+    { prompt: 'Give me a way to feel my spine lengthen without it feeling like a chore.',
+      detail: 'Easy spine', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Spine length', cta: 'Soften' },
 
-    { prompt: 'Two-second tension releases nobody will notice.',
-      detail: 'Invisible micro-resets', segment: 'list', time: 'afternoon',
-      shortTitle: 'Secret resets', cta: 'Try this' },
+    { prompt: 'Show me what it means to take a breath that reaches my whole torso.',
+      detail: 'A full breath', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Full torso', cta: 'Breathe' },
 
-    { prompt: 'A posture reset using just my shoulder blades.',
-      detail: 'A posture reset', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Blade squeeze', cta: 'Soften' },
+    { prompt: 'Give me a subtle body scan I can run in about twenty seconds flat.',
+      detail: 'Twenty-second scan', segment: 'list', time: 'afternoon',
+      shortTitle: 'Quick scan', cta: 'Try this' },
 
-    // ── STEADY: Evening (20 prompts) ──
+    // ── STEADY: Evening — Shedding (20 prompts) ──
 
-    { prompt: 'A two-minute position that lets my body do the rest.',
-      detail: 'Legs up the wall', segment: 'breath', time: 'evening',
-      shortTitle: 'Legs up', cta: 'Settle in' },
+    { prompt: 'Give me a way to sigh that actually helps my whole body feel lighter.',
+      detail: 'A real sigh', segment: 'breath', time: 'evening',
+      shortTitle: 'Full sigh', cta: 'Let go' },
 
-    { prompt: 'A slow melt from my forehead down to my toes.',
-      detail: 'A top-down body scan', segment: 'breath', time: 'evening',
-      shortTitle: 'Melt down', cta: 'Soften' },
-
-    { prompt: 'A breathing pattern built for evenings.',
-      detail: 'The 4-7-8 technique', segment: 'breath', time: 'evening',
-      shortTitle: '4-7-8 breath', cta: 'Breathe' },
-
-    { prompt: 'Permission to stop reviewing how today went.',
-      detail: 'Permission to stop', segment: 'text', time: 'evening',
-      shortTitle: 'No review', cta: 'Let go' },
-
-    { prompt: 'A way to sync my breathing with my heartbeat.',
-      detail: 'Heart-synced breathing', segment: 'breath', time: 'evening',
-      shortTitle: 'Heart pace', cta: 'Breathe' },
-
-    { prompt: 'A full-body squeeze and release that resets everything.',
-      detail: 'A total tension drop', segment: 'breath', time: 'evening',
-      shortTitle: 'Squeeze all', cta: 'Let go' },
-
-    { prompt: 'Things I can let my body release before bed.',
-      detail: 'An evening release list', segment: 'list', time: 'evening',
-      shortTitle: 'Release list', cta: 'Soften' },
-
-    { prompt: 'A small thank-you I can give my feet right now.',
-      detail: 'A foot thank-you', segment: 'breath', time: 'evening',
-      shortTitle: 'Foot press', cta: 'Try this' },
-
-    { prompt: 'Something that resets my jaw, face, and breathing.',
-      detail: 'The power of a yawn', segment: 'text', time: 'evening',
-      shortTitle: 'Just yawn', cta: 'Try this' },
-
-    { prompt: 'A whisper breathing exercise for winding down.',
-      detail: 'Whisper breathing', segment: 'breath', time: 'evening',
-      shortTitle: 'Whisper calm', cta: 'Breathe' },
-
-    { prompt: 'A slow toe curl to say goodbye to the day.',
-      detail: 'Toe curls for bedtime', segment: 'breath', time: 'evening',
-      shortTitle: 'Toe waves', cta: 'Soften' },
-
-    { prompt: 'A way to let my arms go completely heavy.',
-      detail: 'Dead-arm relaxation', segment: 'text', time: 'evening',
-      shortTitle: 'Heavy arms', cta: 'Let go' },
-
-    { prompt: 'A breathing exercise that tells my body: day\'s done.',
-      detail: 'Day-is-done breathing', segment: 'breath', time: 'evening',
-      shortTitle: 'Day is done', cta: 'Breathe' },
-
-    { prompt: 'A tiny spot between my eyebrows that holds a lot.',
-      detail: 'Third-eye release', segment: 'breath', time: 'evening',
-      shortTitle: 'Brow point', cta: 'Soften' },
-
-    { prompt: 'Something unfinished that can stay unfinished.',
-      detail: 'A bedtime boundary', segment: 'text', time: 'evening',
-      shortTitle: 'Until morning', cta: 'Let go' },
-
-    { prompt: 'A gentle rocking motion for winding down in bed.',
-      detail: 'A bedtime rock', segment: 'breath', time: 'evening',
-      shortTitle: 'Rock gently', cta: 'Settle in' },
-
-    { prompt: 'A five-step wind-down for my body. Two minutes.',
-      detail: 'A bedtime body routine', segment: 'list', time: 'evening',
-      shortTitle: 'Wind down', cta: 'Try this' },
-
-    { prompt: 'A way to sink a little deeper into where I am.',
-      detail: 'A heaviness visualization', segment: 'breath', time: 'evening',
+    { prompt: 'Show me a slow body scan I can do lying down that feels like sinking in.',
+      detail: 'Sink right in', segment: 'breath', time: 'evening',
       shortTitle: 'Sink in', cta: 'Settle in' },
 
-    { prompt: 'An evening check-in for the tension in my jaw.',
-      detail: 'Nighttime jaw check', segment: 'text', time: 'evening',
-      shortTitle: 'Night jaw', cta: 'Soften' },
+    { prompt: 'Give me a breathing pattern built for the exact energy of this time of day.',
+      detail: 'Evening rhythm', segment: 'breath', time: 'evening',
+      shortTitle: 'Evening breath', cta: 'Breathe' },
 
-    { prompt: 'A humming exhale that is deeply calming.',
+    { prompt: 'Show me a way to let my jaw release everything it collected since morning.',
+      detail: 'Jaw at night', segment: 'breath', time: 'evening',
+      shortTitle: 'Jaw release', cta: 'Soften' },
+
+    { prompt: 'Give me a gentle humming exhale that is deeply and quietly calming.',
       detail: 'Humming exhale', segment: 'breath', time: 'evening',
-      shortTitle: 'Hum breath', cta: 'Breathe' },
+      shortTitle: 'Hum out', cta: 'Breathe' },
+
+    { prompt: 'Show me how to make lying down feel like the most intentional thing I do.',
+      detail: 'Intentional rest', segment: 'text', time: 'evening',
+      shortTitle: 'Lie down well', cta: 'Settle in' },
+
+    { prompt: 'Give me an exhale that feels like gently putting something down for good.',
+      detail: 'Put it down', segment: 'breath', time: 'evening',
+      shortTitle: 'Set it down', cta: 'Let go' },
+
+    { prompt: 'Show me a leg-heavy exercise that tells my whole body it is time to rest.',
+      detail: 'Legs go heavy', segment: 'breath', time: 'evening',
+      shortTitle: 'Heavy legs', cta: 'Settle in' },
+
+    { prompt: 'Give me a way to feel the weight of my own body and let that be grounding.',
+      detail: 'Weight as comfort', segment: 'text', time: 'evening',
+      shortTitle: 'Feel the weight', cta: 'Settle in' },
+
+    { prompt: 'Show me a hand-on-chest breath that feels like a quiet goodnight to myself.',
+      detail: 'Goodnight breath', segment: 'breath', time: 'evening',
+      shortTitle: 'Goodnight', cta: 'Breathe' },
+
+    { prompt: 'Give me a slow shoulder melt that lets everything from today slide off.',
+      detail: 'Shoulder melt', segment: 'breath', time: 'evening',
+      shortTitle: 'Melt down', cta: 'Let go' },
+
+    { prompt: 'Show me a few gentle things my body might appreciate before I fall asleep.',
+      detail: 'Pre-sleep gifts', segment: 'list', time: 'evening',
+      shortTitle: 'Before sleep', cta: 'Try this' },
+
+    { prompt: 'Give me an eye softening trick that makes the room feel calmer instantly.',
+      detail: 'Soft eye trick', segment: 'breath', time: 'evening',
+      shortTitle: 'Soft eyes', cta: 'Soften' },
+
+    { prompt: 'Show me a way to breathe that feels like slowly dimming all the lights.',
+      detail: 'Dimming breath', segment: 'breath', time: 'evening',
+      shortTitle: 'Dim the lights', cta: 'Breathe' },
+
+    { prompt: 'Give me a gentle reminder that my body carried me through an entire day.',
+      detail: 'A whole day', segment: 'text', time: 'evening',
+      shortTitle: 'Carried me', cta: 'Settle in' },
+
+    { prompt: 'Show me a hip release I can do in bed that feels like settling into sand.',
+      detail: 'Settle into sand', segment: 'breath', time: 'evening',
+      shortTitle: 'Hip settle', cta: 'Soften' },
+
+    { prompt: 'Give me a way to notice the pillow under my head as if for the first time.',
+      detail: 'Pillow moment', segment: 'text', time: 'evening',
+      shortTitle: 'Pillow feel', cta: 'Settle in' },
+
+    { prompt: 'Show me a winding-down stretch that takes ten seconds and asks for nothing.',
+      detail: 'Asks for nothing', segment: 'breath', time: 'evening',
+      shortTitle: 'Easy stretch', cta: 'Soften' },
+
+    { prompt: 'Give me a few body parts that could use a quiet thank you before sleep.',
+      detail: 'A body thank you', segment: 'list', time: 'evening',
+      shortTitle: 'Thank the body', cta: 'Try this' },
+
+    { prompt: 'Show me a way to breathe that turns the exhale into a kind of lullaby.',
+      detail: 'A lullaby breath', segment: 'breath', time: 'evening',
+      shortTitle: 'Lullaby breath', cta: 'Breathe' },
 
     // ── STEADY: Anytime (15 prompts) ──
 
-    { prompt: 'A five-senses grounding exercise for right now.',
-      detail: '5-4-3-2-1 grounding', segment: 'breath', time: 'anytime',
+    { prompt: 'Give me a five-senses grounding exercise I can do wherever I am right now.',
+      detail: 'Five senses', segment: 'breath', time: 'anytime',
       shortTitle: 'Five senses', cta: 'Try this' },
 
-    { prompt: 'One deep breath that fills my whole torso.',
-      detail: 'A depth check', segment: 'breath', time: 'anytime',
-      shortTitle: 'Go deeper', cta: 'Breathe' },
+    { prompt: 'Show me one deep breath that fills my whole chest and then slowly lets go.',
+      detail: 'One full breath', segment: 'breath', time: 'anytime',
+      shortTitle: 'Full breath', cta: 'Breathe' },
 
-    { prompt: 'A way to feel the floor pushing back.',
-      detail: 'Instant grounding', segment: 'breath', time: 'anytime',
+    { prompt: 'Give me a way to feel the ground underneath me and let that be enough.',
+      detail: 'Ground beneath me', segment: 'breath', time: 'anytime',
       shortTitle: 'Feel the floor', cta: 'Settle in' },
 
-    { prompt: 'A cold-water trick that resets my temperature.',
-      detail: 'A cold-water trick', segment: 'text', time: 'anytime',
+    { prompt: 'Show me a cold-water trick that quietly resets how my whole body feels.',
+      detail: 'A cold reset', segment: 'text', time: 'anytime',
       shortTitle: 'Cold wrists', cta: 'Try this' },
 
-    { prompt: 'Body signals that mean I need a break right now.',
-      detail: 'Your body is talking', segment: 'list', time: 'anytime',
+    { prompt: 'Give me a few signals my body sends when it is quietly asking for a pause.',
+      detail: 'Body is talking', segment: 'list', time: 'anytime',
       shortTitle: 'Body signals', cta: 'Try this' },
 
-    { prompt: 'A grounding trick using something cold.',
-      detail: 'The ice grounding trick', segment: 'text', time: 'anytime',
-      shortTitle: 'Cold ground', cta: 'Try this' },
-
-    { prompt: 'A 3-6 breath pattern. Just three rounds.',
-      detail: '3-6 breath', segment: 'breath', time: 'anytime',
+    { prompt: 'Show me a three-six breath pattern I can follow for just three easy rounds.',
+      detail: 'Three-six breath', segment: 'breath', time: 'anytime',
       shortTitle: 'Three and six', cta: 'Breathe' },
 
-    { prompt: 'A squeeze-and-release for whatever is near me.',
-      detail: 'Squeeze and release', segment: 'breath', time: 'anytime',
+    { prompt: 'Give me a squeeze-and-release for whatever is closest to my hands right now.',
+      detail: 'Squeeze and let go', segment: 'breath', time: 'anytime',
       shortTitle: 'Squeeze it', cta: 'Try this' },
 
-    { prompt: 'Something my body needs to hear right now.',
-      detail: 'A reframe', segment: 'text', time: 'anytime',
-      shortTitle: 'Body reminder', cta: 'Settle in' },
-
-    { prompt: 'An isometric press I can do with just my palms.',
-      detail: 'Isometric chest press', segment: 'breath', time: 'anytime',
-      shortTitle: 'Palm press', cta: 'Try this' },
-
-    { prompt: 'A low humming sound that calms from the inside.',
-      detail: 'Vagus nerve humming', segment: 'breath', time: 'anytime',
-      shortTitle: 'Low hum', cta: 'Try this' },
-
-    { prompt: 'Something my body is already handling for me.',
-      detail: 'Trust the body', segment: 'text', time: 'anytime',
+    { prompt: 'Show me something my body is already handling beautifully without my help.',
+      detail: 'Already handled', segment: 'text', time: 'anytime',
       shortTitle: 'Let it work', cta: 'Settle in' },
 
-    { prompt: 'Things my body doesn\'t need that I keep giving it.',
-      detail: 'A subtraction list', segment: 'list', time: 'anytime',
-      shortTitle: 'Let these go', cta: 'Let go' },
+    { prompt: 'Give me an isometric press I can do with just my palms anywhere I am.',
+      detail: 'Just your palms', segment: 'breath', time: 'anytime',
+      shortTitle: 'Palm press', cta: 'Try this' },
 
-    { prompt: 'A ten-second ear trick for instant quiet.',
-      detail: 'Ear cupping', segment: 'breath', time: 'anytime',
+    { prompt: 'Show me a low humming sound I can make that calms things from the inside.',
+      detail: 'Hum from inside', segment: 'breath', time: 'anytime',
+      shortTitle: 'Low hum', cta: 'Try this' },
+
+    { prompt: 'Give me a gentle reminder about something my body does not actually need.',
+      detail: 'A subtraction', segment: 'text', time: 'anytime',
+      shortTitle: 'Drop this', cta: 'Let go' },
+
+    { prompt: 'Show me a ten-second ear trick that brings a surprising amount of quiet.',
+      detail: 'Ear quiet', segment: 'breath', time: 'anytime',
       shortTitle: 'Cup ears', cta: 'Try this' },
 
-    { prompt: 'A way to soften my eyes without closing them.',
+    { prompt: 'Give me a way to soften my gaze without closing my eyes all the way.',
       detail: 'A soft gaze', segment: 'text', time: 'anytime',
       shortTitle: 'Soft eyes', cta: 'Soften' },
+
+    { prompt: 'Show me a few things my body could quietly let go of and never miss.',
+      detail: 'Won\'t miss these', segment: 'list', time: 'anytime',
+      shortTitle: 'Let these go', cta: 'Let go' },
+
+    { prompt: 'Give me a breath where the pause at the top is the most important part.',
+      detail: 'The pause matters', segment: 'breath', time: 'anytime',
+      shortTitle: 'Pause breath', cta: 'Breathe' },
   ],
 
   // ═══════════════════════════════════════════════════════════════
   // SPACE — "Quiet your mind" (90 prompts)
-  // Cognitive and relational. Navigating thoughts, people, decisions.
-  // Segment mix: ~38 text, ~25 breath (cognitive steps), ~17 list, ~10 fact
-  // ZERO songs.
+  // Formula: [Tell me/Take me] + [A story/place that feels like a pause]
+  // Lowering mental volume via stillness. Slow down.
+  // Segment mix: ~38 text, ~25 breath, ~10 fact, ~17 list. ZERO songs.
   // ═══════════════════════════════════════════════════════════════
 
   space: [
 
-    // ── SPACE: Morning (25 prompts) ──
+    // ── SPACE: Morning — Starting (25 prompts) ──
 
-    { prompt: 'Help me pick just one thing to focus on today.',
-      detail: 'One thing is enough', segment: 'text', time: 'morning',
-      shortTitle: 'Just one', cta: 'Clear it' },
+    { prompt: 'Take me somewhere quiet where I only have to think about one thing.',
+      detail: 'Just one thing', segment: 'text', time: 'morning',
+      shortTitle: 'Somewhere quiet', cta: 'Read on' },
 
-    { prompt: 'Something I could say no to today.',
-      detail: 'A morning no', segment: 'text', time: 'morning',
-      shortTitle: 'Say no', cta: 'Try this' },
+    { prompt: 'Tell me about a morning where someone decided to do less, not more.',
+      detail: 'Less is more', segment: 'text', time: 'morning',
+      shortTitle: 'Less today', cta: 'Read on' },
 
-    { prompt: 'A quick brain dump to clear some space.',
-      detail: 'A brain dump', segment: 'breath', time: 'morning',
+    { prompt: 'Take me through a quick brain dump that clears some space for the day.',
+      detail: 'Clear the deck', segment: 'breath', time: 'morning',
       shortTitle: 'Brain dump', cta: 'Clear it' },
 
-    { prompt: 'Why writing things down actually works.',
-      detail: 'A clarity fact', segment: 'fact', time: 'morning',
+    { prompt: 'Tell me why writing things down actually changes what happens in my brain.',
+      detail: 'Writing clears', segment: 'fact', time: 'morning',
       shortTitle: 'Write it down', cta: 'Oh, really?' },
 
-    { prompt: 'If I could only do three things today, which three?',
-      detail: 'A filtering question', segment: 'text', time: 'morning',
-      shortTitle: 'Only three', cta: 'Clear it' },
+    { prompt: 'Take me to a place where I only ever have to pick between three things.',
+      detail: 'Only three choices', segment: 'text', time: 'morning',
+      shortTitle: 'Only three', cta: 'Read on' },
 
-    { prompt: 'Something I\'m carrying that isn\'t mine to carry.',
-      detail: 'Not your weight', segment: 'text', time: 'morning',
-      shortTitle: 'Not mine', cta: 'Let it go' },
+    { prompt: 'Tell me a short story about someone who put something heavy down and walked.',
+      detail: 'A putting-down story', segment: 'text', time: 'morning',
+      shortTitle: 'Set it down', cta: 'Read on' },
 
-    { prompt: 'Three breaths, three words for the day.',
-      detail: 'Three-word intention', segment: 'breath', time: 'morning',
+    { prompt: 'Take me through three breaths where each one gets a single quiet word.',
+      detail: 'Three-word morning', segment: 'breath', time: 'morning',
       shortTitle: 'Three words', cta: 'Breathe' },
 
-    { prompt: 'Things I don\'t owe anyone today.',
-      detail: 'Permission slips', segment: 'list', time: 'morning',
+    { prompt: 'Tell me a few things I do not owe a single person today and mean it.',
+      detail: 'You don\'t owe these', segment: 'list', time: 'morning',
       shortTitle: 'Don\'t owe', cta: 'Read on' },
 
-    { prompt: 'A decision I\'m overcomplicating right now.',
-      detail: 'A gentle push', segment: 'text', time: 'morning',
-      shortTitle: 'Simpler than', cta: 'Try this' },
+    { prompt: 'Take me to a moment where a decision became simple by just waiting.',
+      detail: 'Simple by waiting', segment: 'text', time: 'morning',
+      shortTitle: 'Wait on it', cta: 'Read on' },
 
-    { prompt: 'A way to put each worry somewhere outside my head.',
-      detail: 'A containment visualization', segment: 'breath', time: 'morning',
+    { prompt: 'Tell me a breathing exercise where I put each thought somewhere safe.',
+      detail: 'Safe containers', segment: 'breath', time: 'morning',
       shortTitle: 'Box it up', cta: 'Try this' },
 
-    { prompt: 'How many thoughts I have per day. And why it matters.',
+    { prompt: 'Take me through how many thoughts I actually have per day and why it matters.',
       detail: 'A thought stat', segment: 'fact', time: 'morning',
       shortTitle: 'Thought count', cta: 'Oh, really?' },
 
-    { prompt: 'Something I don\'t need a plan for.',
-      detail: 'A planning pause', segment: 'text', time: 'morning',
-      shortTitle: 'No plan needed', cta: 'Settle in' },
+    { prompt: 'Tell me about a place where there is absolutely nothing to plan at all.',
+      detail: 'No plan needed', segment: 'text', time: 'morning',
+      shortTitle: 'No plans here', cta: 'Read on' },
 
-    { prompt: 'A breathing exercise that erases one thing at a time.',
-      detail: 'Whiteboard clearing', segment: 'breath', time: 'morning',
-      shortTitle: 'Erase one', cta: 'Clear it' },
+    { prompt: 'Take me through a breathing exercise that gently erases one thing at a time.',
+      detail: 'Erase one thing', segment: 'breath', time: 'morning',
+      shortTitle: 'Erase it', cta: 'Clear it' },
 
-    { prompt: 'Questions I don\'t need to answer today.',
-      detail: 'Questions to shelve', segment: 'list', time: 'morning',
+    { prompt: 'Tell me a few questions I genuinely do not have to answer before tonight.',
+      detail: 'Not today\'s questions', segment: 'list', time: 'morning',
       shortTitle: 'Not today', cta: 'Skip it' },
 
-    { prompt: 'Why the first thought of the day is rarely the truest.',
-      detail: 'Morning thought filter', segment: 'text', time: 'morning',
-      shortTitle: 'Wait on it', cta: 'Read on' },
+    { prompt: 'Take me to a scene where the first thought of the day floats right past.',
+      detail: 'Let it float by', segment: 'text', time: 'morning',
+      shortTitle: 'Float past', cta: 'Read on' },
 
-    { prompt: 'One person I am glad exists. Just that.',
-      detail: 'A gratitude breath', segment: 'breath', time: 'morning',
-      shortTitle: 'Glad they exist', cta: 'Try this' },
+    { prompt: 'Tell me about a breath where I think of one person I am glad exists.',
+      detail: 'Glad they exist', segment: 'breath', time: 'morning',
+      shortTitle: 'One person', cta: 'Try this' },
 
-    { prompt: 'A sentence that starts with "I wish someone knew..."',
-      detail: 'A naming exercise', segment: 'text', time: 'morning',
-      shortTitle: 'Name it', cta: 'Try this' },
+    { prompt: 'Take me through a sentence that starts with the words I wish someone knew.',
+      detail: 'A naming moment', segment: 'text', time: 'morning',
+      shortTitle: 'I wish', cta: 'Read on' },
 
-    { prompt: 'Things that feel urgent but almost never are.',
-      detail: 'An urgency filter', segment: 'list', time: 'morning',
-      shortTitle: 'Not urgent', cta: 'Read on' },
+    { prompt: 'Tell me a few kinds of mornings that are worth protecting from busyness.',
+      detail: 'Protect the morning', segment: 'list', time: 'morning',
+      shortTitle: 'Worth keeping', cta: 'Read on' },
 
-    { prompt: 'A breathing pattern for "I have enough. I am enough."',
-      detail: 'Enough breathing', segment: 'breath', time: 'morning',
-      shortTitle: 'Enough', cta: 'Breathe' },
+    { prompt: 'Take me through a breath where the exhale carries exactly one thought away.',
+      detail: 'One thought, gone', segment: 'breath', time: 'morning',
+      shortTitle: 'Breathe it out', cta: 'Breathe' },
 
-    { prompt: 'The smallest possible first step for right now.',
-      detail: 'Starting is the only step', segment: 'text', time: 'morning',
-      shortTitle: 'Just begin', cta: 'Try this' },
+    { prompt: 'Tell me about a place where the morning is so still it almost hums.',
+      detail: 'A still morning', segment: 'text', time: 'morning',
+      shortTitle: 'Still hum', cta: 'Read on' },
 
-    { prompt: 'How many decisions I make per day. And what to do.',
-      detail: 'Too many choices', segment: 'fact', time: 'morning',
-      shortTitle: 'Decision count', cta: 'Oh, really?' },
+    { prompt: 'Take me to a version of this morning where nothing is expected of me yet.',
+      detail: 'Nothing expected', segment: 'text', time: 'morning',
+      shortTitle: 'No expectations', cta: 'Read on' },
 
-    { prompt: 'Three things I can cross off my list right now.',
-      detail: 'A list edit', segment: 'text', time: 'morning',
-      shortTitle: 'Cross them off', cta: 'Clear it' },
+    { prompt: 'Tell me why the first thought of the morning is rarely the most accurate one.',
+      detail: 'Morning thought filter', segment: 'fact', time: 'morning',
+      shortTitle: 'First thought', cta: 'Oh, really?' },
 
-    { prompt: 'A letting-go breath for something I\'m holding too tight.',
-      detail: 'A letting-go breath', segment: 'breath', time: 'morning',
-      shortTitle: 'Hold less', cta: 'Let it go' },
+    { prompt: 'Take me through a breath where the inhale is a question and the exhale answers.',
+      detail: 'Ask and answer', segment: 'breath', time: 'morning',
+      shortTitle: 'Question breath', cta: 'Breathe' },
 
-    { prompt: 'Scripts for saying no without any guilt.',
-      detail: 'No templates', segment: 'list', time: 'morning',
-      shortTitle: 'No scripts', cta: 'Read on' },
+    { prompt: 'Tell me a few things I could say no to today and feel lighter for it.',
+      detail: 'Lighter no\'s', segment: 'list', time: 'morning',
+      shortTitle: 'Say no', cta: 'Read on' },
 
-    { prompt: 'A kinder way to think about starting the day.',
-      detail: 'No morning grade', segment: 'text', time: 'morning',
-      shortTitle: 'No grade', cta: 'Settle in' },
+    { prompt: 'Take me to a place where all the decisions can wait until I am ready.',
+      detail: 'Decisions can wait', segment: 'text', time: 'morning',
+      shortTitle: 'Not yet', cta: 'Read on' },
 
-    // ── SPACE: Afternoon (30 prompts) ──
+    // ── SPACE: Afternoon — Resetting (30 prompts) ──
 
-    { prompt: 'Something I don\'t have to respond to right now.',
-      detail: 'A reply permission slip', segment: 'text', time: 'afternoon',
-      shortTitle: 'No reply needed', cta: 'Skip it' },
+    { prompt: 'Tell me a short story about someone who put something heavy down.',
+      detail: 'A letting-go story', segment: 'text', time: 'afternoon',
+      shortTitle: 'Put it down', cta: 'Read on' },
 
-    { prompt: 'A one-breath check before I hit send.',
-      detail: 'A reply check', segment: 'text', time: 'afternoon',
-      shortTitle: 'Before I send', cta: 'Try this' },
+    { prompt: 'Take me through a breath that feels like stepping into a silent room.',
+      detail: 'A silent room', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Silent room', cta: 'Breathe' },
 
-    { prompt: 'A name for the thought loop I keep circling.',
-      detail: 'Loop breaking', segment: 'text', time: 'afternoon',
-      shortTitle: 'Name the loop', cta: 'Clear it' },
+    { prompt: 'Tell me about a place where the middle of the day is actually the stillest.',
+      detail: 'Midday stillness', segment: 'text', time: 'afternoon',
+      shortTitle: 'Still midday', cta: 'Read on' },
 
-    { prompt: 'A breathing pattern for "I can handle this."',
-      detail: 'A coping breath', segment: 'breath', time: 'afternoon',
-      shortTitle: 'I can handle it', cta: 'Breathe' },
+    { prompt: 'Take me to a place where decisions can wait and nothing at all is expected.',
+      detail: 'Nothing expected', segment: 'text', time: 'afternoon',
+      shortTitle: 'Can wait', cta: 'Read on' },
 
-    { prompt: 'Things that are fine to leave half-done today.',
-      detail: 'Permission to pause', segment: 'list', time: 'afternoon',
-      shortTitle: 'Half-done is fine', cta: 'Read on' },
+    { prompt: 'Tell me a few things that feel like problems but are really just small bumps.',
+      detail: 'Just small bumps', segment: 'list', time: 'afternoon',
+      shortTitle: 'Just bumps', cta: 'Read on' },
 
-    { prompt: 'Why doing one thing at a time is actually smart.',
-      detail: 'A focus fact', segment: 'fact', time: 'afternoon',
-      shortTitle: 'One thing only', cta: 'Oh, really?' },
+    { prompt: 'Take me through a breath where I name one thing and then let it pass.',
+      detail: 'Name and release', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Name it', cta: 'Clear it' },
 
-    { prompt: 'A coin-flip trick for when I can\'t decide.',
-      detail: 'The coin trick', segment: 'text', time: 'afternoon',
-      shortTitle: 'Flip a coin', cta: 'Try this' },
+    { prompt: 'Tell me about a moment where doing absolutely nothing turned out to be enough.',
+      detail: 'Nothing was enough', segment: 'text', time: 'afternoon',
+      shortTitle: 'Enough', cta: 'Read on' },
 
-    { prompt: 'A way to watch my thoughts pass without grabbing them.',
-      detail: 'Cloud watching for your mind', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Let them pass', cta: 'Try this' },
+    { prompt: 'Take me to a scene where everything slowed down and nobody minded at all.',
+      detail: 'Nobody minded', segment: 'text', time: 'afternoon',
+      shortTitle: 'Slow scene', cta: 'Read on' },
 
-    { prompt: 'A kinder way to see someone who frustrated me.',
-      detail: 'A perspective shift', segment: 'text', time: 'afternoon',
-      shortTitle: 'Kinder view', cta: 'Let it go' },
+    { prompt: 'Tell me a few thoughts that feel heavy but I could safely set aside for now.',
+      detail: 'Set these aside', segment: 'list', time: 'afternoon',
+      shortTitle: 'For now', cta: 'Skip it' },
 
-    { prompt: 'Three breaths to set down what I\'ve been carrying.',
-      detail: 'A setting-down breath', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Set it down', cta: 'Let it go' },
+    { prompt: 'Take me through a breath where the pause at the bottom is the whole point.',
+      detail: 'The pause is it', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Bottom pause', cta: 'Breathe' },
 
-    { prompt: 'Phrases that help when the afternoon feels heavy.',
-      detail: 'Things to tell yourself', segment: 'list', time: 'afternoon',
-      shortTitle: 'Tell myself', cta: 'Read on' },
+    { prompt: 'Tell me about a place that is so quiet it makes thoughts feel optional.',
+      detail: 'Thoughts optional', segment: 'text', time: 'afternoon',
+      shortTitle: 'Quiet place', cta: 'Read on' },
 
-    { prompt: 'Why mental tiredness is real, physical tiredness.',
-      detail: 'Brain energy', segment: 'fact', time: 'afternoon',
-      shortTitle: 'Brain is tired', cta: 'Oh, really?' },
+    { prompt: 'Take me to a park bench in a story where sitting is the only plot point.',
+      detail: 'A bench story', segment: 'text', time: 'afternoon',
+      shortTitle: 'Bench sit', cta: 'Read on' },
 
-    { prompt: 'A breath to sort what I can and can\'t control.',
-      detail: 'A control filter', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Control check', cta: 'Clear it' },
+    { prompt: 'Tell me a few kind ways to say not right now to someone without any guilt.',
+      detail: 'Kind boundaries', segment: 'list', time: 'afternoon',
+      shortTitle: 'Kind no', cta: 'Read on' },
 
-    { prompt: 'A way to pause a conversation without ending it.',
-      detail: 'A conversation boundary', segment: 'text', time: 'afternoon',
-      shortTitle: 'Think first', cta: 'Try this' },
+    { prompt: 'Take me through a one-breath reset that can fit between any two moments.',
+      detail: 'Between moments', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Micro reset', cta: 'Try this' },
 
-    { prompt: 'A mental volume dial for the noise in my head.',
-      detail: 'A mental volume dial', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Turn it down', cta: 'Try this' },
+    { prompt: 'Tell me about a library in the world where silence is treated like treasure.',
+      detail: 'Silence as treasure', segment: 'text', time: 'afternoon',
+      shortTitle: 'Library quiet', cta: 'Read on' },
 
-    { prompt: 'Decisions I can safely make in under ten seconds.',
-      detail: 'Quick decision shortcuts', segment: 'list', time: 'afternoon',
-      shortTitle: 'Decide fast', cta: 'Read on' },
+    { prompt: 'Take me through an exhale that makes my whole mental to-do list feel smaller.',
+      detail: 'Shrinking list', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Smaller list', cta: 'Clear it' },
 
-    { prompt: 'Something that feels urgent but actually isn\'t.',
-      detail: 'An urgency check', segment: 'text', time: 'afternoon',
-      shortTitle: 'It can wait', cta: 'Skip it' },
+    { prompt: 'Tell me why the brain actually benefits from doing less in the afternoon.',
+      detail: 'Less is smarter', segment: 'fact', time: 'afternoon',
+      shortTitle: 'Do less', cta: 'Oh, really?' },
 
-    { prompt: 'A breath to let one thought leave. Just one.',
-      detail: 'A release breath', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Let one go', cta: 'Breathe' },
+    { prompt: 'Take me to a place where the air is so clean that thinking becomes easy.',
+      detail: 'Clear air, clear mind', segment: 'text', time: 'afternoon',
+      shortTitle: 'Clean air', cta: 'Read on' },
 
-    { prompt: 'A gentler way to think about "good enough."',
-      detail: 'A perfectionism check', segment: 'text', time: 'afternoon',
-      shortTitle: 'Good enough', cta: 'Let it go' },
-
-    { prompt: 'A way to let my thoughts scroll by without grabbing.',
-      detail: 'Ticker tape thoughts', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Let them scroll', cta: 'Try this' },
-
-    { prompt: 'Things that felt like emergencies but turned out fine.',
-      detail: 'A hindsight list', segment: 'list', time: 'afternoon',
-      shortTitle: 'It was fine', cta: 'Read on' },
-
-    { prompt: 'A reminder that I am not behind on anything.',
-      detail: 'No invisible deadline', segment: 'text', time: 'afternoon',
-      shortTitle: 'Not behind', cta: 'Read on' },
-
-    { prompt: 'A fog-clearing breath to make the view clearer.',
-      detail: 'A fog-clearing breath', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Clear the fog', cta: 'Breathe' },
-
-    { prompt: 'The advice I would give a friend with my problem.',
-      detail: 'A self-advice flip', segment: 'text', time: 'afternoon',
-      shortTitle: 'Advise myself', cta: 'Try this' },
-
-    { prompt: 'How long it really takes to refocus after a break.',
-      detail: 'A refocus fact', segment: 'fact', time: 'afternoon',
-      shortTitle: 'Refocus time', cta: 'Oh, really?' },
-
-    { prompt: 'A closing breath that says "done" to the last task.',
-      detail: 'A closing breath', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Say done', cta: 'Clear it' },
-
-    { prompt: 'Something I don\'t have to explain to anyone.',
-      detail: 'A boundary reminder', segment: 'text', time: 'afternoon',
-      shortTitle: 'No explaining', cta: 'Let it go' },
-
-    { prompt: 'Boundaries that are reasonable even when uncomfortable.',
-      detail: 'Boundary reminders', segment: 'list', time: 'afternoon',
-      shortTitle: 'Fair limits', cta: 'Read on' },
-
-    { prompt: 'A breath to gather my scattered attention into one place.',
-      detail: 'An attention gather', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Gather focus', cta: 'Breathe' },
-
-    { prompt: 'A comparison I\'m making that isn\'t fair to me.',
-      detail: 'A comparison check', segment: 'text', time: 'afternoon',
-      shortTitle: 'Stop comparing', cta: 'Let it go' },
-
-    // ── SPACE: Evening (20 prompts) ──
-
-    { prompt: 'A way to acknowledge a hard conversation I had.',
-      detail: 'A hard-day acknowledgment', segment: 'text', time: 'evening',
-      shortTitle: 'I showed up', cta: 'Read on' },
-
-    { prompt: 'Permission to stop replaying something from today.',
-      detail: 'A replay stopper', segment: 'text', time: 'evening',
-      shortTitle: 'Stop replaying', cta: 'Let it go' },
-
-    { prompt: 'A breath for the gap between today and tomorrow.',
-      detail: 'An evening presence breath', segment: 'breath', time: 'evening',
-      shortTitle: 'Right now only', cta: 'Breathe' },
-
-    { prompt: 'A brain-to-page exercise so my mind can rest.',
-      detail: 'A before-bed brain dump', segment: 'breath', time: 'evening',
-      shortTitle: 'Brain to page', cta: 'Clear it' },
-
-    { prompt: 'Things that are okay to leave unsorted until morning.',
-      detail: 'A tomorrow list', segment: 'list', time: 'evening',
+    { prompt: 'Tell me a few things that are completely fine to leave unfinished today.',
+      detail: 'Fine unfinished', segment: 'list', time: 'afternoon',
       shortTitle: 'Leave it', cta: 'Skip it' },
 
-    { prompt: 'A reminder that today\'s messy parts are survivable.',
-      detail: 'An evening reassurance', segment: 'text', time: 'evening',
-      shortTitle: 'Still here', cta: 'Read on' },
+    { prompt: 'Take me through a breath where my mind gets to be a passenger, not a driver.',
+      detail: 'Passenger mode', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Passenger', cta: 'Breathe' },
 
-    { prompt: 'Five breaths to forgive myself for one small thing.',
-      detail: 'A forgiveness breath', segment: 'breath', time: 'evening',
-      shortTitle: 'Forgive one', cta: 'Breathe' },
+    { prompt: 'Tell me about a river that moves so slowly it almost looks like it stopped.',
+      detail: 'A slow river', segment: 'text', time: 'afternoon',
+      shortTitle: 'Slow river', cta: 'Read on' },
 
-    { prompt: 'If I could put today in a drawer, what\'s the label?',
-      detail: 'A closing metaphor', segment: 'text', time: 'evening',
-      shortTitle: 'Close the drawer', cta: 'Try this' },
+    { prompt: 'Take me somewhere where the only job is to sit and watch something gentle.',
+      detail: 'Watch something gentle', segment: 'text', time: 'afternoon',
+      shortTitle: 'Just watch', cta: 'Read on' },
 
-    { prompt: 'A reason to stop worrying about tomorrow tonight.',
-      detail: 'A worry reminder', segment: 'text', time: 'evening',
-      shortTitle: 'Not tonight', cta: 'Let it go' },
+    { prompt: 'Tell me why switching between things costs my brain more than I realize.',
+      detail: 'Switching costs', segment: 'fact', time: 'afternoon',
+      shortTitle: 'Switch tax', cta: 'Oh, really?' },
 
-    { prompt: 'Things I handled today, even if they felt small.',
-      detail: 'An accomplishment list', segment: 'list', time: 'evening',
-      shortTitle: 'I handled it', cta: 'Read on' },
+    { prompt: 'Take me through three breaths that each get a little bit quieter inside.',
+      detail: 'Quieter each time', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Getting quiet', cta: 'Breathe' },
 
-    { prompt: 'A way to shelve my thoughts gently until morning.',
-      detail: 'Thought shelving', segment: 'breath', time: 'evening',
-      shortTitle: 'Shelve them', cta: 'Try this' },
+    { prompt: 'Tell me about a tiny chapel or garden built for people who just want to sit.',
+      detail: 'A sitting place', segment: 'text', time: 'afternoon',
+      shortTitle: 'Just sit', cta: 'Read on' },
 
-    { prompt: 'Someone I was frustrated with who\'s already moved on.',
-      detail: 'A release reminder', segment: 'text', time: 'evening',
-      shortTitle: 'They moved on', cta: 'Let it go' },
+    { prompt: 'Take me through a visualization where each thought is a leaf on moving water.',
+      detail: 'Leaves on water', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Leaf thoughts', cta: 'Try this' },
 
-    { prompt: 'A breath to gently close the door on today.',
-      detail: 'Closing the day', segment: 'breath', time: 'evening',
-      shortTitle: 'Close the door', cta: 'Breathe' },
+    { prompt: 'Tell me a few permissions I could quietly give myself in the next five minutes.',
+      detail: 'Permission slips', segment: 'list', time: 'afternoon',
+      shortTitle: 'Permissions', cta: 'Read on' },
 
-    { prompt: 'Why sleeping on a problem actually works.',
-      detail: 'A sleep-on-it fact', segment: 'fact', time: 'evening',
+    { prompt: 'Take me to a version of this afternoon where my only task is being present.',
+      detail: 'Just being here', segment: 'text', time: 'afternoon',
+      shortTitle: 'Just present', cta: 'Read on' },
+
+    { prompt: 'Tell me why giving the brain a gap between thoughts actually helps it work.',
+      detail: 'Gaps help', segment: 'fact', time: 'afternoon',
+      shortTitle: 'Brain gaps', cta: 'Oh, really?' },
+
+    { prompt: 'Take me through a breath where I give my mind permission to wander freely.',
+      detail: 'Wander freely', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Let it wander', cta: 'Breathe' },
+
+    // ── SPACE: Evening — Shedding (20 prompts) ──
+
+    { prompt: 'Take me to the kind of evening where nothing is waiting to be done.',
+      detail: 'Nothing waiting', segment: 'text', time: 'evening',
+      shortTitle: 'Free evening', cta: 'Read on' },
+
+    { prompt: 'Tell me a few thoughts that are safe to let go of before I fall asleep.',
+      detail: 'Safe to release', segment: 'list', time: 'evening',
+      shortTitle: 'Let these go', cta: 'Read on' },
+
+    { prompt: 'Take me through a breath that gently closes the door on today\'s thinking.',
+      detail: 'Close the door', segment: 'breath', time: 'evening',
+      shortTitle: 'Door closed', cta: 'Breathe' },
+
+    { prompt: 'Tell me about a place where evening is treated as something truly sacred.',
+      detail: 'Sacred evenings', segment: 'text', time: 'evening',
+      shortTitle: 'Sacred time', cta: 'Read on' },
+
+    { prompt: 'Take me somewhere where the only sound is the kind that helps people sleep.',
+      detail: 'Sleepy sounds', segment: 'text', time: 'evening',
+      shortTitle: 'Sleep sounds', cta: 'Read on' },
+
+    { prompt: 'Tell me why sleeping on something genuinely helps the brain figure it out.',
+      detail: 'Sleep solves things', segment: 'fact', time: 'evening',
       shortTitle: 'Sleep on it', cta: 'Oh, really?' },
 
-    { prompt: 'Things my mind doesn\'t need to solve before bed.',
-      detail: 'A stop-solving list', segment: 'list', time: 'evening',
-      shortTitle: 'Stop solving', cta: 'Skip it' },
+    { prompt: 'Take me through an exhale that carries the last thought of the day away.',
+      detail: 'Last thought out', segment: 'breath', time: 'evening',
+      shortTitle: 'Last exhale', cta: 'Let it go' },
 
-    { prompt: 'One small thing that went well today.',
-      detail: 'One good thing', segment: 'text', time: 'evening',
-      shortTitle: 'One good thing', cta: 'Try this' },
+    { prompt: 'Tell me a few things my mind does not actually have to solve before bed.',
+      detail: 'Stop solving', segment: 'list', time: 'evening',
+      shortTitle: 'Not tonight', cta: 'Skip it' },
 
-    { prompt: 'A breath to turn the volume of my thoughts down.',
-      detail: 'A thought-dimmer breath', segment: 'breath', time: 'evening',
+    { prompt: 'Take me to a field at dusk where the sky is doing all the talking instead.',
+      detail: 'Sky at dusk', segment: 'text', time: 'evening',
+      shortTitle: 'Dusk field', cta: 'Read on' },
+
+    { prompt: 'Tell me one small thing that went quietly well today and almost got missed.',
+      detail: 'Almost missed it', segment: 'text', time: 'evening',
+      shortTitle: 'Went well', cta: 'Read on' },
+
+    { prompt: 'Take me through a thought-dimmer breath that turns the volume down slowly.',
+      detail: 'Volume down', segment: 'breath', time: 'evening',
       shortTitle: 'Turn it down', cta: 'Breathe' },
 
-    { prompt: 'Why nobody remembers the awkward thing I said.',
-      detail: 'A cringe release', segment: 'fact', time: 'evening',
+    { prompt: 'Tell me why nobody actually remembers the awkward thing I said last week.',
+      detail: 'They already forgot', segment: 'fact', time: 'evening',
       shortTitle: 'They forgot', cta: 'Let it go' },
 
-    { prompt: 'A zoomed-out view of today. Most of it was fine.',
-      detail: 'A zoomed-out view', segment: 'text', time: 'evening',
-      shortTitle: 'Whole day', cta: 'Read on' },
+    { prompt: 'Take me to a zoomed-out view of today where most of it was actually fine.',
+      detail: 'Mostly fine', segment: 'text', time: 'evening',
+      shortTitle: 'Zoomed out', cta: 'Read on' },
 
-    { prompt: 'Gentle thoughts to carry into sleep tonight.',
-      detail: 'Bedtime thoughts', segment: 'list', time: 'evening',
-      shortTitle: 'Carry these', cta: 'Read on' },
+    { prompt: 'Tell me a few gentle thoughts that are light enough to carry into sleep.',
+      detail: 'Carry these lightly', segment: 'list', time: 'evening',
+      shortTitle: 'Light thoughts', cta: 'Read on' },
+
+    { prompt: 'Take me through a body-and-breath wind-down that takes under sixty seconds.',
+      detail: 'Under a minute', segment: 'breath', time: 'evening',
+      shortTitle: 'Quick wind-down', cta: 'Try this' },
+
+    { prompt: 'Tell me about an evening somewhere in the world that sounds perfectly still.',
+      detail: 'A still evening', segment: 'text', time: 'evening',
+      shortTitle: 'Somewhere still', cta: 'Read on' },
+
+    { prompt: 'Take me through a breath where I imagine someone kind is sitting nearby.',
+      detail: 'Someone nearby', segment: 'breath', time: 'evening',
+      shortTitle: 'Not alone', cta: 'Breathe' },
+
+    { prompt: 'Tell me a few things that are completely fine to leave for tomorrow morning.',
+      detail: 'Tomorrow\'s list', segment: 'list', time: 'evening',
+      shortTitle: 'Leave it', cta: 'Skip it' },
+
+    { prompt: 'Take me to a place where every thought that arrives is gently sent to bed.',
+      detail: 'Thoughts to bed', segment: 'text', time: 'evening',
+      shortTitle: 'Bedtime thoughts', cta: 'Read on' },
+
+    { prompt: 'Tell me about a reason to stop replaying today and simply let it be done.',
+      detail: 'Let it be done', segment: 'text', time: 'evening',
+      shortTitle: 'It\'s done', cta: 'Let it go' },
 
     // ── SPACE: Anytime (15 prompts) ──
 
-    { prompt: 'A thought that\'s just noise, not worth my attention.',
-      detail: 'A thought filter', segment: 'text', time: 'anytime',
-      shortTitle: 'Just noise', cta: 'Let it go' },
+    { prompt: 'Tell me why the brain keeps replaying things even when I tell it to stop.',
+      detail: 'The replay loop', segment: 'fact', time: 'anytime',
+      shortTitle: 'On repeat', cta: 'Oh, really?' },
 
-    { prompt: 'Three exhales to let go of three thoughts.',
-      detail: 'A three-thought release', segment: 'breath', time: 'anytime',
+    { prompt: 'Take me through three exhales where each one releases a different thought.',
+      detail: 'Three thoughts out', segment: 'breath', time: 'anytime',
       shortTitle: 'Three exhales', cta: 'Breathe' },
 
-    { prompt: 'Things that feel like problems but are just inconveniences.',
-      detail: 'A proportionality check', segment: 'list', time: 'anytime',
-      shortTitle: 'Just inconvenient', cta: 'Read on' },
+    { prompt: 'Tell me about a place where every thought floats by without ever landing.',
+      detail: 'Nothing lands', segment: 'text', time: 'anytime',
+      shortTitle: 'Float by', cta: 'Read on' },
 
-    { prompt: 'Permission to say "I don\'t know" and mean it.',
-      detail: 'Permission to not know', segment: 'text', time: 'anytime',
-      shortTitle: 'Don\'t know yet', cta: 'Read on' },
+    { prompt: 'Take me to a pause where saying I don\'t know yet is the whole answer.',
+      detail: 'Don\'t know yet', segment: 'text', time: 'anytime',
+      shortTitle: 'Don\'t know', cta: 'Read on' },
 
-    { prompt: 'Why "I feel bad about this" and "this is bad" differ.',
-      detail: 'A feeling-fact split', segment: 'fact', time: 'anytime',
-      shortTitle: 'Feeling vs fact', cta: 'Oh, really?' },
+    { prompt: 'Tell me why the feeling of something and the truth of it are not the same.',
+      detail: 'Feeling vs fact', segment: 'fact', time: 'anytime',
+      shortTitle: 'Not the same', cta: 'Oh, really?' },
 
-    { prompt: 'A breath for what I can control and what I can\'t.',
-      detail: 'A control breath', segment: 'breath', time: 'anytime',
-      shortTitle: 'Control breath', cta: 'Breathe' },
+    { prompt: 'Take me through a breath for the things I can control and the things I can\'t.',
+      detail: 'Control breath', segment: 'breath', time: 'anytime',
+      shortTitle: 'Control sort', cta: 'Breathe' },
 
-    { prompt: 'Permission to change my mind about something.',
-      detail: 'A permission note', segment: 'text', time: 'anytime',
+    { prompt: 'Tell me about a moment where someone changed their mind and it was a relief.',
+      detail: 'Changed my mind', segment: 'text', time: 'anytime',
       shortTitle: 'Change it', cta: 'Read on' },
 
-    { prompt: 'Kind ways to set a boundary with someone.',
-      detail: 'Boundary phrases', segment: 'list', time: 'anytime',
-      shortTitle: 'Kind limits', cta: 'Read on' },
-
-    { prompt: 'A one-breath reset I can do right now.',
+    { prompt: 'Take me through a one-breath reset that can happen anytime and anywhere.',
       detail: 'A micro-reset', segment: 'breath', time: 'anytime',
       shortTitle: 'Tiny reset', cta: 'Try this' },
 
-    { prompt: 'A reminder that I\'m allowed to take up space.',
-      detail: 'A space reminder', segment: 'text', time: 'anytime',
-      shortTitle: 'Take up space', cta: 'Read on' },
+    { prompt: 'Tell me a few kind ways to set a boundary without feeling guilty about it.',
+      detail: 'Boundary phrases', segment: 'list', time: 'anytime',
+      shortTitle: 'Kind limits', cta: 'Read on' },
 
-    { prompt: 'Why rejection actually hurts. Literally.',
-      detail: 'Rejection is real pain', segment: 'fact', time: 'anytime',
-      shortTitle: 'It hurts for real', cta: 'Oh, really?' },
+    { prompt: 'Take me to a reminder that I am allowed to take up space in my own life.',
+      detail: 'Take up space', segment: 'text', time: 'anytime',
+      shortTitle: 'My space', cta: 'Read on' },
 
-    { prompt: 'A pause for when everything feels shaken up.',
-      detail: 'A snow globe pause', segment: 'breath', time: 'anytime',
-      shortTitle: 'Let it settle', cta: 'Try this' },
+    { prompt: 'Tell me why rejection hurts the way it does and why that is completely normal.',
+      detail: 'Rejection is real', segment: 'fact', time: 'anytime',
+      shortTitle: 'It\'s real', cta: 'Oh, really?' },
 
-    { prompt: 'Thoughts worth questioning instead of believing.',
+    { prompt: 'Take me through a snow-globe pause where everything is still settling.',
+      detail: 'Let it settle', segment: 'breath', time: 'anytime',
+      shortTitle: 'Snow globe', cta: 'Try this' },
+
+    { prompt: 'Tell me a few thoughts that are worth questioning instead of just believing.',
       detail: 'Question these', segment: 'list', time: 'anytime',
       shortTitle: 'Question it', cta: 'Read on' },
 
-    { prompt: 'A reminder that my version of events isn\'t the only one.',
-      detail: 'A narrative check', segment: 'text', time: 'anytime',
-      shortTitle: 'One version', cta: 'Read on' },
+    { prompt: 'Take me to a reminder that my version of what happened is just one of many.',
+      detail: 'One version', segment: 'text', time: 'anytime',
+      shortTitle: 'One story', cta: 'Read on' },
 
-    { prompt: 'A breath for "I will figure this out."',
-      detail: 'A confidence breath', segment: 'breath', time: 'anytime',
+    { prompt: 'Tell me a breath pattern that quietly says the words I will figure this out.',
+      detail: 'I will figure it out', segment: 'breath', time: 'anytime',
       shortTitle: 'I will', cta: 'Breathe' },
   ],
 
   // ═══════════════════════════════════════════════════════════════
-  // SMALL — "Treat yourself" (90 prompts)
-  // Tiny, tangible, warm. Play, lightness, micro-connection, small comforts.
-  // Not food-focused. Segment mix: ~38 text, ~15 breath, ~15 list,
-  // ~12 fact, ~10 song
+  // SMALL — "Gift yourself" (90 prompts)
+  // Formula: [Give/Tell me] + [Gentle words/a reason to feel good]
+  // Radical, externalized self-compassion. Feel held.
+  // Segment mix: ~38 text, ~15 breath, ~12 fact, ~15 list, ~10 song
   // ═══════════════════════════════════════════════════════════════
 
   small: [
 
-    // ── SMALL: Morning (25 prompts) ──
+    // ── SMALL: Morning — Starting (25 prompts) ──
 
-    { prompt: 'Something to wear today that\'s just for me.',
-      detail: 'Dress for yourself', segment: 'text', time: 'morning',
-      shortTitle: 'Wear this', cta: 'Do it' },
+    { prompt: 'Give me a small, warm reason to feel good about right now, for nothing.',
+      detail: 'For no reason', segment: 'text', time: 'morning',
+      shortTitle: 'For nothing', cta: 'Go on' },
 
-    { prompt: 'A way to make my first sip feel like a ritual.',
+    { prompt: 'Tell me a way to make my first sip of the morning feel like a real ritual.',
       detail: 'A slow first sip', segment: 'text', time: 'morning',
       shortTitle: 'Slow sip', cta: 'Try it' },
 
-    { prompt: 'A song that feels like a hand on my back.',
-      detail: 'A quiet confidence track', segment: 'song', time: 'morning',
-      shortTitle: 'You got this', cta: 'Play it' },
+    { prompt: 'Give me a song that feels like a warm hand gently placed on my back.',
+      detail: 'A warm hand', segment: 'song', time: 'morning',
+      shortTitle: 'Warm hand', cta: 'Play it' },
 
-    { prompt: 'A tiny reaching-out text to send right now.',
-      detail: 'A small reaching out', segment: 'text', time: 'morning',
+    { prompt: 'Tell me a tiny reaching-out text I could send someone right now just because.',
+      detail: 'A small reach-out', segment: 'text', time: 'morning',
       shortTitle: 'Send it', cta: 'Do it' },
 
-    { prompt: 'A 30-second thing involving a window and fresh air.',
-      detail: 'Fresh air as a gift', segment: 'text', time: 'morning',
-      shortTitle: 'Open window', cta: 'Try it' },
+    { prompt: 'Give me a thirty-second thing involving a window and some fresh morning air.',
+      detail: 'Fresh air gift', segment: 'text', time: 'morning',
+      shortTitle: 'Window air', cta: 'Try it' },
 
-    { prompt: 'Something my brain does when I smile. Even a fake one.',
-      detail: 'A brain hack', segment: 'fact', time: 'morning',
+    { prompt: 'Tell me something my brain does when I smile, even when I don\'t mean it.',
+      detail: 'Smile science', segment: 'fact', time: 'morning',
       shortTitle: 'Smile trick', cta: 'Oh, really?' },
 
-    { prompt: 'A small luxury I already own but keep forgetting.',
-      detail: 'Soft socks matter', segment: 'text', time: 'morning',
+    { prompt: 'Give me a reminder about a small luxury I already own but keep forgetting.',
+      detail: 'Already yours', segment: 'text', time: 'morning',
       shortTitle: 'Small luxury', cta: 'Do it' },
 
-    { prompt: 'Kind things I could do for myself before noon.',
-      detail: 'Morning self-care menu', segment: 'list', time: 'morning',
+    { prompt: 'Tell me a few kind things I could easily do for myself before noon today.',
+      detail: 'Before noon kindness', segment: 'list', time: 'morning',
       shortTitle: 'Before noon', cta: 'Go on' },
 
-    { prompt: 'A cat-like stretch I can do before I even get up.',
-      detail: 'A cat stretch', segment: 'breath', time: 'morning',
-      shortTitle: 'Cat stretch', cta: 'Try it' },
+    { prompt: 'Give me a breath that feels like wrapping my arms around myself gently.',
+      detail: 'A self-hug breath', segment: 'breath', time: 'morning',
+      shortTitle: 'Self-hug', cta: 'Breathe' },
 
-    { prompt: 'One kind thing to say to myself in the mirror.',
-      detail: 'A mirror moment', segment: 'text', time: 'morning',
+    { prompt: 'Tell me something kind I could say to myself the next time I catch a mirror.',
+      detail: 'Mirror words', segment: 'text', time: 'morning',
       shortTitle: 'Mirror kind', cta: 'Try it' },
 
-    { prompt: 'A scent that can improve my mood this morning.',
-      detail: 'A scent boost', segment: 'fact', time: 'morning',
+    { prompt: 'Give me a reason a certain scent could gently shift how this morning feels.',
+      detail: 'A scent shift', segment: 'fact', time: 'morning',
       shortTitle: 'Morning scent', cta: 'Oh, really?' },
 
-    { prompt: 'A song that makes breakfast feel like a celebration.',
-      detail: 'A breakfast soundtrack', segment: 'song', time: 'morning',
-      shortTitle: 'Morning track', cta: 'Play it' },
+    { prompt: 'Tell me a song that turns the simple act of getting dressed into something.',
+      detail: 'Getting-dressed song', segment: 'song', time: 'morning',
+      shortTitle: 'Getting ready', cta: 'Play it' },
 
-    { prompt: 'A kind note to write to my future self today.',
-      detail: 'A future kindness', segment: 'text', time: 'morning',
+    { prompt: 'Give me a kind note I could leave for my future self somewhere in the day.',
+      detail: 'A note ahead', segment: 'text', time: 'morning',
       shortTitle: 'Note to self', cta: 'Do it' },
 
-    { prompt: 'A sharp, alive sensation I can give myself right now.',
-      detail: 'A cold splash', segment: 'breath', time: 'morning',
-      shortTitle: 'Wake up trick', cta: 'Try it' },
+    { prompt: 'Tell me a cat-like stretch I can do before I even get out of bed today.',
+      detail: 'A morning stretch', segment: 'breath', time: 'morning',
+      shortTitle: 'Cat stretch', cta: 'Try it' },
 
-    { prompt: 'One kind thing for morning-me that takes five minutes.',
-      detail: 'Five minutes of peace', segment: 'text', time: 'morning',
+    { prompt: 'Give me five minutes of something kind I could give to just morning-me.',
+      detail: 'Five kind minutes', segment: 'text', time: 'morning',
       shortTitle: 'Five minutes', cta: 'Try it' },
 
-    { prompt: 'Tiny morning pleasures most people forget to notice.',
-      detail: 'Morning pleasures', segment: 'list', time: 'morning',
+    { prompt: 'Tell me a few tiny morning pleasures that most people walk right past.',
+      detail: 'Easy to miss', segment: 'list', time: 'morning',
       shortTitle: 'Tiny pleasures', cta: 'Go on' },
 
-    { prompt: 'A surprising reason to laugh more today.',
-      detail: 'Laughter as self-care', segment: 'fact', time: 'morning',
+    { prompt: 'Give me a surprising reason to laugh more today that is backed by science.',
+      detail: 'Laughter science', segment: 'fact', time: 'morning',
       shortTitle: 'Laugh more', cta: 'Oh, really?' },
 
-    { prompt: 'A phone-free experiment for the first 15 minutes.',
-      detail: 'A phone-free start', segment: 'text', time: 'morning',
+    { prompt: 'Tell me a gentle phone-free experiment for the first fifteen minutes of today.',
+      detail: 'Phone-free start', segment: 'text', time: 'morning',
       shortTitle: 'Phone away', cta: 'Try it' },
 
-    { prompt: 'A scent-only breath to anchor me right here.',
-      detail: 'A scent breath', segment: 'breath', time: 'morning',
+    { prompt: 'Give me a scent-only breath that anchors me completely right here right now.',
+      detail: 'Scent anchor', segment: 'breath', time: 'morning',
       shortTitle: 'Smell the air', cta: 'Breathe' },
 
-    { prompt: 'Something nice for no reason at all.',
-      detail: 'A small surprise', segment: 'text', time: 'morning',
-      shortTitle: 'No reason', cta: 'Go on' },
+    { prompt: 'Tell me something nice I could do for absolutely no reason at all today.',
+      detail: 'No reason needed', segment: 'text', time: 'morning',
+      shortTitle: 'No reason', cta: 'Do it' },
 
-    { prompt: 'A small favor I can do for tonight-me right now.',
-      detail: 'A future-you favor', segment: 'text', time: 'morning',
+    { prompt: 'Give me a small favor I could do right now that tonight-me would appreciate.',
+      detail: 'A future-you gift', segment: 'text', time: 'morning',
       shortTitle: 'Future favor', cta: 'Do it' },
 
-    { prompt: 'What happens when I walk barefoot on grass.',
+    { prompt: 'Tell me what happens when I walk barefoot on grass and why it feels so good.',
       detail: 'Barefoot science', segment: 'fact', time: 'morning',
       shortTitle: 'Go barefoot', cta: 'Oh, really?' },
 
-    { prompt: 'A song that makes getting dressed feel like a movie.',
-      detail: 'A getting-ready track', segment: 'song', time: 'morning',
-      shortTitle: 'Getting ready', cta: 'Play it' },
+    { prompt: 'Give me a song that makes getting ready in the morning feel like a movie scene.',
+      detail: 'Movie morning', segment: 'song', time: 'morning',
+      shortTitle: 'Movie scene', cta: 'Play it' },
 
-    { prompt: 'Three breaths for three things I\'m looking forward to.',
-      detail: 'Anticipation breathing', segment: 'breath', time: 'morning',
+    { prompt: 'Tell me three breaths for three things I am quietly looking forward to.',
+      detail: 'Looking forward', segment: 'breath', time: 'morning',
       shortTitle: 'Look forward', cta: 'Breathe' },
 
-    { prompt: 'A reminder to use the nice one today. I\'m worth it.',
+    { prompt: 'Give me a gentle reminder to use the nice one today because I am worth it.',
       detail: 'Use the good stuff', segment: 'text', time: 'morning',
       shortTitle: 'Good stuff', cta: 'Do it' },
 
-    // ── SMALL: Afternoon (30 prompts) ──
+    // ── SMALL: Afternoon — Resetting (30 prompts) ──
 
-    { prompt: 'A specific compliment I could text a friend right now.',
-      detail: 'A micro-connection', segment: 'text', time: 'afternoon',
-      shortTitle: 'Tell a friend', cta: 'Do it' },
+    { prompt: 'Tell me something kind I could say to myself next time I catch a mirror.',
+      detail: 'Afternoon mirror', segment: 'text', time: 'afternoon',
+      shortTitle: 'Kind words', cta: 'Try it' },
 
-    { prompt: 'Free warmth I can stand in for thirty seconds.',
-      detail: 'A sun bath', segment: 'text', time: 'afternoon',
-      shortTitle: 'Find sun', cta: 'Try it' },
+    { prompt: 'Give me thirty seconds of free warmth I can stand in and feel right away.',
+      detail: 'Free warmth', segment: 'text', time: 'afternoon',
+      shortTitle: 'Find warmth', cta: 'Try it' },
 
-    { prompt: 'A song that turns the afternoon into a stroll.',
-      detail: 'An afternoon shift track', segment: 'song', time: 'afternoon',
-      shortTitle: 'Afternoon stroll', cta: 'Play it' },
+    { prompt: 'Tell me a song that turns the middle of the afternoon into a gentle stroll.',
+      detail: 'A gentle stroll', segment: 'song', time: 'afternoon',
+      shortTitle: 'Afternoon walk', cta: 'Play it' },
 
-    { prompt: 'A tiny creative act that takes less than a minute.',
-      detail: 'A small creative act', segment: 'text', time: 'afternoon',
-      shortTitle: 'Doodle', cta: 'Try it' },
+    { prompt: 'Give me a tiny creative act I could finish in under sixty seconds flat.',
+      detail: 'Under a minute', segment: 'text', time: 'afternoon',
+      shortTitle: 'Quick create', cta: 'Try it' },
 
-    { prompt: 'Why giving a small gift feels better than getting one.',
-      detail: 'Giving feels better', segment: 'fact', time: 'afternoon',
-      shortTitle: 'Give something', cta: 'Oh, really?' },
+    { prompt: 'Tell me something surprising about what happens when I am kind to myself.',
+      detail: 'Kindness science', segment: 'fact', time: 'afternoon',
+      shortTitle: 'Self-kindness', cta: 'Oh, really?' },
 
-    { prompt: 'Two-minute treats I probably have access to right now.',
+    { prompt: 'Give me a few two-minute treats I probably have access to right this second.',
       detail: 'Instant treats', segment: 'list', time: 'afternoon',
       shortTitle: 'Quick treats', cta: 'Go on' },
 
-    { prompt: 'The guilty pleasure song. Time to sing the chorus.',
-      detail: 'A guilty pleasure song', segment: 'song', time: 'afternoon',
-      shortTitle: 'Guilty pleasure', cta: 'Play it' },
+    { prompt: 'Tell me the guilty pleasure song and give me permission to sing the chorus.',
+      detail: 'A guilty pleasure', segment: 'song', time: 'afternoon',
+      shortTitle: 'Guilty chorus', cta: 'Play it' },
 
-    { prompt: 'A way to make eating something slow and intentional.',
-      detail: 'Slow sweetness', segment: 'text', time: 'afternoon',
+    { prompt: 'Give me a way to eat something slowly and turn it into a whole small moment.',
+      detail: 'Slow and sweet', segment: 'text', time: 'afternoon',
       shortTitle: 'Slow bite', cta: 'Try it' },
 
-    { prompt: 'A tiny hand ritual that feels like self-care.',
-      detail: 'A hand ritual', segment: 'text', time: 'afternoon',
-      shortTitle: 'Hand ritual', cta: 'Try it' },
+    { prompt: 'Tell me a tiny hand ritual that turns thirty seconds into genuine self-care.',
+      detail: 'Hand ritual', segment: 'text', time: 'afternoon',
+      shortTitle: 'Hand care', cta: 'Try it' },
 
-    { prompt: 'Three breaths that are a micro-treat for my attention.',
+    { prompt: 'Give me three breaths that are a quiet micro-treat for my tired attention.',
       detail: 'Attention rest', segment: 'breath', time: 'afternoon',
       shortTitle: 'Attention rest', cta: 'Breathe' },
 
-    { prompt: 'Things that count as self-care even though they seem tiny.',
-      detail: 'It counts', segment: 'list', time: 'afternoon',
+    { prompt: 'Tell me a few things that count as self-care even though they seem tiny.',
+      detail: 'Small things count', segment: 'list', time: 'afternoon',
       shortTitle: 'It counts', cta: 'Go on' },
 
-    { prompt: 'What happens in my body when I touch my own arm gently.',
-      detail: 'Self-touch science', segment: 'fact', time: 'afternoon',
+    { prompt: 'Give me a reason that gently touching my own arm actually does something real.',
+      detail: 'Touch science', segment: 'fact', time: 'afternoon',
       shortTitle: 'Gentle touch', cta: 'Oh, really?' },
 
-    { prompt: 'A photo on my phone that makes me smile. Not social media.',
-      detail: 'A memory visit', segment: 'text', time: 'afternoon',
+    { prompt: 'Tell me to find a photo on my phone that makes me smile. Not social media.',
+      detail: 'A real memory', segment: 'text', time: 'afternoon',
       shortTitle: 'Old photo', cta: 'Do it' },
 
-    { prompt: 'A small unprompted kindness I can give a stranger.',
+    { prompt: 'Give me a small unprompted kindness I could give a stranger in ten seconds.',
       detail: 'A micro-kindness', segment: 'text', time: 'afternoon',
       shortTitle: 'Small kindness', cta: 'Do it' },
 
-    { prompt: 'A song that makes me nod slowly and feel okay.',
-      detail: 'A head-nod track', segment: 'song', time: 'afternoon',
+    { prompt: 'Tell me a song that makes me nod slowly and feel like everything is okay.',
+      detail: 'A nod-along song', segment: 'song', time: 'afternoon',
       shortTitle: 'Nod along', cta: 'Play it' },
 
-    { prompt: 'A tiny literary adventure with a random book page.',
-      detail: 'Random page read', segment: 'text', time: 'afternoon',
+    { prompt: 'Give me a tiny literary adventure I can have with a random page of any book.',
+      detail: 'Random page magic', segment: 'text', time: 'afternoon',
       shortTitle: 'Random page', cta: 'Try it' },
 
-    { prompt: 'Free things that feel weirdly expensive.',
-      detail: 'Luxury at no cost', segment: 'list', time: 'afternoon',
+    { prompt: 'Tell me a few free things in this world that feel weirdly expensive.',
+      detail: 'Free luxury', segment: 'list', time: 'afternoon',
       shortTitle: 'Free luxury', cta: 'Go on' },
 
-    { prompt: 'A mindful sip of water. That\'s the whole activity.',
-      detail: 'A mindful sip', segment: 'breath', time: 'afternoon',
+    { prompt: 'Give me a mindful sip of water where the sipping is the entire activity.',
+      detail: 'Just the sip', segment: 'breath', time: 'afternoon',
       shortTitle: 'Slow water', cta: 'Try it' },
 
-    { prompt: 'Why nostalgia is actually good for me.',
-      detail: 'Nostalgia as medicine', segment: 'fact', time: 'afternoon',
+    { prompt: 'Tell me why nostalgia is actually good for me and not just sentimental.',
+      detail: 'Nostalgia science', segment: 'fact', time: 'afternoon',
       shortTitle: 'Happy memory', cta: 'Oh, really?' },
 
-    { prompt: 'One minute at a window. No phone. Just out there.',
+    { prompt: 'Give me one minute at a window with no phone and nothing but the view.',
       detail: 'A window minute', segment: 'text', time: 'afternoon',
       shortTitle: 'Window gaze', cta: 'Try it' },
 
-    { prompt: 'Five breaths for five small things that went right.',
-      detail: 'A wins breath', segment: 'breath', time: 'afternoon',
+    { prompt: 'Tell me five breaths, one for each small thing that went right so far today.',
+      detail: 'Small wins', segment: 'breath', time: 'afternoon',
       shortTitle: 'Small wins', cta: 'Breathe' },
 
-    { prompt: 'A tiny treat under five dollars I normally skip.',
-      detail: 'A micro-indulgence', segment: 'text', time: 'afternoon',
+    { prompt: 'Give me permission to buy the tiny treat under five dollars I always skip.',
+      detail: 'The tiny treat', segment: 'text', time: 'afternoon',
       shortTitle: 'Tiny treat', cta: 'Do it' },
 
-    { prompt: 'Nice things I can do for future-me before today ends.',
+    { prompt: 'Tell me a few nice things I could do for future-me before this day ends.',
       detail: 'Gifts for later', segment: 'list', time: 'afternoon',
       shortTitle: 'Future favors', cta: 'Go on' },
 
-    { prompt: 'One tiny thing to straighten. A small bit of order.',
+    { prompt: 'Give me one tiny thing to straighten up that gives me a small bit of order.',
       detail: 'Micro-organizing', segment: 'text', time: 'afternoon',
       shortTitle: 'Straighten one', cta: 'Try it' },
 
-    { prompt: 'Why spending on experiences beats spending on things.',
-      detail: 'An experience fact', segment: 'fact', time: 'afternoon',
-      shortTitle: 'Buy experiences', cta: 'Oh, really?' },
+    { prompt: 'Tell me why spending on an experience almost always beats spending on a thing.',
+      detail: 'Experiences win', segment: 'fact', time: 'afternoon',
+      shortTitle: 'Buy moments', cta: 'Oh, really?' },
 
-    { prompt: 'A grounding breath that\'s also a treat for my nose.',
-      detail: 'A grounding sniff', segment: 'breath', time: 'afternoon',
-      shortTitle: 'Nose ground', cta: 'Breathe' },
+    { prompt: 'Give me a grounding breath where the inhale is also a treat for my nose.',
+      detail: 'Nose treat', segment: 'breath', time: 'afternoon',
+      shortTitle: 'Nose breath', cta: 'Breathe' },
 
-    { prompt: 'A 30-second phone change I\'ll notice a hundred times.',
-      detail: 'A wallpaper swap', segment: 'text', time: 'afternoon',
-      shortTitle: 'New wallpaper', cta: 'Do it' },
+    { prompt: 'Tell me a thirty-second phone change I will notice a hundred times this week.',
+      detail: 'A small swap', segment: 'text', time: 'afternoon',
+      shortTitle: 'Phone change', cta: 'Do it' },
 
-    { prompt: 'A song I loved at fourteen. Play it and feel what comes.',
-      detail: 'A nostalgia track', segment: 'song', time: 'afternoon',
-      shortTitle: 'Age fourteen', cta: 'Play it' },
+    { prompt: 'Give me a song I loved when I was fourteen and let me feel what comes back.',
+      detail: 'Age fourteen', segment: 'song', time: 'afternoon',
+      shortTitle: 'Fourteen again', cta: 'Play it' },
 
-    { prompt: 'Things that are always worth pausing for.',
+    { prompt: 'Tell me a few things in this world that are always, always worth pausing for.',
       detail: 'Worth pausing for', segment: 'list', time: 'afternoon',
       shortTitle: 'Pause for these', cta: 'Go on' },
 
-    { prompt: 'A stretch that feels like taking up space on purpose.',
-      detail: 'A stretch treat', segment: 'breath', time: 'afternoon',
+    { prompt: 'Give me a stretch that feels like taking up space in the world on purpose.',
+      detail: 'Take up space', segment: 'breath', time: 'afternoon',
       shortTitle: 'Arms wide', cta: 'Try it' },
 
-    // ── SMALL: Evening (20 prompts) ──
+    // ── SMALL: Evening — Shedding (20 prompts) ──
 
-    { prompt: 'Something small I can light that changes the room.',
+    { prompt: 'Give me gentle words for someone who gave a lot of themselves today.',
+      detail: 'After a full day', segment: 'text', time: 'evening',
+      shortTitle: 'Gentle words', cta: 'Go on' },
+
+    { prompt: 'Tell me a song that feels like being gently tucked in by someone warm.',
+      detail: 'A tucked-in song', segment: 'song', time: 'evening',
+      shortTitle: 'Tucked in', cta: 'Play it' },
+
+    { prompt: 'Give me something small I can light that quietly changes the whole room.',
       detail: 'A small flame', segment: 'text', time: 'evening',
       shortTitle: 'Light one', cta: 'Do it' },
 
-    { prompt: 'The softest thing I own. Time to put it on.',
+    { prompt: 'Tell me to put on the softest thing I own and let that be the whole plan.',
       detail: 'Comfort dressing', segment: 'text', time: 'evening',
       shortTitle: 'Soft clothes', cta: 'Do it' },
 
-    { prompt: 'A song for doing the dishes and feeling at peace.',
-      detail: 'A dishwashing track', segment: 'song', time: 'evening',
-      shortTitle: 'Dish track', cta: 'Play it' },
-
-    { prompt: 'A warm drink held with both hands. That\'s the whole thing.',
-      detail: 'A warm-hands moment', segment: 'text', time: 'evening',
+    { prompt: 'Give me a warm drink held with both hands and tell me that is the whole thing.',
+      detail: 'Both hands', segment: 'text', time: 'evening',
       shortTitle: 'Warm hands', cta: 'Try it' },
 
-    { prompt: 'Something about waiting that puts tonight in perspective.',
+    { prompt: 'Tell me something about the act of waiting that puts tonight in perspective.',
       detail: 'No waiting tonight', segment: 'fact', time: 'evening',
       shortTitle: 'No waiting', cta: 'Oh, really?' },
 
-    { prompt: 'Small evening rituals that feel like a warm blanket.',
+    { prompt: 'Give me a few small evening rituals that feel like being wrapped in a blanket.',
       detail: 'Cozy rituals', segment: 'list', time: 'evening',
       shortTitle: 'Cozy list', cta: 'Go on' },
 
-    { prompt: 'An extra few minutes of warmth. Not for hygiene.',
-      detail: 'An extra few minutes', segment: 'text', time: 'evening',
+    { prompt: 'Tell me to take a few extra minutes of warmth tonight just because I can.',
+      detail: 'Extra warmth', segment: 'text', time: 'evening',
       shortTitle: 'Longer shower', cta: 'Do it' },
 
-    { prompt: 'One page of a book. That still counts as reading.',
-      detail: 'One-page reading', segment: 'text', time: 'evening',
+    { prompt: 'Give me one page of a book and tell me that still counts as reading tonight.',
+      detail: 'One page counts', segment: 'text', time: 'evening',
       shortTitle: 'One page', cta: 'Try it' },
 
-    { prompt: 'A warm-hands trick that is a gift from me to me.',
-      detail: 'Warm palm eye rest', segment: 'breath', time: 'evening',
+    { prompt: 'Tell me a warm-palms-over-eyes trick that is a gift from me to myself.',
+      detail: 'Warm eye rest', segment: 'breath', time: 'evening',
       shortTitle: 'Warm eyes', cta: 'Try it' },
 
-    { prompt: 'Why piling on the blankets tonight is a good idea.',
+    { prompt: 'Give me a scientific reason to pile on all the blankets I want tonight.',
       detail: 'Blanket science', segment: 'fact', time: 'evening',
       shortTitle: 'Pile blankets', cta: 'Oh, really?' },
 
-    { prompt: 'A song that feels like being tucked in by someone warm.',
-      detail: 'A tucked-in track', segment: 'song', time: 'evening',
-      shortTitle: 'Tucked in', cta: 'Play it' },
+    { prompt: 'Tell me a song for the exact feeling of doing the dishes and feeling at peace.',
+      detail: 'Peaceful dishes', segment: 'song', time: 'evening',
+      shortTitle: 'Dish peace', cta: 'Play it' },
 
-    { prompt: 'A two-minute phone call that could change my night.',
-      detail: 'A voice connection', segment: 'text', time: 'evening',
+    { prompt: 'Give me a two-minute phone call idea that could quietly change my whole night.',
+      detail: 'A voice note', segment: 'text', time: 'evening',
       shortTitle: 'Call someone', cta: 'Do it' },
 
-    { prompt: 'Tiny luxuries that cost nothing and are mine tonight.',
-      detail: 'Free luxuries', segment: 'list', time: 'evening',
-      shortTitle: 'Free tonight', cta: 'Go on' },
+    { prompt: 'Tell me a few tiny luxuries that cost nothing at all and are all mine tonight.',
+      detail: 'Free tonight', segment: 'list', time: 'evening',
+      shortTitle: 'Free luxuries', cta: 'Go on' },
 
-    { prompt: 'A slow hand ritual. Thirty seconds of gentleness.',
-      detail: 'A hand ritual', segment: 'breath', time: 'evening',
+    { prompt: 'Give me a slow hand ritual that turns thirty seconds into pure gentleness.',
+      detail: 'Hand gentleness', segment: 'breath', time: 'evening',
       shortTitle: 'Hand care', cta: 'Try it' },
 
-    { prompt: 'One specific thing that deserves to be noticed tonight.',
-      detail: 'One specific thing', segment: 'text', time: 'evening',
+    { prompt: 'Tell me one specific thing that deserves to be noticed and loved tonight.',
+      detail: 'One thing tonight', segment: 'text', time: 'evening',
       shortTitle: 'Notice one', cta: 'Do it' },
 
-    { prompt: 'My medical permission to look at baby animals.',
+    { prompt: 'Give me my medical permission to spend five minutes looking at baby animals.',
       detail: 'Cute animal science', segment: 'fact', time: 'evening',
       shortTitle: 'Baby animals', cta: 'Oh, really?' },
 
-    { prompt: 'A phone-free experiment for the last hour of my night.',
+    { prompt: 'Tell me a phone-free experiment for the very last hour of my night.',
       detail: 'A phone-free hour', segment: 'text', time: 'evening',
-      shortTitle: 'Phone away', cta: 'Try it' },
+      shortTitle: 'Phone down', cta: 'Try it' },
 
-    { prompt: 'Five breaths of warmth in and the whole day out.',
-      detail: 'A warm breathing close', segment: 'breath', time: 'evening',
-      shortTitle: 'Breathe warmth', cta: 'Breathe' },
+    { prompt: 'Give me five breaths of warmth in and the entire day gently breathed out.',
+      detail: 'Warmth in, day out', segment: 'breath', time: 'evening',
+      shortTitle: 'Day out', cta: 'Breathe' },
 
-    { prompt: 'Things that make a bed feel more inviting tonight.',
-      detail: 'Bed prep ideas', segment: 'list', time: 'evening',
+    { prompt: 'Tell me a few things that make a bed feel more inviting on a night like this.',
+      detail: 'A better bed', segment: 'list', time: 'evening',
       shortTitle: 'Better bed', cta: 'Go on' },
-
-    { prompt: 'A small pillow upgrade I can do right now.',
-      detail: 'A pillow upgrade', segment: 'text', time: 'evening',
-      shortTitle: 'Pillow treat', cta: 'Do it' },
 
     // ── SMALL: Anytime (15 prompts) ──
 
-    { prompt: 'Something beautiful near me worth a photo. Just to have.',
-      detail: 'A private photo', segment: 'text', time: 'anytime',
-      shortTitle: 'Take a photo', cta: 'Do it' },
+    { prompt: 'Give me a few small things that always seem to make everything a bit better.',
+      detail: 'The small things', segment: 'list', time: 'anytime',
+      shortTitle: 'Always better', cta: 'Go on' },
 
-    { prompt: 'Why crying is one of the most human things we do.',
-      detail: 'A crying fact', segment: 'fact', time: 'anytime',
+    { prompt: 'Tell me why crying is one of the most human and healing things we ever do.',
+      detail: 'Crying is healing', segment: 'fact', time: 'anytime',
       shortTitle: 'Let it out', cta: 'Oh, really?' },
 
-    { prompt: 'A song that feels like being wrapped in something warm.',
-      detail: 'A comfort track', segment: 'song', time: 'anytime',
+    { prompt: 'Give me a song that feels like being wrapped in something warm and safe.',
+      detail: 'A warm wrap', segment: 'song', time: 'anytime',
       shortTitle: 'Warm song', cta: 'Play it' },
 
-    { prompt: 'Three breaths, three kind thoughts for someone I love.',
+    { prompt: 'Tell me three breaths where each one sends kind thoughts to someone I love.',
       detail: 'Kindness breathing', segment: 'breath', time: 'anytime',
       shortTitle: 'Kind breaths', cta: 'Breathe' },
 
-    { prompt: 'Things that always make things a little better.',
-      detail: 'Universal comforts', segment: 'list', time: 'anytime',
-      shortTitle: 'Always better', cta: 'Go on' },
-
-    { prompt: 'Permission to eat something just for the pleasure of it.',
-      detail: 'Pleasure as fuel', segment: 'text', time: 'anytime',
+    { prompt: 'Give me permission to eat something right now purely for the pleasure of it.',
+      detail: 'Pleasure is good', segment: 'text', time: 'anytime',
       shortTitle: 'Eat for joy', cta: 'Do it' },
 
-    { prompt: 'The smell of rain has a name. And it\'s beautiful.',
-      detail: 'A rain fact', segment: 'fact', time: 'anytime',
+    { prompt: 'Tell me the name for the smell of rain and why it has its own beautiful word.',
+      detail: 'Rain has a name', segment: 'fact', time: 'anytime',
       shortTitle: 'Rain smell', cta: 'Oh, really?' },
 
-    { prompt: 'An unprompted compliment I can give someone today.',
-      detail: 'A free gift to give', segment: 'text', time: 'anytime',
-      shortTitle: 'Give a compliment', cta: 'Do it' },
+    { prompt: 'Give me an unprompted compliment I could hand to someone today for nothing.',
+      detail: 'A free gift', segment: 'text', time: 'anytime',
+      shortTitle: 'Give it', cta: 'Do it' },
 
-    { prompt: 'A texture I love. Imagining it under my fingers.',
-      detail: 'A texture meditation', segment: 'breath', time: 'anytime',
-      shortTitle: 'Soft texture', cta: 'Try it' },
+    { prompt: 'Tell me about a texture I love and what it would feel like under my fingers.',
+      detail: 'A soft texture', segment: 'breath', time: 'anytime',
+      shortTitle: 'Soft touch', cta: 'Try it' },
 
-    { prompt: 'Comforts I can access right now without spending a cent.',
-      detail: 'Free comforts', segment: 'list', time: 'anytime',
-      shortTitle: 'Free comfort', cta: 'Go on' },
+    { prompt: 'Give me a few comforts I can reach right now without spending a single cent.',
+      detail: 'Free comfort', segment: 'list', time: 'anytime',
+      shortTitle: 'Free comforts', cta: 'Go on' },
 
-    { prompt: 'Why music and chocolate do the same thing to my brain.',
-      detail: 'Music as chocolate', segment: 'fact', time: 'anytime',
-      shortTitle: 'Music dopamine', cta: 'Oh, really?' },
+    { prompt: 'Tell me why music and chocolate do the exact same thing inside my brain.',
+      detail: 'Music is chocolate', segment: 'fact', time: 'anytime',
+      shortTitle: 'Brain chocolate', cta: 'Oh, really?' },
 
-    { prompt: 'A song for feeling held without being touched.',
-      detail: 'A holding track', segment: 'song', time: 'anytime',
+    { prompt: 'Give me a song that makes me feel held even when nobody is in the room.',
+      detail: 'Held by a song', segment: 'song', time: 'anytime',
       shortTitle: 'Feel held', cta: 'Play it' },
 
-    { prompt: 'One tiny thing my future self will thank me for.',
-      detail: 'A future-you gift', segment: 'text', time: 'anytime',
+    { prompt: 'Tell me one tiny thing my future self would genuinely thank me for doing.',
+      detail: 'Future thanks', segment: 'text', time: 'anytime',
       shortTitle: 'Future thanks', cta: 'Do it' },
 
-    { prompt: 'A gentle arm squeeze. My body won\'t know the difference.',
+    { prompt: 'Give me a gentle arm squeeze and tell me my body won\'t know the difference.',
       detail: 'Self-comfort touch', segment: 'breath', time: 'anytime',
       shortTitle: 'Arm squeeze', cta: 'Try it' },
 
-    { prompt: 'Ways to make any ordinary moment a little more special.',
+    { prompt: 'Tell me a few ways to turn an ordinary moment into something slightly special.',
       detail: 'Ordinary to special', segment: 'list', time: 'anytime',
       shortTitle: 'Make it special', cta: 'Go on' },
+
+    { prompt: 'Give me a reason to feel good about being exactly where I am right now.',
+      detail: 'Right here is good', segment: 'text', time: 'anytime',
+      shortTitle: 'Right here', cta: 'Go on' },
   ],
 }
 
