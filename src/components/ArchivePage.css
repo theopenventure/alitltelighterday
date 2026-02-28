@@ -228,6 +228,11 @@
   line-height: normal;
   display: block;
   margin-top: -4px;
+  text-transform: lowercase;
+}
+
+.archive-item-subtitle::first-letter {
+  text-transform: uppercase;
 }
 
 
