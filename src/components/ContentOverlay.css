@@ -554,11 +554,11 @@
 }
 
 .seg-list-item::before {
-  content: '○';
+  content: '•';
   position: absolute;
   left: 0;
   color: var(--variant-text, var(--text-primary));
   opacity: 0.4;
-  font-size: 12px;
-  top: 5px;
+  font-size: 22px;
+  top: -2px;
 }
