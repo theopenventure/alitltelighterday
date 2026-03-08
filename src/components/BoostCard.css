@@ -22,9 +22,13 @@
 }
 
 /* ── Boost card layout — tall editorial cards ── */
+/* Height is proportional so adjacent cards peek above/below when centered.
+   max-height caps the card on tall screens so peek stays visible. */
 .boost-card {
   padding: 40px 32px;
-  min-height: calc(100vh - 180px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+  height: calc(100vh - 260px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+  min-height: 380px;
+  max-height: 620px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,7 +40,7 @@
 
 @supports (height: 100dvh) {
   .boost-card {
-    min-height: calc(100dvh - 180px);
+    height: calc(100dvh - 260px);
   }
 }
 
