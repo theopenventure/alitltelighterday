@@ -85,7 +85,7 @@ const SEED_DATA = [
   // ── Today (3 items) ──
   {
     id: 'seed-1',
-    title: 'Unclench Your Jaw, Drop Your Shoulders',
+    title: 'unclench, drop, soften',
     shortTitle: 'Soften up.',
     category: 'Calm your body',
     variant: 'gray',
@@ -99,7 +99,7 @@ const SEED_DATA = [
   },
   {
     id: 'seed-2',
-    title: 'You Don\'t Have to Reply Right Now',
+    title: 'it can wait',
     shortTitle: 'It can wait.',
     category: 'Quiet your mind',
     variant: 'sage',
@@ -112,7 +112,7 @@ const SEED_DATA = [
   },
   {
     id: 'seed-3',
-    title: 'Wrap Your Hands Around Something Warm',
+    title: 'something warm in hand',
     shortTitle: 'Warm hands.',
     category: 'Treat yourself',
     variant: 'beige',
@@ -128,7 +128,7 @@ const SEED_DATA = [
   // ── Yesterday (3 items) ──
   {
     id: 'seed-4',
-    title: 'Something Beautiful Is Happening in Space Right Now',
+    title: 'beautiful things in space',
     shortTitle: 'Look up.',
     category: 'Get curious',
     variant: 'warm',
@@ -141,7 +141,7 @@ const SEED_DATA = [
   },
   {
     id: 'seed-5',
-    title: 'Breathing Through the Noise',
+    title: 'breathe through the noise',
     shortTitle: 'Breathe easy.',
     category: 'Calm your body',
     variant: 'gray',
@@ -158,7 +158,7 @@ const SEED_DATA = [
   },
   {
     id: 'seed-6',
-    title: 'Permission to Leave It Unfinished',
+    title: 'leave it unfinished',
     shortTitle: 'Good enough.',
     category: 'Quiet your mind',
     variant: 'sage',
@@ -174,7 +174,7 @@ const SEED_DATA = [
   // ── 3 days ago (3 items) ──
   {
     id: 'seed-7',
-    title: 'Put On a Song That Makes You Feel Something',
+    title: 'a song to feel something',
     shortTitle: 'Press play.',
     category: 'Get curious',
     variant: 'warm',
@@ -187,7 +187,7 @@ const SEED_DATA = [
   },
   {
     id: 'seed-8',
-    title: 'The Conversation You Keep Replaying',
+    title: 'stop replaying it',
     shortTitle: 'Let it go.',
     category: 'Quiet your mind',
     variant: 'sage',
@@ -201,7 +201,7 @@ const SEED_DATA = [
   },
   {
     id: 'seed-9',
-    title: 'Cozy Up Your Next Hour',
+    title: 'cozy up your next hour',
     shortTitle: 'Get cozy.',
     category: 'Treat yourself',
     variant: 'beige',
@@ -221,7 +221,7 @@ const SEED_DATA = [
   // ── 4 days ago (3 items) ──
   {
     id: 'seed-10',
-    title: 'Feet on the Floor, Five Breaths',
+    title: 'feet on the floor',
     shortTitle: 'Ground here.',
     category: 'Calm your body',
     variant: 'gray',
@@ -239,7 +239,7 @@ const SEED_DATA = [
   },
   {
     id: 'seed-11',
-    title: 'A Tiny Decision Shortcut',
+    title: 'just pick one',
     shortTitle: 'Just pick one.',
     category: 'Quiet your mind',
     variant: 'sage',
@@ -253,7 +253,7 @@ const SEED_DATA = [
   },
   {
     id: 'seed-12',
-    title: 'Text Someone You\'ve Been Thinking About',
+    title: 'send that text',
     shortTitle: 'Say hello.',
     category: 'Treat yourself',
     variant: 'beige',
@@ -268,7 +268,7 @@ const SEED_DATA = [
   // ── 5 days ago (2 items) ──
   {
     id: 'seed-13',
-    title: 'Did You Know Octopuses Have Three Hearts?',
+    title: 'three hearts',
     shortTitle: 'How curious.',
     category: 'Get curious',
     variant: 'warm',
@@ -281,7 +281,7 @@ const SEED_DATA = [
   },
   {
     id: 'seed-14',
-    title: 'Bedtime Wind-Down',
+    title: 'bedtime wind-down',
     shortTitle: 'Slow down.',
     category: 'Calm your body',
     variant: 'gray',
@@ -301,7 +301,7 @@ const SEED_DATA = [
   // ── 6 days ago (2 items) ──
   {
     id: 'seed-15',
-    title: 'A Boundary Script You Can Borrow',
+    title: 'a script to say no',
     shortTitle: 'Say no.',
     category: 'Quiet your mind',
     variant: 'sage',
@@ -320,7 +320,7 @@ const SEED_DATA = [
   },
   {
     id: 'seed-16',
-    title: 'Run a Bath, or Fake One',
+    title: 'run a bath, or fake one',
     shortTitle: 'Warm soak.',
     category: 'Treat yourself',
     variant: 'beige',
@@ -336,7 +336,7 @@ const SEED_DATA = [
   // ── 7 days ago (3 items) ──
   {
     id: 'seed-17',
-    title: 'Shake It Off — Literally',
+    title: 'shake it off — literally',
     shortTitle: 'Shake loose.',
     category: 'Get curious',
     variant: 'warm',
@@ -350,7 +350,7 @@ const SEED_DATA = [
   },
   {
     id: 'seed-18',
-    title: 'The Five Senses Check-In',
+    title: 'five senses check-in',
     shortTitle: 'Come back.',
     category: 'Calm your body',
     variant: 'gray',
@@ -364,7 +364,7 @@ const SEED_DATA = [
   },
   {
     id: 'seed-19',
-    title: 'Wear the Comfortable Thing',
+    title: 'wear the comfy thing',
     shortTitle: 'Be comfy.',
     category: 'Treat yourself',
     variant: 'beige',
@@ -379,7 +379,7 @@ const SEED_DATA = [
   // ── 10 days ago (3 items) ──
   {
     id: 'seed-20',
-    title: 'Trees Talk to Each Other Underground',
+    title: 'trees talk underground',
     shortTitle: 'Stay curious.',
     category: 'Get curious',
     variant: 'warm',
@@ -392,7 +392,7 @@ const SEED_DATA = [
   },
   {
     id: 'seed-21',
-    title: 'Stop Shoulding Yourself',
+    title: 'stop shoulding yourself',
     shortTitle: 'Drop the should.',
     category: 'Quiet your mind',
     variant: 'sage',
@@ -406,7 +406,7 @@ const SEED_DATA = [
   },
   {
     id: 'seed-22',
-    title: 'Your Body Is Holding Today for You',
+    title: 'a quick body scan',
     shortTitle: 'Body scan.',
     category: 'Calm your body',
     variant: 'gray',
@@ -422,7 +422,7 @@ const SEED_DATA = [
   // ── 14 days ago (2 items) ──
   {
     id: 'seed-23',
-    title: 'A Playlist Moment Just for You',
+    title: 'a song just for you',
     shortTitle: 'Your song.',
     category: 'Treat yourself',
     variant: 'beige',
@@ -435,7 +435,7 @@ const SEED_DATA = [
   },
   {
     id: 'seed-24',
-    title: 'A Stretch That\'s Really a Sigh',
+    title: 'stretch and sigh',
     shortTitle: 'Open up.',
     category: 'Get curious',
     variant: 'warm',
@@ -451,7 +451,7 @@ const SEED_DATA = [
   // ── 21 days ago (2 items) ──
   {
     id: 'seed-25',
-    title: 'You\'re Allowed to Cancel Plans',
+    title: 'cancel if you need to',
     shortTitle: 'Cancel it.',
     category: 'Quiet your mind',
     variant: 'sage',
@@ -465,7 +465,7 @@ const SEED_DATA = [
   },
   {
     id: 'seed-26',
-    title: 'Order the Fancy Drink',
+    title: 'order the fancy drink',
     shortTitle: 'Treat yourself.',
     category: 'Treat yourself',
     variant: 'beige',
@@ -483,7 +483,9 @@ export function seedPlaceholderData() {
   const onlySeeds = existing.length > 0 && existing.every((b) => b.id?.startsWith('seed-'))
   const missingShortTitle = onlySeeds && existing.some((b) => !b.shortTitle)
   const missingSpace = onlySeeds && !existing.some((b) => b.category === 'Quiet your mind')
-  if (existing.length > 0 && !(onlySeeds && (existing.length < SEED_DATA.length || missingShortTitle || missingSpace))) return false
+  // Re-seed if any placeholder title is longer than 25 chars (old format)
+  const longTitles = onlySeeds && existing.some((b) => b.title && b.title.length > 25)
+  if (existing.length > 0 && !(onlySeeds && (existing.length < SEED_DATA.length || missingShortTitle || missingSpace || longTitles))) return false
 
   writeAll(SEED_DATA)
   return true
