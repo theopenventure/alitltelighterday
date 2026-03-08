@@ -4,7 +4,7 @@ export const categoryMeta = {
   lift:   { category: 'Get curious',     variant: 'warm' },
   steady: { category: 'Calm your body',  variant: 'gray' },
   space:  { category: 'Quiet your mind', variant: 'sage' },
-  small:  { category: 'Gift yourself',   variant: 'beige' },
+  small:  { category: 'Treat yourself',   variant: 'beige' },
 }
 
 // ── Time-of-day periods ──
@@ -1152,7 +1152,7 @@ export const promptPool = {
   ],
 
   // ═══════════════════════════════════════════════════════════════
-  // SMALL — "Gift yourself" (90 prompts)
+  // SMALL — "Treat yourself" (90 prompts)
   // Formula: [Give/Tell me] + [Gentle words/a reason to feel good]
   // Radical, externalized self-compassion. Feel held.
   // Segment mix: ~38 text, ~15 breath, ~12 fact, ~15 list, ~10 song
