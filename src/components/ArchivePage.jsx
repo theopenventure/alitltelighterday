@@ -83,7 +83,12 @@ function DayGroup({ dateKey, items, groupIndex, onOpenItem, removingItemId }) {
               key={item.id}
               className={`archive-item ${isRemoving ? 'archive-item--removing' : ''}`}
               style={{ '--item-index': i }}
-              onClick={() => onOpenItem(item)}
+              onClick={(e) => {
+                // Measure the colored square for expand-from animation
+                const square = e.currentTarget.querySelector('.archive-item-square')
+                const rect = square ? square.getBoundingClientRect() : null
+                onOpenItem(item, rect ? { top: rect.top, left: rect.left, width: rect.width, height: rect.height } : null)
+              }}
             >
               <div
                 className="archive-item-square"
@@ -122,13 +127,15 @@ const SHEET_BG = {
 
 // ── Archive Detail Overlay ──
 
-export function ArchiveDetail({ item, onClose, onUnsave, onUndoUnsave }) {
-  const [visible, setVisible] = useState(false)
-  const [closing, setClosing] = useState(false)
+export function ArchiveDetail({ item, sourceRect, onClose, onUnsave, onUndoUnsave }) {
+  const [expanded, setExpanded] = useState(false)
+  const [contentVisible, setContentVisible] = useState(false)
   const [saved, setSaved] = useState(true)
   const [toastMsg, setToastMsg] = useState(null)
   const [toastVisible, setToastVisible] = useState(false)
   const [pendingUnsave, setPendingUnsave] = useState(false)
+  const [isClosing, setIsClosing] = useState(false)
+  const savedRectRef = useRef(sourceRect)
 
   const flatSegments = useMemo(() => {
     return item ? flattenSegments(item.segments) : []
@@ -136,26 +143,56 @@ export function ArchiveDetail({ item, onClose, onUnsave, onUndoUnsave }) {
 
   const firstTextIdx = useMemo(() => findFirstTextIndex(flatSegments), [flatSegments])
 
-  // Reset state when a new item opens
+  // Save sourceRect when item opens (so we can animate back to it on close)
+  useEffect(() => {
+    if (sourceRect) savedRectRef.current = sourceRect
+  }, [sourceRect])
+
+  // Opening animation — expand from source square, then fade in content
   useEffect(() => {
     if (!item) return
     setSaved(true)
     setToastVisible(false)
     setToastMsg(null)
     setPendingUnsave(false)
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => setVisible(true))
+    setIsClosing(false)
+
+    // Double RAF → trigger expansion to fullscreen
+    const raf = requestAnimationFrame(() => {
+      requestAnimationFrame(() => setExpanded(true))
     })
+
+    // Content fades in after expansion starts
+    const contentTimer = setTimeout(() => setContentVisible(true), 250)
+
+    return () => {
+      cancelAnimationFrame(raf)
+      clearTimeout(contentTimer)
+    }
   }, [item])
 
-  const handleClose = useCallback(() => {
-    setClosing(true)
-    setVisible(false)
-    setTimeout(() => {
-      setClosing(false)
+  // Closing animation — fade out content, contract back to source
+  useEffect(() => {
+    if (!isClosing) return
+
+    setContentVisible(false)
+
+    const contractTimer = setTimeout(() => setExpanded(false), 100)
+    const exitTimer = setTimeout(() => {
+      setIsClosing(false)
       onClose()
-    }, 380)
-  }, [onClose])
+    }, 500)
+
+    return () => {
+      clearTimeout(contractTimer)
+      clearTimeout(exitTimer)
+    }
+  }, [isClosing, onClose])
+
+  const handleClose = useCallback(() => {
+    if (isClosing) return
+    setIsClosing(true)
+  }, [isClosing])
 
   const handleSaveToggle = useCallback(() => {
     const next = !saved
@@ -197,10 +234,30 @@ export function ArchiveDetail({ item, onClose, onUnsave, onUndoUnsave }) {
   const sheetBg = SHEET_BG[variant] || SHEET_BG.sage
   const variantText = VARIANT_TEXT[variant] || VARIANT_TEXT.sage
 
+  // Expansion layer: animates from source square → fullscreen
+  const rect = savedRectRef.current
+  let expansionStyle
+  if (!expanded && rect) {
+    expansionStyle = {
+      top: rect.top, left: rect.left,
+      width: rect.width, height: rect.height,
+      borderRadius: 10, background: sheetBg
+    }
+  } else {
+    expansionStyle = {
+      top: 0, left: 0,
+      width: '100%', height: '100%',
+      borderRadius: 0, background: sheetBg
+    }
+  }
+
   return (
-    <div className={`archive-detail ${visible ? 'archive-detail--visible' : ''} ${closing ? 'archive-detail--closing' : ''}`}>
+    <div className="archive-detail archive-detail--visible">
+      {/* Expansion layer — visual bridge from square to fullscreen */}
+      <div className="archive-expansion-layer" style={expansionStyle} />
+
       <div
-        className={`archive-detail-sheet content-sheet--${variant}`}
+        className={`archive-detail-sheet content-sheet--${variant} ${contentVisible ? 'archive-detail-sheet--visible' : ''}`}
         style={{ '--sheet-bg': sheetBg, '--variant-text': variantText }}
       >
         {/* Sticky header */}
