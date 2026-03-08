@@ -137,16 +137,14 @@ export function ArchiveDetail({ item, sourceRect, onClose, onUnsave, onUndoUnsav
   const [isClosing, setIsClosing] = useState(false)
   const savedRectRef = useRef(sourceRect)
 
+  // Always keep ref in sync so the expansion layer starts at the right position
+  if (sourceRect) savedRectRef.current = sourceRect
+
   const flatSegments = useMemo(() => {
     return item ? flattenSegments(item.segments) : []
   }, [item])
 
   const firstTextIdx = useMemo(() => findFirstTextIndex(flatSegments), [flatSegments])
-
-  // Save sourceRect when item opens (so we can animate back to it on close)
-  useEffect(() => {
-    if (sourceRect) savedRectRef.current = sourceRect
-  }, [sourceRect])
 
   // Opening animation — expand from source square, then fade in content
   useEffect(() => {
@@ -156,6 +154,7 @@ export function ArchiveDetail({ item, sourceRect, onClose, onUnsave, onUndoUnsav
     setToastMsg(null)
     setPendingUnsave(false)
     setIsClosing(false)
+    setExpanded(false)
 
     // Double RAF → trigger expansion to fullscreen
     const raf = requestAnimationFrame(() => {
