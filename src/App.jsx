@@ -42,6 +42,7 @@ function App() {
   const todayViewRef = useRef(null)
   const archiveViewRef = useRef(null)
   const heroRef = useRef(null)
+  const heroAtmosphereRef = useRef(null)
   const headerRef = useRef(null)
   const homeScrollRef = useRef(0)
   const archiveScrollRef = useRef(0)
@@ -75,6 +76,12 @@ function App() {
 
       heroEl.style.opacity = 1 - progress
       heroEl.style.transform = `scale(${1 - progress * 0.08})`
+
+      // Fade atmosphere (from 0.4 → 0) — matches Collections behavior
+      const atmosphereEl = heroAtmosphereRef.current
+      if (atmosphereEl) {
+        atmosphereEl.style.opacity = 0.4 * (1 - progress)
+      }
 
       const headerEl = headerRef.current
       if (headerEl) {
@@ -332,13 +339,18 @@ function App() {
         if (container) {
           container.scrollTo(0, homeScrollRef.current)
 
-          // Recalculate header opacity based on saved scroll position
+          // Recalculate header + atmosphere opacity based on saved scroll position
           const heroEl = heroRef.current
           if (heroEl && headerEl) {
             const heroHeight = heroEl.offsetHeight
             const progress = Math.min(homeScrollRef.current / heroHeight, 1)
             const headerProgress = Math.max(0, (progress - 0.7) / 0.3)
             headerEl.style.opacity = headerProgress
+
+            const atmosphereEl = heroAtmosphereRef.current
+            if (atmosphereEl) {
+              atmosphereEl.style.opacity = 0.4 * (1 - progress)
+            }
           }
         }
       })
@@ -359,7 +371,7 @@ function App() {
         ref={todayViewRef}
         className={`view-layer ${activeView === 'home' ? 'view-active' : 'view-exit-left'}`}
       >
-        <HeroScreen heroRef={heroRef} headline={heroCopy.headline} subhead={heroCopy.subhead} />
+        <HeroScreen heroRef={heroRef} atmosphereRef={heroAtmosphereRef} headline={heroCopy.headline} subhead={heroCopy.subhead} />
 
         <div className="feed">
           {CATEGORIES.map((key) => {
