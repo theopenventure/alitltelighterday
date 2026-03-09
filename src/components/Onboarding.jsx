@@ -44,7 +44,7 @@ function ArrowIcon() {
   )
 }
 
-export default function Onboarding({ onComplete }) {
+export default function Onboarding({ onComplete, onStartReveal }) {
   const [phase, setPhase] = useState(0)           // 0 = logo, 1 = steps
   const [visibleWords, setVisibleWords] = useState(0)
   const [logoHidden, setLogoHidden] = useState(false)
@@ -66,22 +66,24 @@ export default function Onboarding({ onComplete }) {
   const [expandingSlot, setExpandingSlot] = useState(null)
 
   // Phase 0: reveal words one by one, then crossfade to steps
+  // Cadence: 650ms between words gives time to read each one,
+  // then a long hold lets the full phrase land before transitioning
   useEffect(() => {
     if (phase !== 0) return
 
     const timers = LOGO_WORDS.map((_, i) =>
-      setTimeout(() => setVisibleWords(i + 1), 300 + i * 500)
+      setTimeout(() => setVisibleWords(i + 1), 400 + i * 650)
     )
 
-    // After all words visible + hold, begin crossfade to steps
+    // After all words visible + generous hold, begin crossfade to steps
     const transitionTimer = setTimeout(() => {
       setLogoHidden(true)
       setLogoToSteps(true)
       setTimeout(() => {
         setPhase(1)
         setStepsVisible(true)
-      }, 400)
-    }, 4500)
+      }, 600)
+    }, 6000)
 
     return () => {
       timers.forEach(clearTimeout)
@@ -92,61 +94,73 @@ export default function Onboarding({ onComplete }) {
   // Clean up logo phase after crossfade completes
   useEffect(() => {
     if (phase === 1 && logoToSteps) {
-      const t = setTimeout(() => setLogoToSteps(false), 1000)
+      const t = setTimeout(() => setLogoToSteps(false), 1400)
       return () => clearTimeout(t)
     }
   }, [phase, logoToSteps])
 
-  // Handle step advance — collapse current arrow, expand next dot
+  // Handle step advance — sequential dissolve with breathing room:
+  // old content fades out → brief pause → new content fades in
+  // Nav morph bridges the gap as a visual connector
   const handleNext = useCallback(() => {
     if (isTransitioning) return
 
     if (activeStep < STEPS.length - 1) {
       const nextStep = activeStep + 1
       setIsTransitioning(true)
-      setExitingStep(activeStep)
 
-      // Start collapsing current arrow into a dot
+      // Old content starts fading out
+      setExitingStep(activeStep)
       setCollapsingSlot(activeStep)
       setMorphPhase('collapse')
 
-      // Staggered overlap: start expanding next dot into arrow
-      // at 120ms so collapse and expand visually overlap
+      // Nav expand bridges the gap between old and new
       setTimeout(() => {
         setExpandingSlot(nextStep)
         setMorphPhase('expand')
+      }, 400)
+
+      // Breathing room: new content enters after old is mostly gone
+      setTimeout(() => {
         setActiveStep(nextStep)
         setExitingStep(null)
-      }, 120)
+      }, 600)
 
-      // Settle — clear all morph state
+      // Settle — everything at rest
       setTimeout(() => {
         setCollapsingSlot(null)
         setExpandingSlot(null)
         setMorphPhase('idle')
         setIsTransitioning(false)
-      }, 560)
+      }, 1400)
     } else {
-      // Last step — completion pulse, then choreographed exit
+      // Last step — pulse, then all content lifts away as the
+      // app emerges underneath. One continuous dissolve.
       setIsTransitioning(true)
       setMorphPhase('completing')
 
-      // After pulse, start exit choreography
+      // After pulse lands, all content starts fading
       setTimeout(() => {
         setMorphPhase('idle')
-        setExitPhase(1) // headline floats up
-      }, 350)
+        setExitPhase(1) // headline lifts, body fades, panel lifts
+      }, 600)
 
-      setTimeout(() => setExitPhase(2), 550) // panel slides down
+      // Start revealing app underneath while content is dissolving
+      setTimeout(() => {
+        onStartReveal?.()
+      }, 1200)
 
+      // Onboarding container dissolves to transparent (1.2s CSS)
+      // revealing the app rising beneath — a crossfade
       setTimeout(() => {
         setExiting(true)
-        setExitPhase(3) // full fade
-      }, 900)
+        setExitPhase(2)
+      }, 1400)
 
-      setTimeout(() => onComplete(), 1450) // unmount
+      // Unmount after fully dissolved
+      setTimeout(() => onComplete(), 2800)
     }
-  }, [activeStep, isTransitioning, onComplete])
+  }, [activeStep, isTransitioning, onComplete, onStartReveal])
 
   // Determine class for a headline at index i
   const headlineClass = (i) => {
@@ -156,8 +170,9 @@ export default function Onboarding({ onComplete }) {
     return 'onboarding__headline'
   }
 
-  // Body class
+  // Body class — includes final exit for the dissolve-to-app transition
   const bodyClass = (i) => {
+    if (exitPhase >= 1 && i === activeStep) return 'onboarding__body onboarding__body--exit-final'
     if (i === exitingStep) return 'onboarding__body onboarding__body--exit'
     if (i === activeStep && exitingStep === null) return 'onboarding__body onboarding__body--active'
     return 'onboarding__body'
@@ -221,7 +236,7 @@ export default function Onboarding({ onComplete }) {
           </div>
 
           {/* White bottom panel */}
-          <div className={`onboarding__panel${exitPhase >= 2 ? ' onboarding__panel--exit' : ''}`}>
+          <div className={`onboarding__panel${exitPhase >= 1 ? ' onboarding__panel--exit' : ''}`}>
             <div className="onboarding__body-wrapper">
               {STEPS.map((step, i) => (
                 <p key={i} className={bodyClass(i)}>

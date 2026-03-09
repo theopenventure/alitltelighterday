@@ -35,7 +35,7 @@
 .app-landing--visible {
   opacity: 1;
   transform: translateY(0) scale(1);
-  transition: opacity 0.7s var(--ease-soft), transform 0.8s var(--ease-soft);
+  transition: opacity 1.0s var(--ease-soft), transform 1.2s var(--ease-soft);
 }
 
 /* ── View transition layers ── */

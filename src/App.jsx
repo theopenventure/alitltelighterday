@@ -32,12 +32,17 @@ function App() {
   const [showOnboarding, setShowOnboarding] = useState(true)
   const [appRevealed, setAppRevealed] = useState(false)
 
-  const handleOnboardingComplete = useCallback(() => {
-    setShowOnboarding(false)
-    // Trigger the landing entrance animation on next frame
+  // Start app entrance while onboarding is still dissolving — creates
+  // a crossfade where the app rises underneath the thinning onboarding
+  const handleStartReveal = useCallback(() => {
     requestAnimationFrame(() => {
       requestAnimationFrame(() => setAppRevealed(true))
     })
+  }, [])
+
+  // Clean unmount after onboarding has fully dissolved
+  const handleOnboardingComplete = useCallback(() => {
+    setShowOnboarding(false)
   }, [])
 
   // View switching
@@ -372,17 +377,16 @@ function App() {
 
   const navTab = activeView === 'archive' ? 'archived' : 'home'
 
-  // Landing entrance class — starts hidden, animates in after onboarding exits
-  const landingClass = showOnboarding
-    ? 'app-landing app-landing--hidden'
-    : appRevealed
-      ? 'app-landing app-landing--visible'
-      : 'app-landing app-landing--hidden'
+  // Landing entrance class — can start revealing while onboarding
+  // is still dissolving on top, creating a crossfade
+  const landingClass = appRevealed
+    ? 'app-landing app-landing--visible'
+    : 'app-landing app-landing--hidden'
 
   return (
     <div className="app-container">
       {showOnboarding && (
-        <Onboarding onComplete={handleOnboardingComplete} />
+        <Onboarding onComplete={handleOnboardingComplete} onStartReveal={handleStartReveal} />
       )}
 
       <div className={landingClass}>
