@@ -222,88 +222,138 @@
   transition: opacity 0.3s var(--ease-soft), transform 0.3s var(--ease-soft);
 }
 
-/* ── Navigation: absolute-positioned slots ── */
+/* ── Navigation: flex row with 3 morph slots ── */
 .onboarding__nav {
-  position: relative;
-  width: 90px;
-  height: 60px;
-}
-
-/* Dots — absolutely positioned at non-arrow slots */
-.onboarding__dot {
-  position: absolute;
-  top: 50%;
-  margin-top: -5px;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  transition: opacity 0.3s var(--ease-soft);
-}
-
-.onboarding__dot--filled {
-  background: #000;
-  border: none;
-}
-
-.onboarding__dot--outline {
-  background: transparent;
-  border: 1.5px solid #999;
-}
-
-/* ── Arrow button — blob morph between slot positions ── */
-.onboarding__arrow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: #000;
-  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+  gap: 5px;
+  height: 60px;
+}
+
+/* ── Slot base — dot state (10px circle) ── */
+.onboarding__slot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1.5px solid #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  padding: 0;
+  overflow: hidden;
   -webkit-tap-highlight-color: transparent;
-  /* Idle transition — gentle return for any stray changes */
-  transition: transform 0.4s var(--ease-soft),
-              width 0.3s var(--ease-soft),
-              border-radius 0.3s var(--ease-soft);
+  /* Default settle transition */
+  transition:
+    width 0.36s cubic-bezier(0.34, 1.12, 0.64, 1),
+    height 0.36s cubic-bezier(0.34, 1.12, 0.64, 1),
+    background 0.3s var(--ease-soft),
+    border-color 0.3s var(--ease-soft),
+    border-width 0.3s var(--ease-soft),
+    transform 0.4s var(--ease-elastic);
 }
 
-.onboarding__arrow:active {
-  opacity: 0.85;
-}
-
-/*
- * Phase 1 — EXPAND: arrow stretches rightward, engulfing the next dot.
- * Only width + border-radius animate (transform stays put).
- * Fast ease-out so the stretch feels punchy and intentional.
- */
-.onboarding__arrow--expand {
-  width: 78px;
-  border-radius: 30px;
-  transition: width 0.22s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              border-radius 0.22s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-/*
- * Phase 2 — CONTRACT: arrow slides to the new position while
- * contracting back to a circle. The trailing edge retracts,
- * revealing the filled dot left behind.
- * Gentle spring easing (1.12 overshoot) gives organic, alive feel.
- */
-.onboarding__arrow--contract {
-  transition: transform 0.4s cubic-bezier(0.34, 1.12, 0.64, 1),
-              width 0.36s cubic-bezier(0.34, 1.12, 0.64, 1),
-              border-radius 0.36s cubic-bezier(0.34, 1.12, 0.64, 1);
-}
-
-.onboarding__arrow svg {
+/* Arrow icon — hidden by default inside every slot */
+.onboarding__slot svg {
   width: 24px;
   height: 24px;
   color: #fff;
   flex-shrink: 0;
+  opacity: 0;
+  transform: scale(0.5);
+  transition:
+    opacity 0.2s var(--ease-soft),
+    transform 0.25s var(--ease-elastic);
+}
+
+/* Visited dot — filled black (past steps) */
+.onboarding__slot.onboarding__slot--visited {
+  background: #000;
+  border-color: #000;
+}
+
+/* Future dot — outline (upcoming steps) */
+.onboarding__slot.onboarding__slot--future {
+  background: transparent;
+  border: 1.5px solid #999;
+}
+
+/* ── Active slot — fully expanded arrow button ── */
+.onboarding__slot.onboarding__slot--active {
+  width: 60px;
+  height: 60px;
+  background: #000;
+  border: 2px solid #000;
+  cursor: pointer;
+}
+
+.onboarding__slot.onboarding__slot--active svg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Press/hold feedback — matches BottomNav :active pattern */
+.onboarding__slot.onboarding__slot--active:active {
+  transform: scale(0.82);
+  transition: transform 0.12s ease-out;
+}
+
+/* ── Collapse: arrow shrinks to dot ── */
+.onboarding__slot.onboarding__slot--collapsing {
+  width: 10px;
+  height: 10px;
+  background: #000;
+  border: 2px solid #000;
+  transition:
+    width 0.26s var(--ease-soft) 0.08s,
+    height 0.26s var(--ease-soft) 0.08s,
+    background 0.2s var(--ease-soft),
+    border-color 0.2s var(--ease-soft);
+}
+
+/* Icon fades out first during collapse */
+.onboarding__slot.onboarding__slot--collapsing svg {
+  opacity: 0;
+  transform: scale(0.5);
+  transition:
+    opacity 0.14s var(--ease-soft),
+    transform 0.14s var(--ease-soft);
+}
+
+/* ── Expand: dot grows to arrow ── */
+.onboarding__slot.onboarding__slot--expanding {
+  width: 60px;
+  height: 60px;
+  background: #000;
+  border: 2px solid #000;
+  cursor: pointer;
+  transition:
+    width 0.32s var(--ease-elastic),
+    height 0.32s var(--ease-elastic),
+    background 0.15s var(--ease-soft),
+    border-color 0.15s var(--ease-soft);
+}
+
+/* Icon fades in after circle is large enough */
+.onboarding__slot.onboarding__slot--expanding svg {
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    opacity 0.18s var(--ease-soft) 0.16s,
+    transform 0.28s var(--ease-elastic) 0.16s;
+}
+
+/* ── Completion pulse on last step ── */
+.onboarding__slot.onboarding__slot--completing {
+  animation: slotCompletionPulse 0.4s var(--ease-elastic);
+}
+
+@keyframes slotCompletionPulse {
+  0%   { transform: scale(0.85); }
+  50%  { transform: scale(1.15); }
+  100% { transform: scale(1); }
 }
 
 /* ── Mobile adjustments ── */

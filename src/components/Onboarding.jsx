@@ -32,13 +32,7 @@ const STEPS = [
   }
 ]
 
-// Nav slot positions (px) — arrow 60px, dot 10px, gap 5px, total 90px
-const ARROW_POSITIONS = [0, 15, 30]
-const NAV_DOT_POSITIONS = [
-  [65, 80],  // step 0: 2 dots after arrow
-  [0, 80],   // step 1: dot before, dot after
-  [0, 15],   // step 2: 2 dots before arrow
-]
+// (Nav layout is now flexbox — no position constants needed)
 
 // Arrow icon pointing right
 function ArrowIcon() {
@@ -66,8 +60,10 @@ export default function Onboarding({ onComplete }) {
   // Choreographed exit: each element exits at different times
   const [exitPhase, setExitPhase] = useState(0) // 0=none, 1=headline out, 2=panel out, 3=fade
 
-  // Arrow morph: two-phase blob animation (expand → contract)
-  const [morphPhase, setMorphPhase] = useState('idle') // 'idle' | 'expand' | 'contract'
+  // Slot morph: collapse current arrow → expand next dot
+  const [morphPhase, setMorphPhase] = useState('idle') // 'idle' | 'collapse' | 'expand' | 'completing'
+  const [collapsingSlot, setCollapsingSlot] = useState(null)
+  const [expandingSlot, setExpandingSlot] = useState(null)
 
   // Phase 0: reveal words one by one, then crossfade to steps
   useEffect(() => {
@@ -101,48 +97,54 @@ export default function Onboarding({ onComplete }) {
     }
   }, [phase, logoToSteps])
 
-  // Handle step advance
+  // Handle step advance — collapse current arrow, expand next dot
   const handleNext = useCallback(() => {
     if (isTransitioning) return
 
     if (activeStep < STEPS.length - 1) {
+      const nextStep = activeStep + 1
       setIsTransitioning(true)
       setExitingStep(activeStep)
 
-      // Phase 1: arrow stretches rightward, engulfing the next dot
-      setMorphPhase('expand')
+      // Start collapsing current arrow into a dot
+      setCollapsingSlot(activeStep)
+      setMorphPhase('collapse')
 
-      // Phase 2: advance step + contract — arrow slides to new position
-      // while retracting its trailing edge, revealing the filled dot behind
+      // Staggered overlap: start expanding next dot into arrow
+      // at 120ms so collapse and expand visually overlap
       setTimeout(() => {
-        setMorphPhase('contract')
-        setActiveStep(activeStep + 1)
+        setExpandingSlot(nextStep)
+        setMorphPhase('expand')
+        setActiveStep(nextStep)
         setExitingStep(null)
-      }, 220)
+      }, 120)
 
-      // Settle to idle once contract animation completes
+      // Settle — clear all morph state
       setTimeout(() => {
+        setCollapsingSlot(null)
+        setExpandingSlot(null)
         setMorphPhase('idle')
         setIsTransitioning(false)
-      }, 620)
+      }, 560)
     } else {
-      // Last step — choreographed exit sequence
+      // Last step — completion pulse, then choreographed exit
       setIsTransitioning(true)
+      setMorphPhase('completing')
 
-      // Phase 1: headline floats up and fades
-      setExitPhase(1)
+      // After pulse, start exit choreography
+      setTimeout(() => {
+        setMorphPhase('idle')
+        setExitPhase(1) // headline floats up
+      }, 350)
 
-      // Phase 2: panel slides down (after headline starts leaving)
-      setTimeout(() => setExitPhase(2), 200)
+      setTimeout(() => setExitPhase(2), 550) // panel slides down
 
-      // Phase 3: entire onboarding fades, atmosphere dissolves
       setTimeout(() => {
         setExiting(true)
-        setExitPhase(3)
-      }, 550)
+        setExitPhase(3) // full fade
+      }, 900)
 
-      // Complete — unmount onboarding
-      setTimeout(() => onComplete(), 1100)
+      setTimeout(() => onComplete(), 1450) // unmount
     }
   }, [activeStep, isTransitioning, onComplete])
 
@@ -159,6 +161,19 @@ export default function Onboarding({ onComplete }) {
     if (i === exitingStep) return 'onboarding__body onboarding__body--exit'
     if (i === activeStep && exitingStep === null) return 'onboarding__body onboarding__body--active'
     return 'onboarding__body'
+  }
+
+  // Determine CSS class for each nav slot based on morph state
+  const slotClass = (i) => {
+    // Completion pulse on last step
+    if (morphPhase === 'completing' && i === activeStep) {
+      return 'onboarding__slot onboarding__slot--active onboarding__slot--completing'
+    }
+    if (i === collapsingSlot) return 'onboarding__slot onboarding__slot--collapsing'
+    if (i === expandingSlot) return 'onboarding__slot onboarding__slot--expanding'
+    if (i === activeStep && morphPhase === 'idle') return 'onboarding__slot onboarding__slot--active'
+    if (i < activeStep) return 'onboarding__slot onboarding__slot--visited'
+    return 'onboarding__slot onboarding__slot--future'
   }
 
   // Render headline with italic spans
@@ -215,26 +230,19 @@ export default function Onboarding({ onComplete }) {
               ))}
             </div>
 
-            {/* Navigation: arrow slides between 3 slot positions */}
+            {/* Navigation: 3 slots that morph between dot ↔ arrow */}
             <div className="onboarding__nav">
-              {/* Dots — positioned absolutely at non-arrow slots */}
-              {[0, 1, 2].map(i => i !== activeStep && (
-                <div
+              {[0, 1, 2].map(i => (
+                <button
                   key={i}
-                  className={`onboarding__dot ${i < activeStep ? 'onboarding__dot--filled' : 'onboarding__dot--outline'}`}
-                  style={{ left: NAV_DOT_POSITIONS[activeStep][i < activeStep ? i : i - 1] }}
-                />
+                  className={slotClass(i)}
+                  onClick={i === activeStep ? handleNext : undefined}
+                  aria-label={i === activeStep ? (activeStep < STEPS.length - 1 ? 'Next step' : 'Get started') : `Step ${i + 1}`}
+                  tabIndex={i === activeStep ? 0 : -1}
+                >
+                  <ArrowIcon />
+                </button>
               ))}
-
-              {/* Arrow — slides between positions with morph */}
-              <button
-                className={`onboarding__arrow${morphPhase !== 'idle' ? ` onboarding__arrow--${morphPhase}` : ''}`}
-                style={{ transform: `translateX(${ARROW_POSITIONS[activeStep]}px)` }}
-                onClick={handleNext}
-                aria-label={activeStep < STEPS.length - 1 ? 'Next step' : 'Get started'}
-              >
-                <ArrowIcon />
-              </button>
             </div>
           </div>
         </div>
