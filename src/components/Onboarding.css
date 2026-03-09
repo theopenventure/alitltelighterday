@@ -1,0 +1,320 @@
+/* ── Onboarding — full-screen intro sequence ── */
+.onboarding {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.55s var(--ease-soft);
+  will-change: opacity;
+}
+
+.onboarding--exiting {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Atmosphere background ── */
+.onboarding__atmosphere {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, #F0F7F2 0%, #FFFFFF 100%);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.7;
+}
+
+.onboarding__blob {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.85;
+  animation: onboardingBlobBreathe 8s infinite alternate ease-in-out;
+}
+
+.onboarding__blob--moss {
+  width: 300px;
+  height: 300px;
+  background: #CFE8D8;
+  top: -50px;
+  left: -50px;
+  filter: blur(60px);
+}
+
+.onboarding__blob--peach {
+  width: 250px;
+  height: 400px;
+  background: #FFD1C1;
+  top: 20%;
+  right: -80px;
+  filter: blur(80px);
+  animation-delay: -2s;
+}
+
+@keyframes onboardingBlobBreathe {
+  0%   { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.1) translate(10px, -10px); }
+}
+
+/* ── Phase 0: Logo word reveal ── */
+.onboarding__logo {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  gap: 0 10px;
+  padding: 0 40px;
+  transition: opacity 1s var(--ease-soft), transform 1s var(--ease-soft);
+}
+
+.onboarding__logo--hidden {
+  opacity: 0;
+  transform: scale(0.94);
+  pointer-events: none;
+}
+
+.onboarding__word {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 30px;
+  line-height: 45px;
+  letter-spacing: -1.8px;
+  color: #000;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.7s var(--ease-soft), transform 0.7s var(--ease-soft);
+}
+
+.onboarding__word--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Phases 1-3: Step screens ── */
+.onboarding__steps {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.9s var(--ease-soft), transform 0.9s var(--ease-soft);
+  pointer-events: none;
+}
+
+.onboarding__steps--visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Upper area — headline sits slightly above center */
+.onboarding__upper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 32px;
+  padding-bottom: 60px;
+  position: relative;
+}
+
+/* ── Headlines — fade in fast, exit fast ── */
+.onboarding__headline {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 33px;
+  line-height: 39px;
+  color: #000;
+  text-align: center;
+  max-width: 340px;
+  position: absolute;
+  opacity: 0;
+  transform: translateY(18px);
+  pointer-events: none;
+  transition: opacity 0.45s var(--ease-soft), transform 0.45s var(--ease-soft);
+}
+
+.onboarding__headline--active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.onboarding__headline--exit {
+  opacity: 0;
+  transform: translateY(-14px);
+  transition: opacity 0.35s var(--ease-soft), transform 0.35s var(--ease-soft);
+}
+
+/* Final exit — headline floats up dramatically when leaving onboarding */
+.onboarding__headline--exit-final {
+  opacity: 0;
+  transform: translateY(-40px);
+  transition: opacity 0.5s var(--ease-soft), transform 0.6s var(--ease-soft);
+}
+
+.onboarding__headline-italic {
+  font-style: italic;
+}
+
+/* ── Bottom white panel ── */
+.onboarding__panel {
+  background: #FFFFFF;
+  width: 100%;
+  padding: 48px 45px 40px 45px;
+  padding-bottom: max(40px, env(safe-area-inset-bottom, 40px));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  flex-shrink: 0;
+  transition: opacity 0.4s var(--ease-soft), transform 0.5s var(--ease-soft);
+}
+
+/* Panel slides down + fades during choreographed exit */
+.onboarding__panel--exit {
+  opacity: 0;
+  transform: translateY(60px);
+}
+
+.onboarding__body-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 78px;
+}
+
+/* ── Body text — fades in slower than headline, with delay ── */
+.onboarding__body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.5;
+  color: #000;
+  text-align: center;
+  max-width: 314px;
+  margin: 0 auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: opacity 0.55s var(--ease-soft) 0.2s, transform 0.55s var(--ease-soft) 0.2s;
+}
+
+.onboarding__body--active {
+  opacity: 1;
+  transform: translateY(0);
+  position: relative;
+  pointer-events: auto;
+}
+
+.onboarding__body--exit {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.3s var(--ease-soft), transform 0.3s var(--ease-soft);
+}
+
+/* ── Navigation: absolute-positioned slots ── */
+.onboarding__nav {
+  position: relative;
+  width: 90px;
+  height: 60px;
+}
+
+/* Dots — absolutely positioned at non-arrow slots */
+.onboarding__dot {
+  position: absolute;
+  top: 50%;
+  margin-top: -5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  transition: opacity 0.3s var(--ease-soft);
+}
+
+.onboarding__dot--filled {
+  background: #000;
+  border: none;
+}
+
+.onboarding__dot--outline {
+  background: transparent;
+  border: 1.5px solid #999;
+}
+
+/* ── Arrow button — blob morph between slot positions ── */
+.onboarding__arrow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #000;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  /* Idle transition — gentle return for any stray changes */
+  transition: transform 0.4s var(--ease-soft),
+              width 0.3s var(--ease-soft),
+              border-radius 0.3s var(--ease-soft);
+}
+
+.onboarding__arrow:active {
+  opacity: 0.85;
+}
+
+/*
+ * Phase 1 — EXPAND: arrow stretches rightward, engulfing the next dot.
+ * Only width + border-radius animate (transform stays put).
+ * Fast ease-out so the stretch feels punchy and intentional.
+ */
+.onboarding__arrow--expand {
+  width: 78px;
+  border-radius: 30px;
+  transition: width 0.22s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              border-radius 0.22s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/*
+ * Phase 2 — CONTRACT: arrow slides to the new position while
+ * contracting back to a circle. The trailing edge retracts,
+ * revealing the filled dot left behind.
+ * Gentle spring easing (1.12 overshoot) gives organic, alive feel.
+ */
+.onboarding__arrow--contract {
+  transition: transform 0.4s cubic-bezier(0.34, 1.12, 0.64, 1),
+              width 0.36s cubic-bezier(0.34, 1.12, 0.64, 1),
+              border-radius 0.36s cubic-bezier(0.34, 1.12, 0.64, 1);
+}
+
+.onboarding__arrow svg {
+  width: 24px;
+  height: 24px;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+/* ── Mobile adjustments ── */
+@media (max-width: 480px) {
+  .onboarding__panel {
+    padding: 36px 32px 32px 32px;
+    padding-bottom: max(32px, env(safe-area-inset-bottom, 32px));
+    gap: 32px;
+  }
+
+  .onboarding__upper {
+    padding-bottom: 40px;
+  }
+}

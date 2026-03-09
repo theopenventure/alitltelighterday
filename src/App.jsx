@@ -6,6 +6,7 @@ import BoostCard from './components/BoostCard'
 import FeedFooter from './components/FeedFooter'
 import ContentOverlay from './components/ContentOverlay'
 import HeroScreen from './components/HeroScreen'
+import Onboarding from './components/Onboarding'
 import ArchivePage, { ArchiveDetail } from './components/ArchivePage'
 import { getDailyBoosts, getRandomBoosts, getCategoryOrder } from './data/boostPromptPool'
 import { getDailyHeroCopy, getRandomHeroCopy } from './data/heroCopyPool'
@@ -26,6 +27,18 @@ function App() {
   const [sourceRect, setSourceRect] = useState(null)
   const [expandingCard, setExpandingCard] = useState(null)
   const [returningCard, setReturningCard] = useState(null)
+
+  // Onboarding (always show for testing)
+  const [showOnboarding, setShowOnboarding] = useState(true)
+  const [appRevealed, setAppRevealed] = useState(false)
+
+  const handleOnboardingComplete = useCallback(() => {
+    setShowOnboarding(false)
+    // Trigger the landing entrance animation on next frame
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => setAppRevealed(true))
+    })
+  }, [])
 
   // View switching
   const [activeView, setActiveView] = useState('home')
@@ -359,72 +372,85 @@ function App() {
 
   const navTab = activeView === 'archive' ? 'archived' : 'home'
 
+  // Landing entrance class — starts hidden, animates in after onboarding exits
+  const landingClass = showOnboarding
+    ? 'app-landing app-landing--hidden'
+    : appRevealed
+      ? 'app-landing app-landing--visible'
+      : 'app-landing app-landing--hidden'
+
   return (
     <div className="app-container">
-      <Header
-        ref={headerRef}
-        label={activeView === 'archive' ? 'Collections' : 'Today'}
-      />
-
-      {/* Today view */}
-      <div
-        ref={todayViewRef}
-        className={`view-layer ${activeView === 'home' ? 'view-active' : 'view-exit-left'}`}
-      >
-        <HeroScreen heroRef={heroRef} atmosphereRef={heroAtmosphereRef} headline={heroCopy.headline} subhead={heroCopy.subhead} />
-
-        <div className="feed">
-          {CATEGORIES.map((key) => {
-            const card = cards[key]
-            return (
-              <BoostCard
-                key={key}
-                ref={cardRefMap[key]}
-                variant={card.variant}
-                label={card.category}
-                title={card.prompt}
-                shortTitle={card.shortTitle}
-                ctaText={card.ctaText}
-                onClick={() => handleOpenBoost(key)}
-                expanding={expandingCard === key}
-                returning={returningCard === key}
-                animDelay={`${0.1 + CATEGORIES.indexOf(key) * 0.1}s`}
-              />
-            )
-          })}
-
-          <FeedFooter />
-        </div>
-      </div>
-
-      {/* Archive view */}
-      <div
-        ref={archiveViewRef}
-        className={`view-layer ${activeView === 'archive' ? 'view-active' : 'view-exit-right'}`}
-      >
-        <ArchivePage savedBoosts={savedBoosts} onScrollProgress={handleArchiveScrollProgress} onOpenItem={(item, rect) => { setArchiveSourceRect(rect); setActiveArchiveItem(item) }} removingItemId={removingItemId} />
-      </div>
-
-      <BottomNav activeTab={navTab} onTabChange={handleTabChange} />
-
-      <ArchiveDetail item={activeArchiveItem} sourceRect={archiveSourceRect} onClose={handleArchiveDetailClosed} onUnsave={handleArchiveUnsave} onUndoUnsave={handleArchiveUndone} />
-
-      {activeBoost && (
-        <ContentOverlay
-          card={cards[activeBoost]}
-          content={boostContent}
-          loading={boostLoading}
-          error={boostError}
-          sourceRect={sourceRect}
-          isClosing={isOverlayClosing}
-          initialSaved={!!savedCategoriesRef.current[activeBoost]}
-          onClose={startClosing}
-          onExited={handleOverlayExited}
-          onReact={handleReact}
-          onSave={handleSave}
-          onUnsaveConfirmed={handleContentUnsaveConfirmed}
-        />
+      {showOnboarding && (
+        <Onboarding onComplete={handleOnboardingComplete} />
       )}
+
+      <div className={landingClass}>
+        <Header
+          ref={headerRef}
+          label={activeView === 'archive' ? 'Collections' : 'Today'}
+        />
+
+        {/* Today view */}
+        <div
+          ref={todayViewRef}
+          className={`view-layer ${activeView === 'home' ? 'view-active' : 'view-exit-left'}`}
+        >
+          <HeroScreen heroRef={heroRef} atmosphereRef={heroAtmosphereRef} headline={heroCopy.headline} subhead={heroCopy.subhead} />
+
+          <div className="feed">
+            {CATEGORIES.map((key) => {
+              const card = cards[key]
+              return (
+                <BoostCard
+                  key={key}
+                  ref={cardRefMap[key]}
+                  variant={card.variant}
+                  label={card.category}
+                  title={card.prompt}
+                  shortTitle={card.shortTitle}
+                  ctaText={card.ctaText}
+                  onClick={() => handleOpenBoost(key)}
+                  expanding={expandingCard === key}
+                  returning={returningCard === key}
+                  animDelay={`${0.1 + CATEGORIES.indexOf(key) * 0.1}s`}
+                />
+              )
+            })}
+
+            <FeedFooter />
+          </div>
+        </div>
+
+        {/* Archive view */}
+        <div
+          ref={archiveViewRef}
+          className={`view-layer ${activeView === 'archive' ? 'view-active' : 'view-exit-right'}`}
+        >
+          <ArchivePage savedBoosts={savedBoosts} onScrollProgress={handleArchiveScrollProgress} onOpenItem={(item, rect) => { setArchiveSourceRect(rect); setActiveArchiveItem(item) }} removingItemId={removingItemId} />
+        </div>
+
+        <BottomNav activeTab={navTab} onTabChange={handleTabChange} />
+
+        <ArchiveDetail item={activeArchiveItem} sourceRect={archiveSourceRect} onClose={handleArchiveDetailClosed} onUnsave={handleArchiveUnsave} onUndoUnsave={handleArchiveUndone} />
+
+        {activeBoost && (
+          <ContentOverlay
+            card={cards[activeBoost]}
+            content={boostContent}
+            loading={boostLoading}
+            error={boostError}
+            sourceRect={sourceRect}
+            isClosing={isOverlayClosing}
+            initialSaved={!!savedCategoriesRef.current[activeBoost]}
+            onClose={startClosing}
+            onExited={handleOverlayExited}
+            onReact={handleReact}
+            onSave={handleSave}
+            onUnsaveConfirmed={handleContentUnsaveConfirmed}
+          />
+        )}
+      </div>
     </div>
   )
 }
