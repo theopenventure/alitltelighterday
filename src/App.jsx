@@ -431,26 +431,28 @@ function App() {
         </div>
 
         <BottomNav activeTab={navTab} onTabChange={handleTabChange} />
-
-        <ArchiveDetail item={activeArchiveItem} sourceRect={archiveSourceRect} onClose={handleArchiveDetailClosed} onUnsave={handleArchiveUnsave} onUndoUnsave={handleArchiveUndone} />
-
-        {activeBoost && (
-          <ContentOverlay
-            card={cards[activeBoost]}
-            content={boostContent}
-            loading={boostLoading}
-            error={boostError}
-            sourceRect={sourceRect}
-            isClosing={isOverlayClosing}
-            initialSaved={!!savedCategoriesRef.current[activeBoost]}
-            onClose={startClosing}
-            onExited={handleOverlayExited}
-            onReact={handleReact}
-            onSave={handleSave}
-            onUnsaveConfirmed={handleContentUnsaveConfirmed}
-          />
-        )}
       </div>
+
+      {/* Overlays live outside the landing wrapper so CSS transforms
+          don't break their position:fixed expand animations */}
+      <ArchiveDetail item={activeArchiveItem} sourceRect={archiveSourceRect} onClose={handleArchiveDetailClosed} onUnsave={handleArchiveUnsave} onUndoUnsave={handleArchiveUndone} />
+
+      {activeBoost && (
+        <ContentOverlay
+          card={cards[activeBoost]}
+          content={boostContent}
+          loading={boostLoading}
+          error={boostError}
+          sourceRect={sourceRect}
+          isClosing={isOverlayClosing}
+          initialSaved={!!savedCategoriesRef.current[activeBoost]}
+          onClose={startClosing}
+          onExited={handleOverlayExited}
+          onReact={handleReact}
+          onSave={handleSave}
+          onUnsaveConfirmed={handleContentUnsaveConfirmed}
+        />
+      )}
     </div>
   )
 }
