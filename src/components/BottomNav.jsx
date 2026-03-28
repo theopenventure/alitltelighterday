@@ -1,3 +1,4 @@
+import { forwardRef } from 'react'
 import './BottomNav.css'
 
 const TABS = [
@@ -23,11 +24,11 @@ const TABS = [
   },
 ]
 
-export default function BottomNav({ activeTab = 'home', onTabChange }) {
+const BottomNav = forwardRef(function BottomNav({ activeTab = 'home', onTabChange }, ref) {
   const activeIndex = TABS.findIndex((t) => t.id === activeTab)
 
   return (
-    <nav className="nav-bar" aria-label="Main navigation">
+    <nav className="nav-bar" ref={ref} aria-label="Main navigation">
       <div className="nav-group">
         {TABS.map((tab) => {
           const isActive = activeTab === tab.id
@@ -52,4 +53,6 @@ export default function BottomNav({ activeTab = 'home', onTabChange }) {
       </div>
     </nav>
   )
-}
+})
+
+export default BottomNav

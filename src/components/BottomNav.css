@@ -13,6 +13,8 @@
   padding: 0 28px calc(13px + env(safe-area-inset-bottom, 0px));
   z-index: 20;
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
 /* ── Group — icons clustered right ── */

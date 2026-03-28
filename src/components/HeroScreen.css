@@ -4,14 +4,14 @@
   top: 0;
   height: 80vh;
   width: 100%;
-  overflow: hidden;
+  overflow: visible;
   z-index: 1;
   transform-origin: top center;
   will-change: opacity, transform;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex-shrink: 0;
 }
 
@@ -21,47 +21,87 @@
   }
 }
 
-/* ── Gradient atmosphere background ── */
-.hero-atmosphere {
-  position: fixed;
+/* ── Gradient blobs ── */
+.hero-blobs {
+  position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, #F0F7F2 0%, #FFFFFF 100%);
   pointer-events: none;
   z-index: 0;
-  will-change: opacity;
-  /* opacity controlled by JS scroll handler, starts at 0.4 */
 }
 
-/* ── Animated blobs ── */
 .hero-blob {
   position: absolute;
-  border-radius: 50%;
-  opacity: 0.85;
-  animation: blobBreathe 8s infinite alternate ease-in-out;
+  border-radius: 29px;
+  transform: rotate(45deg);
+  will-change: transform;
 }
 
-.hero-blob--moss {
-  width: 300px;
-  height: 300px;
+/* Coral blob — left side, matching Figma node 135:354 */
+.hero-blob--coral {
+  width: 367px;
+  height: 367px;
   background: linear-gradient(180deg, #FE8D7B, #FD7861);
-  top: -50px;
-  left: -50px;
-  filter: blur(60px);
+  filter: blur(61px);
+  left: -114px;
+  top: 435px;
+  opacity: 0.85;
+  animation: blobDriftCoral 18s infinite ease-in-out;
 }
 
-.hero-blob--peach {
-  width: 250px;
-  height: 400px;
+/* Violet blob — right side, matching Figma node 135:355 */
+.hero-blob--violet {
+  width: 338px;
+  height: 338px;
   background: linear-gradient(180deg, #C384E3, #FD639D);
-  top: 20%;
-  right: -80px;
-  filter: blur(80px);
-  animation-delay: -2s;
+  filter: blur(61px);
+  left: 79px;
+  top: 510px;
+  opacity: 0.85;
+  animation: blobDriftViolet 22s infinite ease-in-out;
 }
 
-@keyframes blobBreathe {
-  0%   { transform: scale(1) translate(0, 0); }
-  100% { transform: scale(1.1) translate(10px, -10px); }
+@keyframes blobDriftCoral {
+  0%   { transform: rotate(45deg) translate(0, 0) scale(1); }
+  25%  { transform: rotate(50deg) translate(15px, -10px) scale(1.04); }
+  50%  { transform: rotate(42deg) translate(-8px, 12px) scale(0.97); }
+  75%  { transform: rotate(48deg) translate(10px, 5px) scale(1.02); }
+  100% { transform: rotate(45deg) translate(0, 0) scale(1); }
+}
+
+@keyframes blobDriftViolet {
+  0%   { transform: rotate(45deg) translate(0, 0) scale(1); }
+  20%  { transform: rotate(40deg) translate(-12px, 8px) scale(1.03); }
+  45%  { transform: rotate(49deg) translate(10px, -14px) scale(0.96); }
+  70%  { transform: rotate(43deg) translate(-5px, -6px) scale(1.05); }
+  100% { transform: rotate(45deg) translate(0, 0) scale(1); }
+}
+
+/* ── Hero image placeholder ── */
+.hero-image {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 64px);
+  height: 39vh;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+@supports (height: 100dvh) {
+  .hero-image {
+    height: 39dvh;
+  }
+}
+
+.hero-image__img {
+  position: absolute;
+  width: 140%;
+  height: 157%;
+  left: -22%;
+  top: -28%;
+  object-fit: contain;
 }
 
 /* ── Content ── */
@@ -74,7 +114,7 @@
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  margin-top: -40px;
+  padding-top: 121px;
 }
 
 .hero-headline {

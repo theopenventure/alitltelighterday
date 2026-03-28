@@ -62,6 +62,7 @@ function App() {
   const heroRef = useRef(null)
   const heroAtmosphereRef = useRef(null)
   const headerRef = useRef(null)
+  const navRef = useRef(null)
   const homeScrollRef = useRef(0)
   const archiveScrollRef = useRef(0)
   const contentCacheRef = useRef({})  // category → generated content (persists across opens)
@@ -95,16 +96,17 @@ function App() {
       heroEl.style.opacity = 1 - progress
       heroEl.style.transform = `scale(${1 - progress * 0.08})`
 
-      // Fade atmosphere (from 0.4 → 0) — matches Collections behavior
-      const atmosphereEl = heroAtmosphereRef.current
-      if (atmosphereEl) {
-        atmosphereEl.style.opacity = 0.4 * (1 - progress)
-      }
+      // Fade background from #F5F5F5 → white only once cards appear
+      const bgProgress = Math.max(0, (progress - 0.6) / 0.4)
+      const gray = Math.round(245 + bgProgress * 10)
+      container.style.backgroundColor = `rgb(${gray}, ${gray}, ${gray})`
 
       const headerEl = headerRef.current
+      const navEl = navRef.current
       if (headerEl) {
         const headerProgress = Math.max(0, (progress - 0.7) / 0.3)
         headerEl.style.opacity = headerProgress
+        if (navEl) navEl.style.opacity = headerProgress
       }
     }
 
@@ -134,6 +136,7 @@ function App() {
     if (!headerEl || activeView !== 'archive') return
     const headerProgress = Math.max(0, (progress - 0.7) / 0.3)
     headerEl.style.opacity = headerProgress
+    if (navRef.current) navRef.current.style.opacity = headerProgress
   }, [activeView])
 
   // Archive view scroll listener (mirrors the homepage hero parallax)
@@ -337,8 +340,9 @@ function App() {
       homeScrollRef.current = todayViewRef.current?.scrollTop || 0
       setSavedBoosts(getSavedBoostsByDay())
 
-      // Header always starts hidden — scroll will reveal it
+      // Header + nav always start hidden — scroll will reveal them
       if (headerEl) headerEl.style.opacity = 0
+      if (navRef.current) navRef.current.style.opacity = 0
 
       setActiveView('archive')
 
@@ -364,6 +368,7 @@ function App() {
             const progress = Math.min(homeScrollRef.current / heroHeight, 1)
             const headerProgress = Math.max(0, (progress - 0.7) / 0.3)
             headerEl.style.opacity = headerProgress
+            if (navRef.current) navRef.current.style.opacity = headerProgress
 
             const atmosphereEl = heroAtmosphereRef.current
             if (atmosphereEl) {
@@ -434,7 +439,7 @@ function App() {
           <ArchivePage savedBoosts={savedBoosts} onScrollProgress={handleArchiveScrollProgress} onOpenItem={(item, rect) => { setArchiveSourceRect(rect); setActiveArchiveItem(item) }} removingItemId={removingItemId} />
         </div>
 
-        <BottomNav activeTab={navTab} onTabChange={handleTabChange} />
+        <BottomNav ref={navRef} activeTab={navTab} onTabChange={handleTabChange} />
       </div>
 
       {/* Overlays live outside the landing wrapper so CSS transforms
