@@ -1,5 +1,9 @@
 # A Little Lighter Day — Project Guidelines
 
+## Platform
+
+- **Mobile-first and mobile-only.** The target viewport is 375×812 (iPhone standard). All screens, animations, and layouts are designed for this size. Do not optimize for desktop — every design decision should be made at mobile scale first and only.
+
 ## Global UI Rules
 
 - **No text selection anywhere.** Apply `user-select: none` globally. No element should allow text selection or highlighting. This is a consumption experience, not an editing one.

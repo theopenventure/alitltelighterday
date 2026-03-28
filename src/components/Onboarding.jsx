@@ -1,12 +1,10 @@
 import { useState, useEffect, useCallback } from 'react'
 import './Onboarding.css'
 
-// Words revealed one at a time in Phase 0
-const LOGO_WORDS = ['a', 'little', 'lighter', 'day']
-
 // Content for each of the 3 onboarding steps
 const STEPS = [
   {
+    image: '/images/onboarding/step1.png',
     headline: [
       { text: 'Some days feel ' },
       { text: 'heavier', italic: true },
@@ -15,6 +13,7 @@ const STEPS = [
     body: "The kind of heavy that's hard to name — not a crisis, just… a lot. This app was made for exactly that feeling."
   },
   {
+    image: '/images/onboarding/step2.png',
     headline: [
       { text: 'A small moment crafted for ' },
       { text: 'right now', italic: true },
@@ -23,6 +22,7 @@ const STEPS = [
     body: 'Fresh every time. Something to move your body, calm your mind, spark curiosity, or be kinder to yourself.'
   },
   {
+    image: '/images/onboarding/step3.png',
     headline: [
       { text: 'Show up when you ' },
       { text: 'feel like it', italic: true },
@@ -44,9 +44,20 @@ function ArrowIcon() {
   )
 }
 
+// 4-pointed sparkle symbol
+function SparkleIcon() {
+  return (
+    <svg className="onboarding__star" viewBox="0 0 50 50" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M25 0C25.5 9.5 40.5 24.5 50 25C40.5 25.5 25.5 40.5 25 50C24.5 40.5 9.5 25.5 0 25C9.5 24.5 24.5 9.5 25 0Z" />
+    </svg>
+  )
+}
+
 export default function Onboarding({ onComplete, onStartReveal }) {
   const [phase, setPhase] = useState(0)           // 0 = logo, 1 = steps
-  const [visibleWords, setVisibleWords] = useState(0)
+
+  const [symbolFaded, setSymbolFaded] = useState(false)
+  const [textVisible, setTextVisible] = useState(false)
   const [logoHidden, setLogoHidden] = useState(false)
   const [stepsVisible, setStepsVisible] = useState(false)
   const [activeStep, setActiveStep] = useState(0)  // 0, 1, 2
@@ -65,17 +76,17 @@ export default function Onboarding({ onComplete, onStartReveal }) {
   const [collapsingSlot, setCollapsingSlot] = useState(null)
   const [expandingSlot, setExpandingSlot] = useState(null)
 
-  // Phase 0: reveal words one by one, then crossfade to steps
-  // Cadence: 650ms between words gives time to read each one,
-  // then a long hold lets the full phrase land before transitioning
+  // Phase 0: symbol reveal → text sweep → crossfade to steps
   useEffect(() => {
     if (phase !== 0) return
 
-    const timers = LOGO_WORDS.map((_, i) =>
-      setTimeout(() => setVisibleWords(i + 1), 400 + i * 650)
-    )
+    // Symbol fades out after its moment
+    const symbolTimer = setTimeout(() => setSymbolFaded(true), 3500)
 
-    // After all words visible + generous hold, begin crossfade to steps
+    // Text sweep begins after symbol departs
+    const textTimer = setTimeout(() => setTextVisible(true), 4300)
+
+    // Crossfade to steps after text has landed
     const transitionTimer = setTimeout(() => {
       setLogoHidden(true)
       setLogoToSteps(true)
@@ -83,10 +94,11 @@ export default function Onboarding({ onComplete, onStartReveal }) {
         setPhase(1)
         setStepsVisible(true)
       }, 600)
-    }, 6000)
+    }, 10000)
 
     return () => {
-      timers.forEach(clearTimeout)
+      clearTimeout(symbolTimer)
+      clearTimeout(textTimer)
       clearTimeout(transitionTimer)
     }
   }, [phase])
@@ -162,12 +174,28 @@ export default function Onboarding({ onComplete, onStartReveal }) {
     }
   }, [activeStep, isTransitioning, onComplete, onStartReveal])
 
+  // Determine class for a step image at index i
+  const imageClass = (i) => {
+    if (exitPhase >= 1 && i === activeStep) return 'onboarding__step-image onboarding__step-image--exit-final'
+    if (i === exitingStep) return 'onboarding__step-image onboarding__step-image--exit'
+    if (i === activeStep && exitingStep === null) return 'onboarding__step-image onboarding__step-image--active'
+    return 'onboarding__step-image'
+  }
+
   // Determine class for a headline at index i
+  // Step 1 = centered (default), Step 2 = 80px from bottom, Step 3 = 80px from top
+  const headlinePosClass = (i) => {
+    if (i === 1) return ' onboarding__headline--pos-bottom'
+    if (i === 2) return ' onboarding__headline--pos-top'
+    return ''
+  }
+
   const headlineClass = (i) => {
-    if (exitPhase >= 1 && i === activeStep) return 'onboarding__headline onboarding__headline--exit-final'
-    if (i === exitingStep) return 'onboarding__headline onboarding__headline--exit'
-    if (i === activeStep && exitingStep === null) return 'onboarding__headline onboarding__headline--active'
-    return 'onboarding__headline'
+    const pos = headlinePosClass(i)
+    if (exitPhase >= 1 && i === activeStep) return 'onboarding__headline onboarding__headline--exit-final' + pos
+    if (i === exitingStep) return 'onboarding__headline onboarding__headline--exit' + pos
+    if (i === activeStep && exitingStep === null) return 'onboarding__headline onboarding__headline--active' + pos
+    return 'onboarding__headline' + pos
   }
 
   // Body class — includes final exit for the dissolve-to-app transition
@@ -209,25 +237,35 @@ export default function Onboarding({ onComplete, onStartReveal }) {
         <div className="onboarding__blob onboarding__blob--peach" />
       </div>
 
-      {/* Phase 0: Logo word reveal — stays mounted during crossfade */}
+      {/* Phase 0: Symbol reveal → text sweep — stays mounted during crossfade */}
       {(phase === 0 || logoToSteps) && (
         <div className={`onboarding__logo${logoHidden ? ' onboarding__logo--hidden' : ''}`}>
-          {LOGO_WORDS.map((word, i) => (
-            <span
-              key={word}
-              className={`onboarding__word${i < visibleWords ? ' onboarding__word--visible' : ''}`}
-            >
-              {word}
-            </span>
-          ))}
+          {/* Gradient glow + sparkle symbol */}
+          <div className={`onboarding__symbol${symbolFaded ? ' onboarding__symbol--hidden' : ''}`}>
+            <div className="onboarding__glow-orb onboarding__glow-orb--coral" />
+            <div className="onboarding__glow-orb onboarding__glow-orb--magenta" />
+            <SparkleIcon />
+          </div>
+          {/* Text appears after symbol departs */}
+          <span className={`onboarding__logo-text${textVisible ? ' onboarding__logo-text--animate' : ''}`}>
+            a little lighter day
+          </span>
         </div>
       )}
 
       {/* Steps screens — begin rendering during crossfade for smooth overlap */}
       {(phase >= 1 || logoToSteps) && (
         <div className={`onboarding__steps${stepsVisible ? ' onboarding__steps--visible' : ''}`}>
-          {/* Upper area with headline */}
+          {/* Upper area with illustration + headline */}
           <div className="onboarding__upper">
+            {STEPS.map((step, i) => (
+              <img
+                key={`img-${i}`}
+                src={step.image}
+                alt=""
+                className={imageClass(i)}
+              />
+            ))}
             {STEPS.map((step, i) => (
               <h2 key={i} className={headlineClass(i)}>
                 {renderHeadline(step.headline)}
