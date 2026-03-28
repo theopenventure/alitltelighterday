@@ -24,6 +24,11 @@
   background: linear-gradient(180deg, #F0F7F2 0%, #FFFFFF 100%);
   pointer-events: none;
   z-index: 0;
+  opacity: 0;
+  transition: opacity 2s var(--ease-soft);
+}
+
+.onboarding__atmosphere--visible {
   opacity: 0.7;
 }
 
@@ -37,7 +42,7 @@
 .onboarding__blob--moss {
   width: 300px;
   height: 300px;
-  background: #CFE8D8;
+  background: linear-gradient(180deg, #FE8D7B, #FD7861);
   top: -50px;
   left: -50px;
   filter: blur(60px);
@@ -46,7 +51,7 @@
 .onboarding__blob--peach {
   width: 250px;
   height: 400px;
-  background: #FFD1C1;
+  background: linear-gradient(180deg, #C384E3, #FD639D);
   top: 20%;
   right: -80px;
   filter: blur(80px);

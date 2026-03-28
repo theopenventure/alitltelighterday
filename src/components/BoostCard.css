@@ -129,7 +129,7 @@
 /* ── CTA link ── */
 .card-cta {
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 500;
   color: inherit;
   border-bottom: 1px solid currentColor;

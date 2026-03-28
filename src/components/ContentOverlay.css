@@ -398,9 +398,9 @@
 .seg-fact {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: 25px;
+  font-size: 24px;
   font-weight: 400;
-  line-height: 35px;
+  line-height: 33px;
   color: var(--variant-text, var(--text-primary));
   padding-left: 32px;
   border-left: 1px solid;

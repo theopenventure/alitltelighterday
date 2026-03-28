@@ -58,6 +58,7 @@ export default function Onboarding({ onComplete, onStartReveal }) {
 
   const [symbolFaded, setSymbolFaded] = useState(false)
   const [textVisible, setTextVisible] = useState(false)
+  const [atmosphereVisible, setAtmosphereVisible] = useState(false)
   const [logoHidden, setLogoHidden] = useState(false)
   const [stepsVisible, setStepsVisible] = useState(false)
   const [activeStep, setActiveStep] = useState(0)  // 0, 1, 2
@@ -83,8 +84,11 @@ export default function Onboarding({ onComplete, onStartReveal }) {
     // Symbol fades out after its moment
     const symbolTimer = setTimeout(() => setSymbolFaded(true), 3500)
 
-    // Text sweep begins after symbol departs
-    const textTimer = setTimeout(() => setTextVisible(true), 4300)
+    // Text sweep begins after symbol departs; atmosphere fades in with it
+    const textTimer = setTimeout(() => {
+      setTextVisible(true)
+      setAtmosphereVisible(true)
+    }, 4300)
 
     // Crossfade to steps after text has landed
     const transitionTimer = setTimeout(() => {
@@ -231,8 +235,8 @@ export default function Onboarding({ onComplete, onStartReveal }) {
 
   return (
     <div className={`onboarding${exiting ? ' onboarding--exiting' : ''}`}>
-      {/* Atmosphere background — shared across all phases */}
-      <div className="onboarding__atmosphere" aria-hidden="true">
+      {/* Atmosphere background — hidden during logo, fades in with text */}
+      <div className={`onboarding__atmosphere${atmosphereVisible ? ' onboarding__atmosphere--visible' : ''}`} aria-hidden="true">
         <div className="onboarding__blob onboarding__blob--moss" />
         <div className="onboarding__blob onboarding__blob--peach" />
       </div>
