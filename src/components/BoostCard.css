@@ -46,22 +46,22 @@
 
 /* ── Gradient variants ── */
 .boost-card--warm {
-  background: linear-gradient(180deg, #FFF5F2 0%, #F4E4E4 100%);
+  background: linear-gradient(180deg, #F5F5F5 0%, #F5F5F5 52%, #FDF3F0 95%);
   color: var(--text-warm);
 }
 
 .boost-card--gray {
-  background: linear-gradient(180deg, #F0F5FA 0%, #E0ECF5 100%);
+  background: linear-gradient(180deg, #F5F5F5 0%, #F5F5F5 52%, #EDF4FA 95%);
   color: var(--text-cool);
 }
 
 .boost-card--beige {
-  background: linear-gradient(180deg, #FFFCF5 0%, #F5F0E6 100%);
+  background: linear-gradient(180deg, #F5F5F5 0%, #F5F5F5 55%, #FCF8F0 100%);
   color: var(--text-earth);
 }
 
 .boost-card--sage {
-  background: linear-gradient(180deg, #F0F7F0 0%, #E0F2E0 100%);
+  background: linear-gradient(180deg, #F5F5F5 0%, #F5F5F5 37.5%, #EFF3EE 90%);
   color: var(--text-green);
 }
 
@@ -91,7 +91,7 @@
   -webkit-backdrop-filter: blur(10px);
   border-radius: var(--radius-pill);
   font-family: var(--font-sans);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
   letter-spacing: normal;
   text-transform: none;
@@ -103,7 +103,7 @@
 /* ── Serif headline ── */
 .card-headline {
   font-family: var(--font-serif);
-  font-size: 38px;
+  font-size: 35px;
   line-height: 1.1;
   font-weight: 400;
   letter-spacing: -0.02em;

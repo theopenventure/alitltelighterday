@@ -5,12 +5,12 @@ import { flattenSegments, renderSegment, findFirstTextIndex } from './segments'
 import { getRandomThinkingCopy } from '../data/thinkingCopyPool'
 import './ContentOverlay.css'
 
-// Variant → background color mapping (matches BoostCard.css gradient start colors)
-const VARIANT_COLORS = {
-  warm: '#FFF5F2',
-  gray: '#F0F5FA',
-  beige: '#FFFCF5',
-  sage: '#F0F7F0'
+// Variant → gradient mapping (matches BoostCard.css)
+const VARIANT_GRADIENTS = {
+  warm:  'linear-gradient(180deg, #F5F5F5 0%, #F5F5F5 52%, #FDF3F0 95%)',
+  gray:  'linear-gradient(180deg, #F5F5F5 0%, #F5F5F5 52%, #EDF4FA 95%)',
+  beige: 'linear-gradient(180deg, #F5F5F5 0%, #F5F5F5 55%, #FCF8F0 100%)',
+  sage:  'linear-gradient(180deg, #F5F5F5 0%, #F5F5F5 37.5%, #EFF3EE 90%)'
 }
 
 // Variant → text color mapping
@@ -122,7 +122,7 @@ export default function ContentOverlay({
   }, [onSave])
 
   const variant = card.variant || 'gray'
-  const bgColor = VARIANT_COLORS[variant] || VARIANT_COLORS.gray
+  const bgGradient = VARIANT_GRADIENTS[variant] || VARIANT_GRADIENTS.gray
 
   const flatSegments = useMemo(() => {
     return content ? flattenSegments(content.segments) : []
@@ -229,7 +229,7 @@ export default function ContentOverlay({
       width: rect.width,
       height: rect.height,
       borderRadius: 32,
-      background: bgColor
+      background: bgGradient
     }
   } else {
     expansionStyle = {
@@ -238,7 +238,7 @@ export default function ContentOverlay({
       width: '100%',
       height: '100%',
       borderRadius: 0,
-      background: bgColor
+      background: bgGradient
     }
   }
 
@@ -254,7 +254,7 @@ export default function ContentOverlay({
 
       <div
         className={`content-sheet content-sheet--${variant} ${contentVisible ? 'visible' : ''}`}
-        style={{ '--sheet-bg': bgColor, '--variant-text': VARIANT_TEXT[variant] || VARIANT_TEXT.gray }}
+        style={{ '--sheet-bg': '#F5F5F5', '--variant-text': VARIANT_TEXT[variant] || VARIANT_TEXT.gray }}
       >
 
         {/* Sticky header */}

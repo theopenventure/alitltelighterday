@@ -55,10 +55,10 @@
 }
 
 /* ── Variant gradient backgrounds ── */
-.content-sheet--warm  { background: linear-gradient(180deg, #FFF5F2, #F4E4E4); }
-.content-sheet--gray  { background: linear-gradient(180deg, #F0F5FA, #E0ECF5); }
-.content-sheet--beige { background: linear-gradient(180deg, #FFFCF5, #F5F0E6); }
-.content-sheet--sage  { background: linear-gradient(180deg, #F0F7F0, #E0F2E0); }
+.content-sheet--warm  { background: linear-gradient(180deg, #F5F5F5 0%, #F5F5F5 52%, #FDF3F0 95%); }
+.content-sheet--gray  { background: linear-gradient(180deg, #F5F5F5 0%, #F5F5F5 52%, #EDF4FA 95%); }
+.content-sheet--beige { background: linear-gradient(180deg, #F5F5F5 0%, #F5F5F5 55%, #FCF8F0 100%); }
+.content-sheet--sage  { background: linear-gradient(180deg, #F5F5F5 0%, #F5F5F5 37.5%, #EFF3EE 90%); }
 
 /* ── Sticky header — top-right close with gradient protection ── */
 .content-header {
@@ -288,7 +288,7 @@
 }
 
 .content-error-emoji {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--variant-text, var(--text-secondary));
   opacity: 0.4;

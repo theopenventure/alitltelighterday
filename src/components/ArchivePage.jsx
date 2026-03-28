@@ -7,10 +7,10 @@ import './ArchivePage.css'
 // ── Variant color maps ──
 
 const VARIANT_BG = {
-  warm: '#FFF5F2',
-  gray: '#F0F5FA',
-  beige: '#FFFCF5',
-  sage: '#ECF6EB',
+  warm:  'linear-gradient(180deg, #F5F5F5 0%, #F5F5F5 52%, #FDF3F0 95%)',
+  gray:  'linear-gradient(180deg, #F5F5F5 0%, #F5F5F5 52%, #EDF4FA 95%)',
+  beige: 'linear-gradient(180deg, #F5F5F5 0%, #F5F5F5 55%, #FCF8F0 100%)',
+  sage:  'linear-gradient(180deg, #F5F5F5 0%, #F5F5F5 37.5%, #EFF3EE 90%)',
 }
 
 const VARIANT_TEXT = {
@@ -116,13 +116,13 @@ function DayGroup({ dateKey, items, groupIndex, onOpenItem, removingItemId }) {
   )
 }
 
-// ── Sheet background colors (matching BoostCard.css gradient starts) ──
+// ── Sheet gradient backgrounds (matching BoostCard.css) ──
 
-const SHEET_BG = {
-  warm: '#FFF5F2',
-  gray: '#F0F5FA',
-  beige: '#FFFCF5',
-  sage: '#F0F7F0',
+const SHEET_GRADIENTS = {
+  warm:  'linear-gradient(180deg, #F5F5F5 0%, #F5F5F5 52%, #FDF3F0 95%)',
+  gray:  'linear-gradient(180deg, #F5F5F5 0%, #F5F5F5 52%, #EDF4FA 95%)',
+  beige: 'linear-gradient(180deg, #F5F5F5 0%, #F5F5F5 55%, #FCF8F0 100%)',
+  sage:  'linear-gradient(180deg, #F5F5F5 0%, #F5F5F5 37.5%, #EFF3EE 90%)',
 }
 
 // ── Archive Detail Overlay ──
@@ -230,7 +230,7 @@ export function ArchiveDetail({ item, sourceRect, onClose, onUnsave, onUndoUnsav
   if (!item) return null
 
   const variant = item.variant || 'sage'
-  const sheetBg = SHEET_BG[variant] || SHEET_BG.sage
+  const sheetGradient = SHEET_GRADIENTS[variant] || SHEET_GRADIENTS.sage
   const variantText = VARIANT_TEXT[variant] || VARIANT_TEXT.sage
 
   // Expansion layer: animates from source square → fullscreen
@@ -240,13 +240,13 @@ export function ArchiveDetail({ item, sourceRect, onClose, onUnsave, onUndoUnsav
     expansionStyle = {
       top: rect.top, left: rect.left,
       width: rect.width, height: rect.height,
-      borderRadius: 10, background: sheetBg
+      borderRadius: 10, background: sheetGradient
     }
   } else {
     expansionStyle = {
       top: 0, left: 0,
       width: '100%', height: '100%',
-      borderRadius: 0, background: sheetBg
+      borderRadius: 0, background: sheetGradient
     }
   }
 
@@ -257,7 +257,7 @@ export function ArchiveDetail({ item, sourceRect, onClose, onUnsave, onUndoUnsav
 
       <div
         className={`archive-detail-sheet content-sheet--${variant} ${contentVisible ? 'archive-detail-sheet--visible' : ''}`}
-        style={{ '--sheet-bg': sheetBg, '--variant-text': variantText }}
+        style={{ '--sheet-bg': '#F5F5F5', '--variant-text': variantText }}
       >
         {/* Sticky header */}
         <div className="content-header">

@@ -43,7 +43,7 @@
 
 .archive-hero-headline {
   font-family: var(--font-serif);
-  font-size: 54px;
+  font-size: 35px;
   font-weight: 400;
   line-height: 1.0;
   letter-spacing: -0.02em;
@@ -296,9 +296,9 @@
 }
 
 /* ── Variant gradient backgrounds (same as ContentOverlay) ── */
-.archive-detail-sheet.content-sheet--warm  { background: linear-gradient(180deg, #FFF5F2, #F4E4E4); }
-.archive-detail-sheet.content-sheet--gray  { background: linear-gradient(180deg, #F0F5FA, #E0ECF5); }
-.archive-detail-sheet.content-sheet--beige { background: linear-gradient(180deg, #FFFCF5, #F5F0E6); }
-.archive-detail-sheet.content-sheet--sage  { background: linear-gradient(180deg, #F0F7F0, #E0F2E0); }
+.archive-detail-sheet.content-sheet--warm  { background: linear-gradient(180deg, #F5F5F5 0%, #F5F5F5 52%, #FDF3F0 95%); }
+.archive-detail-sheet.content-sheet--gray  { background: linear-gradient(180deg, #F5F5F5 0%, #F5F5F5 52%, #EDF4FA 95%); }
+.archive-detail-sheet.content-sheet--beige { background: linear-gradient(180deg, #F5F5F5 0%, #F5F5F5 55%, #FCF8F0 100%); }
+.archive-detail-sheet.content-sheet--sage  { background: linear-gradient(180deg, #F5F5F5 0%, #F5F5F5 37.5%, #EFF3EE 90%); }
 
 /* Prompt and title reuse .content-prompt and .content-title from ContentOverlay.css */
