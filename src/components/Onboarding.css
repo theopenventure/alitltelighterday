@@ -228,11 +228,11 @@
 /* ── Step illustrations ── */
 .onboarding__step-image {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center center;
+  height: auto;
   opacity: 0;
   pointer-events: none;
   transition: opacity 1.0s var(--ease-soft);
@@ -372,7 +372,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 6px;
   height: 60px;
 }
 
