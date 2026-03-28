@@ -372,10 +372,6 @@ export default function ArchivePage({ savedBoosts, onScrollProgress, onOpenItem,
 
   return (
     <div className="archive-page">
-      <div ref={atmosphereRef} className="archive-atmosphere" aria-hidden="true">
-        <div className="archive-blob archive-blob--moss" />
-        <div className="archive-blob archive-blob--peach" />
-      </div>
 
       {isEmpty && (
         <div ref={heroRef} className="archive-hero">

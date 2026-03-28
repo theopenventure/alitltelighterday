@@ -60,42 +60,6 @@
   text-wrap: balance;
 }
 
-/* ── Gradient atmosphere (same blobs as HeroScreen) ── */
-.archive-atmosphere {
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(180deg, #F0F7F2 0%, #FFFFFF 100%);
-  pointer-events: none;
-  z-index: 0;
-  will-change: opacity;
-  /* opacity controlled by JS scroll handler, starts at 0.4 */
-}
-
-.archive-blob {
-  position: absolute;
-  border-radius: 50%;
-  opacity: 0.85;
-  animation: blobBreathe 8s infinite alternate ease-in-out;
-}
-
-.archive-blob--moss {
-  width: 300px;
-  height: 300px;
-  background: linear-gradient(180deg, #FE8D7B, #FD7861);
-  top: -50px;
-  left: -50px;
-  filter: blur(60px);
-}
-
-.archive-blob--peach {
-  width: 250px;
-  height: 400px;
-  background: linear-gradient(180deg, #C384E3, #FD639D);
-  top: 20%;
-  right: -80px;
-  filter: blur(80px);
-  animation-delay: -2s;
-}
 
 /* ── Content layer ── */
 .archive-content {

@@ -32,7 +32,6 @@ const BoostCard = forwardRef(function BoostCard({
       aria-label={`Explore ${label} boost: ${title}`}
       style={{ animationDelay: animDelay }}
     >
-      {variant === 'warm' && <div className="card-aura" aria-hidden="true" />}
       <div className="card-pill">{label}</div>
       <h2 className="card-headline">{shortTitle}</h2>
       <p className="card-prompt">{title}</p>

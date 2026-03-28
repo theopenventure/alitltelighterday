@@ -130,13 +130,8 @@ function App() {
     return () => container.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Archive scroll handler — controls header from archive page scroll progress
-  const handleArchiveScrollProgress = useCallback((progress) => {
-    const headerEl = headerRef.current
-    if (!headerEl || activeView !== 'archive') return
-    const headerProgress = Math.max(0, (progress - 0.7) / 0.3)
-    headerEl.style.opacity = headerProgress
-    if (navRef.current) navRef.current.style.opacity = headerProgress
+  // Archive scroll handler — header always visible on archive page
+  const handleArchiveScrollProgress = useCallback(() => {
   }, [activeView])
 
   // Archive view scroll listener (mirrors the homepage hero parallax)
@@ -340,9 +335,9 @@ function App() {
       homeScrollRef.current = todayViewRef.current?.scrollTop || 0
       setSavedBoosts(getSavedBoostsByDay())
 
-      // Header + nav always start hidden — scroll will reveal them
-      if (headerEl) headerEl.style.opacity = 0
-      if (navRef.current) navRef.current.style.opacity = 0
+      // Header + nav always visible on archive
+      if (headerEl) headerEl.style.opacity = 1
+      if (navRef.current) navRef.current.style.opacity = 1
 
       setActiveView('archive')
 
@@ -397,7 +392,7 @@ function App() {
       <div className={landingClass}>
         <Header
           ref={headerRef}
-          label={activeView === 'archive' ? 'Collections' : 'Today'}
+          label={activeView === 'archive' ? 'Collections' : 'Here and now'}
         />
 
         {/* Today view */}
@@ -435,6 +430,7 @@ function App() {
         <div
           ref={archiveViewRef}
           className={`view-layer ${activeView === 'archive' ? 'view-active' : 'view-exit-right'}`}
+          style={{ backgroundColor: '#fff' }}
         >
           <ArchivePage savedBoosts={savedBoosts} onScrollProgress={handleArchiveScrollProgress} onOpenItem={(item, rect) => { setArchiveSourceRect(rect); setActiveArchiveItem(item) }} removingItemId={removingItemId} />
         </div>
