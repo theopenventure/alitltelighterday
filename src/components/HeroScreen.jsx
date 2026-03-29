@@ -3,7 +3,7 @@ import './HeroScreen.css'
 export default function HeroScreen({ heroRef, headline, subhead, revealStage = 4 }) {
   return (
     <div ref={heroRef} className="hero-screen">
-      <div className={`hero-blobs${revealStage >= 0 ? ' hero-blobs--visible' : ''}`} aria-hidden="true">
+      <div className={`hero-blobs${revealStage >= 3 ? ' hero-blobs--visible' : ''}`} aria-hidden="true">
         <div className="hero-blob hero-blob--coral" />
         <div className="hero-blob hero-blob--violet" />
       </div>

@@ -30,17 +30,19 @@ function App() {
 
   // Onboarding (always show for testing)
   const [showOnboarding, setShowOnboarding] = useState(true)
-  const [revealStage, setRevealStage] = useState(-1) // -1=hidden, 0=bg+blobs, 1=headline, 2=subhead, 3=illustration, 4=cards
+  const [revealStage, setRevealStage] = useState(-1) // -1=hidden, 0=bg, 1=headline, 2=subhead, 3=illustration+blobs, 4=cards
 
   // Staged reveal — each element enters individually as onboarding dissolves,
-  // creating a choreographed sequence instead of a monolithic crossfade
+  // creating a choreographed sequence instead of a monolithic crossfade.
+  // Blobs are delayed to stage 3 so they don't bleed through the
+  // semi-transparent onboarding during the crossfade overlap.
   const handleStartReveal = useCallback(() => {
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        setRevealStage(0)                              // background + blobs
+        setRevealStage(0)                              // background
         setTimeout(() => setRevealStage(1), 200)       // headline
         setTimeout(() => setRevealStage(2), 500)       // subhead
-        setTimeout(() => setRevealStage(3), 900)       // illustration
+        setTimeout(() => setRevealStage(3), 900)       // illustration + blobs
         setTimeout(() => setRevealStage(4), 1400)      // cards
       })
     })
