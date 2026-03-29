@@ -237,7 +237,7 @@ export default function Onboarding({ onComplete, onStartReveal }) {
   return (
     <div className={`onboarding${exiting ? ' onboarding--exiting' : ''}`}>
       {/* Atmosphere background — hidden during logo, fades in with text */}
-      <div className={`onboarding__atmosphere${atmosphereVisible ? ' onboarding__atmosphere--visible' : ''}`} aria-hidden="true">
+      <div className={`onboarding__atmosphere${atmosphereVisible ? ' onboarding__atmosphere--visible' : ''}${exitPhase >= 1 ? ' onboarding__atmosphere--exiting' : ''}`} aria-hidden="true">
         <div className="onboarding__blob onboarding__blob--moss" />
         <div className="onboarding__blob onboarding__blob--peach" />
       </div>
