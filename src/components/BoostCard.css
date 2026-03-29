@@ -44,6 +44,13 @@
   }
 }
 
+/* Cards wait for reveal stage before animating — stays invisible
+   until the staged entrance reaches stage 4 */
+.boost-card--pending {
+  animation-play-state: paused;
+  opacity: 0;
+}
+
 /* ── Gradient variants ── */
 .boost-card--warm {
   background: linear-gradient(180deg, #F5F5F5 0%, #F5F5F5 52%, #FDF3F0 95%);

@@ -30,13 +30,19 @@ function App() {
 
   // Onboarding (always show for testing)
   const [showOnboarding, setShowOnboarding] = useState(true)
-  const [appRevealed, setAppRevealed] = useState(false)
+  const [revealStage, setRevealStage] = useState(-1) // -1=hidden, 0=bg+blobs, 1=headline, 2=subhead, 3=illustration, 4=cards
 
-  // Start app entrance while onboarding is still dissolving — creates
-  // a crossfade where the app rises underneath the thinning onboarding
+  // Staged reveal — each element enters individually as onboarding dissolves,
+  // creating a choreographed sequence instead of a monolithic crossfade
   const handleStartReveal = useCallback(() => {
     requestAnimationFrame(() => {
-      requestAnimationFrame(() => setAppRevealed(true))
+      requestAnimationFrame(() => {
+        setRevealStage(0)                              // background + blobs
+        setTimeout(() => setRevealStage(1), 200)       // headline
+        setTimeout(() => setRevealStage(2), 500)       // subhead
+        setTimeout(() => setRevealStage(3), 900)       // illustration
+        setTimeout(() => setRevealStage(4), 1400)      // cards
+      })
     })
   }, [])
 
@@ -377,9 +383,8 @@ function App() {
 
   const navTab = activeView === 'archive' ? 'archived' : 'home'
 
-  // Landing entrance class — can start revealing while onboarding
-  // is still dissolving on top, creating a crossfade
-  const landingClass = appRevealed
+  // Landing entrance class — staged reveal replaces monolithic crossfade
+  const landingClass = revealStage >= 0
     ? 'app-landing app-landing--visible'
     : 'app-landing app-landing--hidden'
 
@@ -400,7 +405,7 @@ function App() {
           ref={todayViewRef}
           className={`view-layer ${activeView === 'home' ? 'view-active' : 'view-exit-left'}`}
         >
-          <HeroScreen heroRef={heroRef} atmosphereRef={heroAtmosphereRef} headline={heroCopy.headline} subhead={heroCopy.subhead} />
+          <HeroScreen heroRef={heroRef} atmosphereRef={heroAtmosphereRef} headline={heroCopy.headline} subhead={heroCopy.subhead} revealStage={revealStage} />
 
           <div className="feed">
             {CATEGORIES.map((key) => {
@@ -417,7 +422,8 @@ function App() {
                   onClick={() => handleOpenBoost(key)}
                   expanding={expandingCard === key}
                   returning={returningCard === key}
-                  animDelay={`${0.1 + CATEGORIES.indexOf(key) * 0.1}s`}
+                  animDelay={`${CATEGORIES.indexOf(key) * 0.15}s`}
+                  revealed={revealStage >= 4}
                 />
               )
             })}

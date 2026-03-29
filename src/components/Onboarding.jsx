@@ -161,20 +161,21 @@ export default function Onboarding({ onComplete, onStartReveal }) {
         setExitPhase(1) // headline lifts, body fades, panel lifts
       }, 600)
 
-      // Start revealing app underneath while content is dissolving
+      // Start revealing app underneath earlier for smoother overlap —
+      // the staged entrance begins while onboarding content is still dissolving
       setTimeout(() => {
         onStartReveal?.()
-      }, 1200)
+      }, 1000)
 
       // Onboarding container dissolves to transparent (1.2s CSS)
-      // revealing the app rising beneath — a crossfade
+      // revealing the staged app entrance beneath
       setTimeout(() => {
         setExiting(true)
         setExitPhase(2)
-      }, 1400)
+      }, 1200)
 
       // Unmount after fully dissolved
-      setTimeout(() => onComplete(), 2800)
+      setTimeout(() => onComplete(), 2400)
     }
   }, [activeStep, isTransitioning, onComplete, onStartReveal])
 

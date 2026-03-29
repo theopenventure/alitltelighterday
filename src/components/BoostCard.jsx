@@ -10,7 +10,8 @@ const BoostCard = forwardRef(function BoostCard({
   onClick,
   expanding,
   returning,
-  animDelay = '0.1s'
+  animDelay = '0s',
+  revealed = true
 }, ref) {
   const isInteractive = !returning && onClick
 
@@ -24,7 +25,7 @@ const BoostCard = forwardRef(function BoostCard({
   return (
     <div
       ref={ref}
-      className={`card boost-card boost-card--${variant} ${expanding ? 'expanding' : ''} ${returning ? 'returning' : ''}`}
+      className={`card boost-card boost-card--${variant} ${!revealed ? 'boost-card--pending' : ''} ${expanding ? 'expanding' : ''} ${returning ? 'returning' : ''}`}
       onClick={isInteractive ? onClick : undefined}
       onKeyDown={handleKeyDown}
       role="button"

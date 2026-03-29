@@ -20,22 +20,21 @@
 }
 
 /* ── Landing entrance (after onboarding) ── */
+/* Individual elements handle their own entrance animations via revealStage.
+   The container only fades in the background — no transform on the whole block. */
 .app-landing {
   width: 100%;
   height: 100%;
   position: relative;
-  will-change: opacity, transform;
 }
 
 .app-landing--hidden {
   opacity: 0;
-  transform: translateY(16px) scale(0.98);
 }
 
 .app-landing--visible {
   opacity: 1;
-  transform: translateY(0) scale(1);
-  transition: opacity 1.0s var(--ease-soft), transform 1.2s var(--ease-soft);
+  transition: opacity 0.8s var(--ease-soft);
 }
 
 /* ── View transition layers ── */

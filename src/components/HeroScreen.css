@@ -22,11 +22,19 @@
 }
 
 /* ── Gradient blobs ── */
+/* Blobs start invisible and fade in as the first reveal stage —
+   ambient warmth arrives before any content, like the room lighting up */
 .hero-blobs {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 0;
+  opacity: 0;
+  transition: opacity 1.4s var(--ease-soft);
+}
+
+.hero-blobs--visible {
+  opacity: 1;
 }
 
 .hero-blob {
@@ -76,7 +84,9 @@
   100% { transform: rotate(45deg) translate(0, 0) scale(1); }
 }
 
-/* ── Hero image placeholder ── */
+/* ── Hero image ── */
+/* Illustration fades in gently (no translation) to avoid competing
+   with the headline's upward motion */
 .hero-image {
   position: absolute;
   bottom: 0;
@@ -87,6 +97,12 @@
   z-index: 1;
   pointer-events: none;
   overflow: hidden;
+  opacity: 0;
+  transition: opacity 1.0s var(--ease-soft);
+}
+
+.hero-image--visible {
+  opacity: 1;
 }
 
 @supports (height: 100dvh) {
@@ -117,6 +133,8 @@
   padding-top: 121px;
 }
 
+/* Headline entrance — rises into place as the hero's focal point,
+   mirroring the onboarding headline that just lifted away */
 .hero-headline {
   font-family: var(--font-serif);
   font-size: 35px;
@@ -125,8 +143,17 @@
   letter-spacing: 0;
   color: #000;
   max-width: 311px;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s var(--ease-soft), transform 0.9s var(--ease-soft);
 }
 
+.hero-headline--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Subhead entrance — softer, shorter rise after headline lands */
 .hero-subhead {
   font-family: var(--font-sans);
   font-size: 15px;
@@ -135,4 +162,12 @@
   color: #000;
   max-width: 300px;
   text-wrap: balance;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.8s var(--ease-soft), transform 0.8s var(--ease-soft);
+}
+
+.hero-subhead--visible {
+  opacity: 1;
+  transform: translateY(0);
 }
