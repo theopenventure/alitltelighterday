@@ -2,7 +2,7 @@
 .hero-screen {
   position: sticky;
   top: 0;
-  height: 85vh;
+  height: 90vh;
   width: 100%;
   overflow: visible;
   z-index: 1;
@@ -17,7 +17,7 @@
 
 @supports (height: 100dvh) {
   .hero-screen {
-    height: 85dvh;
+    height: 90dvh;
   }
 }
 
