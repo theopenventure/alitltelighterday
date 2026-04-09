@@ -34,7 +34,8 @@
 
 .app-landing--visible {
   opacity: 1;
-  transition: opacity 0.8s var(--ease-soft);
+  /* First reveal after onboarding — shortened from 0.8s, curve bumped to strong ease-out */
+  transition: opacity 600ms var(--ease-out-strong);
 }
 
 /* ── View transition layers ── */
@@ -49,8 +50,8 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
   transition:
-    opacity 0.45s var(--ease-soft),
-    transform 0.45s var(--ease-soft);
+    opacity 280ms var(--ease-out-strong),
+    transform 280ms var(--ease-out-strong);
   will-change: opacity, transform;
 }
 

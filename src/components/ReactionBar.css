@@ -5,8 +5,8 @@
   display: flex;
   justify-content: center;
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.34, 1.4, 0.64, 1);
+  transform: translateY(12px);
+  transition: opacity 280ms var(--ease-out-strong), transform 300ms var(--ease-out-strong);
   pointer-events: none;
 }
 
@@ -34,8 +34,8 @@
   color: var(--variant-text, var(--text-primary));
   cursor: pointer;
   transition:
-    transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
-    opacity 0.35s ease;
+    transform 260ms var(--ease-out-strong),
+    opacity 260ms var(--ease-out-strong);
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -45,19 +45,19 @@
 }
 
 .reaction-circle:active {
-  transform: scale(0.88);
-  transition: transform 0.1s ease-out;
+  transform: scale(0.95);
+  transition: transform 100ms ease-out;
 }
 
 .reaction-circle.chosen {
-  transform: scale(1.08);
-  animation: circlePopIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: scale(1.06);
+  animation: circlePopIn 320ms var(--ease-out-strong);
 }
 
 @keyframes circlePopIn {
-  0% { transform: scale(0.88); }
-  50% { transform: scale(1.14); }
-  100% { transform: scale(1.08); }
+  0% { transform: scale(0.96); }
+  55% { transform: scale(1.09); }
+  100% { transform: scale(1.06); }
 }
 
 .reaction-circle.faded {
@@ -84,10 +84,10 @@
 
   /* Enter animation */
   opacity: 0;
-  transform: translateY(12px) scale(0.97);
+  transform: translateY(10px) scale(0.98);
   transition:
-    opacity 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
-    transform 0.45s cubic-bezier(0.34, 1.4, 0.64, 1);
+    opacity 260ms var(--ease-out-strong),
+    transform 300ms var(--ease-out-strong);
 }
 
 .reaction-toast.visible {

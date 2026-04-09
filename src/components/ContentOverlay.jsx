@@ -166,9 +166,10 @@ export default function ContentOverlay({
     // Brief pause to let thinking dissolve, then show title
     const titleTimer = setTimeout(() => {
       setPhase('ready')
-    }, 300)
+    }, 150)
 
-    // Then stream segments
+    // Then stream segments — short interval so the user isn't waiting
+    // on an artificial typewriter. 90ms stagger is still a visible cascade.
     const streamTimer = setTimeout(() => {
       setPhase('streaming')
       const total = flatSegments.length
@@ -178,10 +179,10 @@ export default function ContentOverlay({
         setVisibleSegments(count)
         if (count >= total) {
           clearInterval(intervalRef.current)
-          setTimeout(() => setReactionBarVisible(true), 500)
+          setTimeout(() => setReactionBarVisible(true), 260)
         }
-      }, 400)
-    }, 800)
+      }, 90)
+    }, 340)
 
     return () => {
       clearTimeout(titleTimer)
@@ -304,8 +305,8 @@ export default function ContentOverlay({
                   className="seg-wrapper"
                   style={{
                     opacity: i < visibleSegments ? 1 : 0,
-                    transform: i < visibleSegments ? 'translateY(0)' : 'translateY(14px)',
-                    transition: `opacity 0.5s ease, transform 0.6s cubic-bezier(0.34, 1.3, 0.64, 1)`
+                    transform: i < visibleSegments ? 'translateY(0)' : 'translateY(8px)',
+                    transition: 'opacity 260ms cubic-bezier(0.23, 1, 0.32, 1), transform 280ms cubic-bezier(0.23, 1, 0.32, 1)'
                   }}
                 >
                   {renderSegment(seg, i, firstTextIdx)}

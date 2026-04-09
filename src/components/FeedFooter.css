@@ -6,7 +6,9 @@
   font-weight: 500;
   color: #888;
   opacity: 0.5;
-  transition: all 0.6s var(--ease-soft);
+  transition:
+    opacity 300ms var(--ease-out-strong),
+    padding 300ms var(--ease-out-strong);
   text-wrap: balance;
 }
 
