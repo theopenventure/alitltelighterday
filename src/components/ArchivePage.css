@@ -79,6 +79,13 @@
     opacity 0.6s var(--ease-soft),
     transform 0.7s var(--ease-soft);
   transition-delay: calc(var(--group-index, 0) * 0.08s);
+
+  /* Skip rendering day-groups that are off-screen. `contain-intrinsic-size`
+     reserves enough layout space so scrollbars don't jump, and the browser
+     will only paint groups when they enter the viewport. Major perf win
+     once the archive has many days of saved boosts. */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 240px;
 }
 
 .archive-group--visible {

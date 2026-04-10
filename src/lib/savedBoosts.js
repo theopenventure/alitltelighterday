@@ -1,17 +1,33 @@
 const STORAGE_KEY = 'alld-saved-boosts'
+const SCHEMA_VERSION = 1
 
 // ── Read / Write ──
+//
+// Stored shape: { version: 1, boosts: [...] }
+// Legacy shape: [...]  (a bare array) — migrated transparently on first read.
+// Keeping a version key means any future schema change can migrate cleanly
+// instead of relying on field-shape sniffing like the old re-seed logic did.
 
 function readAll() {
   try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (!raw) return []
+    const parsed = JSON.parse(raw)
+    // Legacy: bare array → treat as v0 and migrate on next write
+    if (Array.isArray(parsed)) return parsed
+    // Current: versioned envelope
+    if (parsed && Array.isArray(parsed.boosts)) return parsed.boosts
+    return []
   } catch {
     return []
   }
 }
 
 function writeAll(boosts) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(boosts))
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify({ version: SCHEMA_VERSION, boosts })
+  )
 }
 
 // ── Public API ──
@@ -26,7 +42,10 @@ export function saveBoost({ title, shortTitle, category, variant, prompt, segmen
   if (exists) return getSavedBoostsByDay()
 
   all.push({
-    id: crypto.randomUUID?.() || String(Date.now()),
+    // crypto.randomUUID is available in every modern mobile browser (Safari 15.4+,
+    // Chrome 92+, Firefox 95+). No fallback needed — the old Date.now() fallback
+    // could collide on rapid saves.
+    id: crypto.randomUUID(),
     title,
     shortTitle,
     category,

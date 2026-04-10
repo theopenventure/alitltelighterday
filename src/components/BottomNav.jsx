@@ -5,11 +5,14 @@ const TABS = [
   {
     id: 'home',
     label: 'Home',
+    // Rescaled from 34.65 → 24 grid and rounded to 1-decimal precision.
+    // All coordinates were exact multiples of 1.44375; the old values were
+    // just bytes of noise from the original SVG export.
     icon: () => (
-      <svg viewBox="0 0 34.65 34.65" fill="none" stroke="currentColor" strokeWidth="2.8875" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M21.6563 20.2125H12.9938" />
-        <path d="M21.6563 14.4375H12.9938" />
-        <path d="M30.3188 10.1063V24.5438C30.3188 27.72 27.72 30.3188 24.5438 30.3188H10.1063C6.93 30.3188 4.3313 27.72 4.3313 24.5438V10.1063C4.3313 6.93 6.93 4.3313 10.1063 4.3313H24.5438C27.72 4.3313 30.3188 6.93 30.3188 10.1063Z" />
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M15 14H9" />
+        <path d="M15 10H9" />
+        <path d="M21 7v10c0 2.2-1.8 4-4 4H7c-2.2 0-4-1.8-4-4V7c0-2.2 1.8-4 4-4h10c2.2 0 4 1.8 4 4Z" />
       </svg>
     ),
   },
@@ -17,15 +20,22 @@ const TABS = [
     id: 'archived',
     label: 'Collections',
     icon: () => (
-      <svg viewBox="0 0 34.65 34.65" fill="none" stroke="currentColor" strokeWidth="2.8875" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path fillRule="evenodd" clipRule="evenodd" d="M21.6563 4.33125C24.8325 4.33125 27.4313 6.93 27.4313 10.1063V28.7307C27.4313 30.1744 25.8432 30.8963 24.8325 29.7413L17.325 21.6563L9.8175 29.7413C8.8069 30.8963 7.2188 30.1744 7.2188 28.7307V10.1063C7.2188 6.93 9.8175 4.33125 12.9938 4.33125H21.6563Z" />
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path fillRule="evenodd" clipRule="evenodd" d="M15 3c2.2 0 4 1.8 4 4v12.9c0 1-1.1 1.5-1.8.8L12 15l-5.2 5.7c-.7.7-1.8.2-1.8-.8V7c0-2.2 1.8-4 4-4h6Z" />
       </svg>
     ),
   },
 ]
 
-const BottomNav = forwardRef(function BottomNav({ activeTab = 'home', onTabChange }, ref) {
+const BottomNav = forwardRef(function BottomNav({ activeTab = 'home', onTabChange, onPreloadTab }, ref) {
   const activeIndex = TABS.findIndex((t) => t.id === activeTab)
+
+  // Fire preload on pointer-enter or keyboard focus — the user is signalling
+  // intent, so we can warm the lazy chunk before they actually click.
+  const handlePreload = (tabId) => {
+    if (tabId === activeTab) return  // Already mounted, nothing to preload
+    onPreloadTab?.(tabId)
+  }
 
   return (
     <nav className="nav-bar" ref={ref} aria-label="Main navigation">
@@ -39,6 +49,8 @@ const BottomNav = forwardRef(function BottomNav({ activeTab = 'home', onTabChang
               aria-label={tab.label}
               aria-current={isActive ? 'page' : undefined}
               onClick={() => onTabChange?.(tab.id)}
+              onPointerEnter={() => handlePreload(tab.id)}
+              onFocus={() => handlePreload(tab.id)}
             >
               {tab.icon()}
             </button>

@@ -1,14 +1,32 @@
-import { useState, useCallback, useRef, useEffect } from 'react'
+import { useState, useCallback, useRef, useEffect, lazy, Suspense } from 'react'
 import './App.css'
 import Header from './components/Header'
 import BottomNav from './components/BottomNav'
 import BoostCard from './components/BoostCard'
 import FeedFooter from './components/FeedFooter'
-import ContentOverlay from './components/ContentOverlay'
 import HeroScreen from './components/HeroScreen'
-import Onboarding from './components/Onboarding'
-import ArchivePage, { ArchiveDetail } from './components/ArchivePage'
+import ErrorBoundary from './components/ErrorBoundary'
 import { getDailyBoosts, getRandomBoosts, getCategoryOrder } from './data/boostPromptPool'
+
+// Code-split the heavy slots: onboarding only runs once, the content overlay
+// only appears when the user opens a card, and the whole archive view is only
+// needed when they switch tabs. Keeping these off the initial bundle buys us
+// a faster first paint on the feed, which is the screen that matters.
+const Onboarding = lazy(() => import('./components/Onboarding'))
+const ContentOverlay = lazy(() => import('./components/ContentOverlay'))
+const ArchivePage = lazy(() => import('./components/ArchivePage'))
+const ArchiveDetail = lazy(() =>
+  import('./components/ArchivePage').then((m) => ({ default: m.ArchiveDetail }))
+)
+
+// Preload the archive chunk on hover/focus of the Collections tab. The module
+// system caches the import result, so when the user actually clicks the tab
+// the chunk is already parsed and React.lazy resolves instantly. This is a
+// lightweight alternative to prefetching via <link rel="prefetch"> — it only
+// runs when the user signals intent (hover or keyboard focus).
+const preloadArchive = () => {
+  import('./components/ArchivePage')
+}
 import { getDailyHeroCopy, getRandomHeroCopy } from './data/heroCopyPool'
 import { generateBoost } from './api/generateBoost'
 import { saveBoost, removeBoost, getSavedBoostsByDay, seedPlaceholderData } from './lib/savedBoosts'
@@ -58,6 +76,9 @@ function App() {
   const [savedBoosts, setSavedBoosts] = useState(() => getSavedBoostsByDay())
   const [activeArchiveItem, setActiveArchiveItem] = useState(null)
   const [archiveSourceRect, setArchiveSourceRect] = useState(null)
+  // Gate the archive chunk on first visit so its JS + data pool stay off the
+  // initial bundle. Once mounted we never unmount, so tab switches feel instant.
+  const [archiveMounted, setArchiveMounted] = useState(false)
 
   // Unsave flow
   const [undoItem, setUndoItem] = useState(null)
@@ -68,13 +89,16 @@ function App() {
   const todayViewRef = useRef(null)
   const archiveViewRef = useRef(null)
   const heroRef = useRef(null)
-  const heroAtmosphereRef = useRef(null)
   const headerRef = useRef(null)
   const navRef = useRef(null)
   const homeScrollRef = useRef(0)
   const archiveScrollRef = useRef(0)
   const contentCacheRef = useRef({})  // category → generated content (persists across opens)
   const savedCategoriesRef = useRef({})  // category → true if user saved this boost
+  // ArchivePage publishes its scroll handler into this ref so we can drive
+  // its parallax/header fade from the view-layer scroll listener without
+  // doing a DOM query + mutation dance.
+  const archiveScrollHandlerRef = useRef(null)
 
   // Card refs for measuring position
   const liftRef = useRef(null)
@@ -142,18 +166,15 @@ function App() {
   const handleArchiveScrollProgress = useCallback(() => {
   }, [activeView])
 
-  // Archive view scroll listener (mirrors the homepage hero parallax)
+  // Archive view scroll listener (mirrors the homepage hero parallax).
+  // ArchivePage stashes its scroll handler in archiveScrollHandlerRef so we
+  // can call it directly — no DOM query, no magic property on the page div.
   useEffect(() => {
     const container = archiveViewRef.current
     if (!container) return
 
     const onScroll = () => {
-      const scrollTop = container.scrollTop
-      // Delegate to ArchivePage's internal scroll handler via DOM
-      const archivePage = container.querySelector('.archive-page')
-      if (archivePage && archivePage.__archiveScroll) {
-        archivePage.__archiveScroll(scrollTop)
-      }
+      archiveScrollHandlerRef.current?.(container.scrollTop)
     }
 
     container.addEventListener('scroll', onScroll, { passive: true })
@@ -347,6 +368,7 @@ function App() {
       if (headerEl) headerEl.style.opacity = 1
       if (navRef.current) navRef.current.style.opacity = 1
 
+      setArchiveMounted(true)
       setActiveView('archive')
 
       // Reset archive scroll to top so it starts fresh
@@ -364,7 +386,8 @@ function App() {
         if (container) {
           container.scrollTo(0, homeScrollRef.current)
 
-          // Recalculate header + atmosphere opacity based on saved scroll position
+          // Recalculate header opacity based on saved scroll position so
+          // returning to Home matches the position the user left it in.
           const heroEl = heroRef.current
           if (heroEl && headerEl) {
             const heroHeight = heroEl.offsetHeight
@@ -372,11 +395,6 @@ function App() {
             const headerProgress = Math.max(0, (progress - 0.7) / 0.3)
             headerEl.style.opacity = headerProgress
             if (navRef.current) navRef.current.style.opacity = headerProgress
-
-            const atmosphereEl = heroAtmosphereRef.current
-            if (atmosphereEl) {
-              atmosphereEl.style.opacity = 0.4 * (1 - progress)
-            }
           }
         }
       })
@@ -393,7 +411,19 @@ function App() {
   return (
     <div className="app-container">
       {showOnboarding && (
-        <Onboarding onComplete={handleOnboardingComplete} onStartReveal={handleStartReveal} />
+        // If onboarding chunk fails to load or crashes, skip straight to the
+        // home reveal — don't block the app behind a broken intro.
+        <ErrorBoundary
+          fallback={null}
+          onError={() => {
+            handleStartReveal()
+            handleOnboardingComplete()
+          }}
+        >
+          <Suspense fallback={null}>
+            <Onboarding onComplete={handleOnboardingComplete} onStartReveal={handleStartReveal} />
+          </Suspense>
+        </ErrorBoundary>
       )}
 
       <div className={landingClass}>
@@ -407,7 +437,7 @@ function App() {
           ref={todayViewRef}
           className={`view-layer ${activeView === 'home' ? 'view-active' : 'view-exit-left'}`}
         >
-          <HeroScreen heroRef={heroRef} atmosphereRef={heroAtmosphereRef} headline={heroCopy.headline} subhead={heroCopy.subhead} revealStage={revealStage} />
+          <HeroScreen heroRef={heroRef} headline={heroCopy.headline} subhead={heroCopy.subhead} revealStage={revealStage} />
 
           <div className="feed">
             {CATEGORIES.map((key) => {
@@ -434,37 +464,65 @@ function App() {
           </div>
         </div>
 
-        {/* Archive view */}
+        {/* Archive view — only mount once user has visited it, so its chunk
+            loads on first tab switch rather than on initial page load. */}
         <div
           ref={archiveViewRef}
           className={`view-layer ${activeView === 'archive' ? 'view-active' : 'view-exit-right'}`}
           style={{ backgroundColor: '#fff' }}
         >
-          <ArchivePage savedBoosts={savedBoosts} onScrollProgress={handleArchiveScrollProgress} onOpenItem={(item, rect) => { setArchiveSourceRect(rect); setActiveArchiveItem(item) }} removingItemId={removingItemId} />
+          {archiveMounted && (
+            <ErrorBoundary>
+              <Suspense fallback={null}>
+                <ArchivePage savedBoosts={savedBoosts} onScrollProgress={handleArchiveScrollProgress} onOpenItem={(item, rect) => { setArchiveSourceRect(rect); setActiveArchiveItem(item) }} removingItemId={removingItemId} scrollHandlerRef={archiveScrollHandlerRef} />
+              </Suspense>
+            </ErrorBoundary>
+          )}
         </div>
 
-        <BottomNav ref={navRef} activeTab={navTab} onTabChange={handleTabChange} />
+        <BottomNav
+          ref={navRef}
+          activeTab={navTab}
+          onTabChange={handleTabChange}
+          onPreloadTab={(tabId) => { if (tabId === 'archived') preloadArchive() }}
+        />
       </div>
 
       {/* Overlays live outside the landing wrapper so CSS transforms
-          don't break their position:fixed expand animations */}
-      <ArchiveDetail item={activeArchiveItem} sourceRect={archiveSourceRect} onClose={handleArchiveDetailClosed} onUnsave={handleArchiveUnsave} onUndoUnsave={handleArchiveUndone} />
+          don't break their position:fixed expand animations. Both are lazy
+          — the chunks download the first time the user opens one and stay
+          cached for the rest of the session. */}
+      {activeArchiveItem && (
+        // If the detail chunk fails, silently dismiss the overlay so the
+        // user returns to the archive list instead of a stuck screen.
+        <ErrorBoundary fallback={null} onError={handleArchiveDetailClosed}>
+          <Suspense fallback={null}>
+            <ArchiveDetail item={activeArchiveItem} sourceRect={archiveSourceRect} onClose={handleArchiveDetailClosed} onUnsave={handleArchiveUnsave} onUndoUnsave={handleArchiveUndone} />
+          </Suspense>
+        </ErrorBoundary>
+      )}
 
       {activeBoost && (
-        <ContentOverlay
-          card={cards[activeBoost]}
-          content={boostContent}
-          loading={boostLoading}
-          error={boostError}
-          sourceRect={sourceRect}
-          isClosing={isOverlayClosing}
-          initialSaved={!!savedCategoriesRef.current[activeBoost]}
-          onClose={startClosing}
-          onExited={handleOverlayExited}
-          onReact={handleReact}
-          onSave={handleSave}
-          onUnsaveConfirmed={handleContentUnsaveConfirmed}
-        />
+        // Same pattern for the main content overlay — on error, run the
+        // normal exit handler so the card snaps back home.
+        <ErrorBoundary fallback={null} onError={handleOverlayExited}>
+          <Suspense fallback={null}>
+            <ContentOverlay
+              card={cards[activeBoost]}
+              content={boostContent}
+              loading={boostLoading}
+              error={boostError}
+              sourceRect={sourceRect}
+              isClosing={isOverlayClosing}
+              initialSaved={!!savedCategoriesRef.current[activeBoost]}
+              onClose={startClosing}
+              onExited={handleOverlayExited}
+              onReact={handleReact}
+              onSave={handleSave}
+              onUnsaveConfirmed={handleContentUnsaveConfirmed}
+            />
+          </Suspense>
+        </ErrorBoundary>
       )}
     </div>
   )

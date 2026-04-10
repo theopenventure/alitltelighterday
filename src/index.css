@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+/* Fonts (Manrope + Playfair Display) are loaded via <link> in index.html
+   so the browser can discover them immediately and avoid a render-blocking
+   CSS @import waterfall. */
 
 :root {
   --bg-body: #F5F5F5;

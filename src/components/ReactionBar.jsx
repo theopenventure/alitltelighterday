@@ -53,9 +53,8 @@ export default function ReactionBar({ visible, onReact }) {
           onClick={() => handleReact('up')}
           aria-label="Thumbs up"
         >
-          <svg viewBox="0 0 34.65 34.65" fill="none" stroke="currentColor" strokeWidth="2.8875" strokeLinejoin="round" aria-hidden="true" style={{ transform: 'scale(-1, -1)' }}>
-            <path fillRule="evenodd" clipRule="evenodd" d="M13.2862 21.6563L7.3906 21.6563C5.3803 21.6563 3.9061 19.425 4.4422 17.4563L7.5246 7.2188C8.0607 5.5125 9.6689 4.3313 11.4111 4.3313L21.4613 4.3313C23.2035 4.3313 24.5437 5.6438 24.5437 7.35V19.425C24.5437 20.6063 24.0077 21.7875 23.2035 22.7063L17.3068 29.2688C16.7707 29.925 15.8326 30.3188 14.8944 30.3188C12.6161 30.3188 11.0079 28.0875 11.678 26.1188L13.2862 21.6563Z" />
-            <rect x="30.3187" y="21.6563" width="0.00144375" height="17.325" rx="0.000721876" transform="rotate(-180 30.3187 21.6563)" />
+          <svg viewBox="0 0 34.65 34.65" fill="none" stroke="currentColor" strokeWidth="2.9" strokeLinejoin="round" aria-hidden="true" style={{ transform: 'scale(-1, -1)' }}>
+            <path fillRule="evenodd" clipRule="evenodd" d="M13.3 21.7 7.4 21.7C5.4 21.7 3.9 19.4 4.4 17.5L7.5 7.2C8.1 5.5 9.7 4.3 11.4 4.3L21.5 4.3C23.2 4.3 24.5 5.6 24.5 7.35V19.4C24.5 20.6 24 21.8 23.2 22.7L17.3 29.3C16.8 29.9 15.8 30.3 14.9 30.3C12.6 30.3 11 28.1 11.7 26.1L13.3 21.7Z" />
           </svg>
         </button>
         <button
@@ -63,9 +62,8 @@ export default function ReactionBar({ visible, onReact }) {
           onClick={() => handleReact('down')}
           aria-label="Thumbs down"
         >
-          <svg viewBox="0 0 34.65 34.65" fill="none" stroke="currentColor" strokeWidth="2.8875" strokeLinejoin="round" aria-hidden="true">
-            <path fillRule="evenodd" clipRule="evenodd" d="M13.2862 21.6563L7.3906 21.6563C5.3803 21.6563 3.9061 19.425 4.4422 17.4563L7.5246 7.2188C8.0607 5.5125 9.6689 4.3313 11.4111 4.3313L21.4613 4.3313C23.2035 4.3313 24.5437 5.6438 24.5437 7.35V19.425C24.5437 20.6063 24.0077 21.7875 23.2035 22.7063L17.3068 29.2688C16.7707 29.925 15.8326 30.3188 14.8944 30.3188C12.6161 30.3188 11.0079 28.0875 11.678 26.1188L13.2862 21.6563Z" />
-            <rect x="30.3187" y="21.6563" width="0.00144375" height="17.325" rx="0.000721876" transform="rotate(-180 30.3187 21.6563)" />
+          <svg viewBox="0 0 34.65 34.65" fill="none" stroke="currentColor" strokeWidth="2.9" strokeLinejoin="round" aria-hidden="true">
+            <path fillRule="evenodd" clipRule="evenodd" d="M13.3 21.7 7.4 21.7C5.4 21.7 3.9 19.4 4.4 17.5L7.5 7.2C8.1 5.5 9.7 4.3 11.4 4.3L21.5 4.3C23.2 4.3 24.5 5.6 24.5 7.35V19.4C24.5 20.6 24 21.8 23.2 22.7L17.3 29.3C16.8 29.9 15.8 30.3 14.9 30.3C12.6 30.3 11 28.1 11.7 26.1L13.3 21.7Z" />
           </svg>
         </button>
       </div>

@@ -29,17 +29,37 @@ export function findFirstTextIndex(flatSegments) {
   return flatSegments.findIndex((s) => s.type === 'text')
 }
 
-export function sanitizeText(html) {
-  if (!html) return ''
-  return html.replace(/<(?!\/?strong\b)[^>]*>/gi, '')
+// Parse a string containing <strong>...</strong> markers into an array of
+// React nodes. Anything outside of <strong> tags (including any other HTML
+// that might sneak in from an LLM response) is rendered as plain text, so
+// React's default string escaping keeps us safe from XSS — no innerHTML.
+const STRONG_REGEX = /<strong>([\s\S]*?)<\/strong>/g
+
+export function renderInlineStrong(text) {
+  if (!text) return null
+  const parts = []
+  let lastIndex = 0
+  let match
+  let key = 0
+  STRONG_REGEX.lastIndex = 0
+  while ((match = STRONG_REGEX.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(text.slice(lastIndex, match.index))
+    }
+    parts.push(<strong key={`s-${key++}`}>{match[1]}</strong>)
+    lastIndex = STRONG_REGEX.lastIndex
+  }
+  if (lastIndex < text.length) {
+    parts.push(text.slice(lastIndex))
+  }
+  return parts
 }
 
 function SegmentText({ content, isFirst }) {
   return (
-    <p
-      className={`seg-text ${isFirst ? 'seg-text--first' : ''}`}
-      dangerouslySetInnerHTML={{ __html: sanitizeText(content) }}
-    />
+    <p className={`seg-text ${isFirst ? 'seg-text--first' : ''}`}>
+      {renderInlineStrong(content)}
+    </p>
   )
 }
 

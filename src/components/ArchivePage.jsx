@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useMemo, useCallback } from 'react'
 import { flattenSegments, renderSegment, findFirstTextIndex } from './segments'
 import Toast from './Toast'
+import { SaveIcon, CLOSE_ICON } from './icons'
 import { getDailyArchiveHeroCopy } from '../data/archiveHeroCopyPool'
 import './ArchivePage.css'
 
@@ -266,18 +267,11 @@ export function ArchiveDetail({ item, sourceRect, onClose, onUnsave, onUndoUnsav
             onClick={handleSaveToggle}
             aria-label={saved ? 'Unsave' : 'Save'}
           >
-            <svg width="31" height="31" viewBox="0 0 34.65 34.65" fill={saved ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2.8875" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path fillRule="evenodd" clipRule="evenodd" d="M21.6563 4.33125C24.8325 4.33125 27.4313 6.93 27.4313 10.1063V28.7307C27.4313 30.1744 25.8432 30.8963 24.8325 29.7413L17.325 21.6563L9.8175 29.7413C8.8069 30.8963 7.2188 30.1744 7.2188 28.7307V10.1063C7.2188 6.93 9.8175 4.33125 12.9938 4.33125H21.6563Z" />
-            </svg>
+            <SaveIcon filled={saved} />
           </button>
           <div className="content-header-spacer" />
           <button className="content-close" onClick={handleClose} aria-label="Close">
-            <svg width="31" height="31" viewBox="0 0 34.65 34.65" fill="none" stroke="currentColor" strokeWidth="2.8875" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M30.3189 30.3188L20.2126 20.2125" />
-              <path d="M20.2126 26.9982V20.2125H26.9983" />
-              <path d="M4.3314 4.3313L14.4376 14.4375" />
-              <path d="M14.4377 7.6519V14.4375H7.6521" />
-            </svg>
+            {CLOSE_ICON}
           </button>
         </div>
 
@@ -311,7 +305,7 @@ export function ArchiveDetail({ item, sourceRect, onClose, onUnsave, onUndoUnsav
 
 // ── Main Component ──
 
-export default function ArchivePage({ savedBoosts, onScrollProgress, onOpenItem, removingItemId }) {
+export default function ArchivePage({ savedBoosts, onScrollProgress, onOpenItem, removingItemId, scrollHandlerRef }) {
   const heroRef = useRef(null)
   const atmosphereRef = useRef(null)
   const isEmpty = !savedBoosts || savedBoosts.length === 0
@@ -357,18 +351,23 @@ export default function ArchivePage({ savedBoosts, onScrollProgress, onOpenItem,
     }
   }, [onScrollProgress])
 
-  // Expose handleScroll via a ref-callback pattern on the component
-  // We'll use a data attribute approach — App.jsx will call this directly
+  // Publish the scroll handler through a ref the parent owns. This replaces
+  // the previous `document.querySelector('.archive-page').__archiveScroll`
+  // pubsub, which was fragile because it relied on a DOM query after mount
+  // and silently broke if the class name ever changed. A parent-owned ref
+  // is just a plain JS box — we assign during render (safe because refs
+  // aren't React state) and clear on unmount.
+  if (scrollHandlerRef) {
+    scrollHandlerRef.current = handleScroll
+  }
   useEffect(() => {
-    // Store handler on the DOM for App.jsx to access
-    const page = document.querySelector('.archive-page')
-    if (page) {
-      page.__archiveScroll = handleScroll
-    }
     return () => {
-      if (page) delete page.__archiveScroll
+      if (scrollHandlerRef && scrollHandlerRef.current === handleScroll) {
+        scrollHandlerRef.current = null
+      }
     }
-  }, [handleScroll])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div className="archive-page">
